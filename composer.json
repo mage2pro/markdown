@@ -6,6 +6,7 @@
 		,"magento/framework": ">=1.0.0-beta"
 		,"magento/magento-composer-installer": "*"
 		,"df/core": "dev-master"
+		,"df/framework": "dev-master"
 	},
 	"extra": {"map": [["*", "Dfe/Markdown"]]}
 }

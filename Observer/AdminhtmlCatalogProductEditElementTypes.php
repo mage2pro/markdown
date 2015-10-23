@@ -26,13 +26,14 @@ class AdminhtmlCatalogProductEditElementTypes implements ObserverInterface {
 		$this->_eventManager->dispatch(
 			'adminhtml_catalog_product_edit_element_types', ['response' => $response]
 		);
-	 * @param \Magento\Framework\Event\Observer $observer
+	 * https://3v4l.org/UidhW
+	 * @param \Magento\Framework\Event\Observer $o
 	 * @return void
 	 */
-	public function execute(\Magento\Framework\Event\Observer $observer) {
-		/** @var \Magento\Framework\DataObject $response */
-		$response = $observer['response'];
-		$response['types'] = ['textarea' => 'Magento\Catalog\Block\Adminhtml\Helper\Form\Wysiwyg'];
+	public function execute(\Magento\Framework\Event\Observer $o) {
+		if (\Dfe\Markdown\Settings::s()->enable()) {
+			$o['response']['types'] = ['textarea' => 'Df\Framework\Data\Form\Element\Markdown'];
+		}
 	}
 }
 
