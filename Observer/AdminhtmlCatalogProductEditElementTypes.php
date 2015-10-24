@@ -32,7 +32,7 @@ class AdminhtmlCatalogProductEditElementTypes implements ObserverInterface {
 	 */
 	public function execute(\Magento\Framework\Event\Observer $o) {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
-			$o['response']['types'] = ['textarea' => 'Df\Framework\Data\Form\Element\Markdown'];
+			$o['response']['types'] = ['textarea' => 'Dfe\Markdown\FormElement'];
 		}
 	}
 }
