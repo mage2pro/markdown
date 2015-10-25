@@ -1,9 +1,8 @@
 .dfe-markdown {
-	/*a {
-		box-sizing: initial;
-		color: initial;
-		background-color: initial;
-		display: initial;
-		text-decoration: initial;
-	} */
+	// 2015-10-25
+	// В оригинале тут «9».
+	// Однако в Magento верхняя панель имеет z-index 400, а левая — 700,
+	// поэтому нам надо ставить больше.
+	// https://github.com/magento/magento2/blob/4499554d4e47135cdb8f5464e1d7eed3ebfb985e/lib/web/css/source/lib/variables/_structure.less#L17
+	.CodeMirror-fullscreen, .editor-toolbar.fullscreen {z-index: 709;}
 }

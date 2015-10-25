@@ -15,7 +15,7 @@ class FormElement extends Wysiwyg {
 		/** @var string $result */
 		$result = Textarea::getAfterElementHtml();
 		if ($this->getIsWysiwygEnabled()) {
-			$result .= '<div>ПРЕВЕД, МЕДВЕД!</div>';
+			$result .= "";
 		}
 		return $result;
 	}
