@@ -23,9 +23,7 @@ class FormElement extends Wysiwyg {
 			/** http://stackoverflow.com/a/8212262 */
 			/** @var string $result */
 			$result = Textarea::getAfterElementHtml();
-			/** @var bool $init */
-			static $init = false;
-			if (!$init && $this->getIsWysiwygEnabled()) {
+			if ($this->getIsWysiwygEnabled()) {
 				/**
 				 * 2015-10-25
 				 * Наш скрипт надо загружать именно через «text/x-magento-init».
@@ -36,8 +34,7 @@ class FormElement extends Wysiwyg {
 				 * http://stackoverflow.com/questions/8349571
 				 * http://stackoverflow.com/questions/17086538
 				 */
-				$result .= df_x_magento_init('Dfe_Markdown/main');
-				$init = true;
+				$result .= df_x_magento_init('Dfe_Markdown/main', ['id' => $this->getHtmlId()]);
 			}
 			$this->{__METHOD__} = $result;
 		}
