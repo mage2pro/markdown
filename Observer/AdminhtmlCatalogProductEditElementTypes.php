@@ -16,6 +16,9 @@ class AdminhtmlCatalogProductEditElementTypes implements ObserverInterface {
 	 * but @see \Magento\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes()
 	 * does not fire a similar event.
 	 *
+	 * Пока что устранил этот дефект своим классом, перекрывающим стандартный:
+	 * @see \Df\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes()
+	 *
 	 * @override
 	 * @see ObserverInterface::execute()
 	 * @used-by \Magento\Framework\Event\Invoker\InvokerDefault::_callObserverMethod()
