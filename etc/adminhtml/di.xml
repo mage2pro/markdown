@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<config
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:noNamespaceSchemaLocation='../../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd'
+>
+	<!--
+		2015-10-27
+		Цель плагина — замещение при необходимости стандартного редактора нашим.
+	-->
+	<type name='Magento\Framework\Data\Form\AbstractForm'>
+		<plugin name='Dfe\Markdown\AbstractFormPlugin' type='Dfe\Markdown\AbstractFormPlugin'/>
+	</type>
+</config>

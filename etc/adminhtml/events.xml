@@ -2,7 +2,7 @@
 <config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../../../../../../lib/internal/Magento/Framework/Event/etc/events.xsd'>
 	<!--
 		2015-10-23
-		Обработка этого события позволяет нам подставить свой класс
+		Обработка этих событий позволяет нам подставить свой класс
 		для обработки товарных свойств типа «textarea»
 		вместо стандартного класса \Magento\Catalog\Block\Adminhtml\Helper\Form\Wysiwyg
 		https://github.com/magento/magento2/blob/0be91a56d050791ac0b67a47185d79df31e79329/app/code/Magento/Catalog/Block/Adminhtml/Product/Edit/Tab/Attributes.php#L151
@@ -14,11 +14,20 @@
         fires the event «adminhtml_catalog_product_edit_element_types»
         but \Magento\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes()
         does not fire a similar event.
+
+        Я пока добавил это событие своим классом, перекрывающим стандартный:
+		@see \Df\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes()
 	-->
+	<event name='adminhtml_catalog_category_edit_element_types'>
+		<observer
+			name='Dfe\Markdown\Observer\ElementTypes'
+			instance='Dfe\Markdown\Observer\ElementTypes'
+		/>
+	</event>
 	<event name='adminhtml_catalog_product_edit_element_types'>
 		<observer
-			name='Dfe\Markdown\Observer\AdminhtmlCatalogProductEditElementTypes'
-			instance='Dfe\Markdown\Observer\AdminhtmlCatalogProductEditElementTypes'
+			name='Dfe\Markdown\Observer\ElementTypes'
+			instance='Dfe\Markdown\Observer\ElementTypes'
 		/>
 	</event>
 </config>

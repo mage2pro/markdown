@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\Markdown\Observer;
 use Magento\Framework\Event\ObserverInterface;
-class AdminhtmlCatalogProductEditElementTypes implements ObserverInterface {
+class ElementTypes implements ObserverInterface {
 	/**
 	 * 2015-10-23
 	 * Обработка этого события позволяет нам подставить свой класс
