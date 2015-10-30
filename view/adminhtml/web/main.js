@@ -9,6 +9,8 @@ define([
 	,'mage/adminhtml/browser'
 ], function($, SimpleMDE, HighlightJs) {return function(config) {
 	hljs.initHighlightingOnLoad();
+	/** @type Object */
+	var cc = config['core'];
 	/** @type HTMLTextAreaElement|Element */
 	var textarea = document.getElementById(config.id);
 	/** @type {jQuery} HTMLTextAreaElement */
@@ -49,17 +51,25 @@ define([
 		 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L808-L813
 		 */
 		,previewRender: function(markdown) {
-			return this.parent.markdown(
+			/** @type {Object} string => string */
+			var widgetPlaceholders = cc['widget_placeholders'];
+			return this.parent.markdown(markdown
 				// 2015-10-30
 				// Замещаем {{media url="wysiwyg/528340.jpg"}} на реальный веб-адрес.
-				markdown.replace(/\{\{media url="([^"]+)"}}/gm, config.mediaBaseURL + '$1')
+				.replace(/\{\{media url="([^"]+)"}}/gm, config.mediaBaseURL + '$1')
+			    // Замещаем код виджетов пиктограммами (так же поступает и стандартный редактор)
+			   	// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter
+			    // https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images
+				.replace(/\{\{widget type="([^"]+)"[^}]+}}/gm, function(match, type) {
+					// Почему-то слэши в именах классов продублированы:
+					// Magento\\CatalogWidget\\Block\\Product\\ProductsList
+					return '![](' + widgetPlaceholders[type.replace(/\\\\/g, '\\')] + ')';
+				})
 			);
 		}
 		,toolbar: (function() {
 			/** @type Array */
 			var result = SimpleMDE.toolbar.slice();
-			/** @type Object */
-			var cc = config['coreConfig'];
 			/**
 			 * 2015-10-29
 			 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Model/Wysiwyg/Config.php#L172-L181

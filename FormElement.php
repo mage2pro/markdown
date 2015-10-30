@@ -44,8 +44,8 @@ class FormElement extends Wysiwyg {
 					 * (который, кстати, совпадает с кратким именем: значением атрибута «name»).
 					 */
 					'cssClass' => $this['name']
+					,'core' => df_wysiwyg_config()
 					,'id' => $this->getHtmlId()
-					,'coreConfig' => df_wysiwyg_config()
 					/**
 					 * 2015-10-30
 					 * По аналогии с
