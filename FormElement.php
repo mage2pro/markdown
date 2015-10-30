@@ -46,6 +46,16 @@ class FormElement extends Wysiwyg {
 					'cssClass' => $this['name']
 					,'id' => $this->getHtmlId()
 					,'coreConfig' => df_wysiwyg_config()
+					/**
+					 * 2015-10-30
+					 * По аналогии с
+					 * @see \Magento\Cms\Helper\Wysiwyg\Images::getImageHtmlDeclaration()
+					 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Helper/Wysiwyg/Images.php#L170
+					 * https://mage2.pro/t/153
+					 */
+					,'mediaBaseURL' => rm_store()->getBaseUrl(
+						\Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+					)
 				]);
 			}
 			$this->{__METHOD__} = $result;

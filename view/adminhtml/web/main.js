@@ -18,10 +18,43 @@ define([
 	$textarea.wrap($("<div class='dfe-markdown'></div>").addClass(config.cssClass));
 	var editor = new SimpleMDE({
 		autofocus: true
+		/**
+		 * 2015-10-30
+		 * https://github.com/NextStepWebs/simplemde-markdown-editor#configuration
+		 * Автосохранение — это интересная функция:
+		 * она восстанавливает состояние редактора после перезагрузки страницы.
+		 * Однако как быть, если содержимое было отредактировано в обход нашего редактора?
+		 * Я столкнулся с такой ситуацией:
+		 * 1) администратор сначала редактирует текст в нашем редакторе и НЕ сохраняет его
+		 * 2) затем администратор переключается на стандартный редактор TinyMCE,
+		 * редактирует этот же текст снова и сохраняет его.
+		 * 3) так вот, при обратном переключении на наш редактор тот игнорирует изменения,
+		 * сделанные посредством TinyMCE
+		 * Но, думаю, такая ситуация — слишко искусственная, и ей можно пренебречь,
+		 * ибо зачем администратору на шаге 1 редактировать и не сохранять?
+		 * А если же администратор сохранет изменения, то localStorage сбрасывается:
+		 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L962-L964
+		 * simplemde.element.form.addEventListener("submit", function() {
+		 	localStorage.setItem(simplemde.options.autosave.unique_id, "");
+		 });
+		 */
 		,autosave: {enabled: true, unique_id: textarea.id}
 		,element: textarea
 		,renderingConfig: {codeSyntaxHighlighting: true}
 		,tabSize: 4
+		/**
+		 * 2015-10-30
+		 * «Custom function for parsing the plaintext Markdown and returning HTML.
+		 * Used when user previews.»
+		 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L808-L813
+		 */
+		,previewRender: function(markdown) {
+			return this.parent.markdown(
+				// 2015-10-30
+				// Замещаем {{media url="wysiwyg/528340.jpg"}} на реальный веб-адрес.
+				markdown.replace(/\{\{media url="([^"]+)"}}/gm, config.mediaBaseURL + '$1')
+			);
+		}
 		,toolbar: (function() {
 			/** @type Array */
 			var result = SimpleMDE.toolbar.slice();

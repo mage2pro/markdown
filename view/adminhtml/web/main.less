@@ -5,6 +5,11 @@
 	// поэтому нам надо ставить больше.
 	// https://github.com/magento/magento2/blob/4499554d4e47135cdb8f5464e1d7eed3ebfb985e/lib/web/css/source/lib/variables/_structure.less#L17
 	.CodeMirror-fullscreen, .editor-toolbar.fullscreen {z-index: 709;}
+	// 2015-10-30
+	// В оригинале тут 9999, и это приводит к тому, что панель просмотра
+	// оказывается поверх всплывающих окон Magento (в частности — окна медиа-браузера),
+	// которые имеют z-index 900.
+	.editor-preview-side {z-index: 709;}
 	// 2015-10-26
 	// Для краткого описания товара делаем высоту редактора поменьше.
 	// https://github.com/NextStepWebs/simplemde-markdown-editor#height
