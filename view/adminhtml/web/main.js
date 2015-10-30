@@ -7,7 +7,15 @@ define([
 	, 'HighlightJs'
 	// https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js
 	,'mage/adminhtml/browser'
+	/**
+	 * 2015-10-30
+	 * Загрузка этого модуля AMD инициализирует объекты window.Variables и window.MagentovariablePlugin.
+	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Variable/view/adminhtml/web/variables.js
+	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Backend/view/adminhtml/web/js/bootstrap/editor.js#L7
+	 */
+	,'Magento_Variable/variables'
 ], function($, SimpleMDE, HighlightJs) {return function(config) {
+	debugger;
 	hljs.initHighlightingOnLoad();
 	/** @type Object */
 	var cc = config['core'];
@@ -99,6 +107,24 @@ define([
 						MediabrowserUtility.openDialog(url);
 					}
 				};
+			}
+			if (cc['add_variables']) {
+				result.push( {
+					className: 'fa fa-at'
+					,name: 'variable'
+					,title: 'Insert Variable'
+					,action: function() {
+					}
+				});
+			}
+			if (cc['add_widgets']) {
+				result.push( {
+					className: 'fa fa-cogs'
+					,name: 'widget'
+					,title: 'Insert Widget'
+					,action: function() {
+					}
+				});
 			}
 			return result;
 		})()
