@@ -3,6 +3,7 @@
 // https://mage2.pro/t/146
 define([
 	'jquery'
+	, 'underscore'
 	, 'SimpleMDE'
 	, 'HighlightJs'
 	// https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js
@@ -14,7 +15,7 @@ define([
 	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Backend/view/adminhtml/web/js/bootstrap/editor.js#L7
 	 */
 	,'Magento_Variable/variables'
-], function($, SimpleMDE, HighlightJs) {return function(config) {
+], function($, _, SimpleMDE, HighlightJs) {return function(config) {
 	debugger;
 	hljs.initHighlightingOnLoad();
 	/** @type Object */
@@ -108,44 +109,70 @@ define([
 					}
 				};
 			}
-			if (cc['add_variables']) {
-				result.push( {
-					className: 'fa fa-at'
-					,name: 'variable'
-					,title: 'Insert Variable'
-					,action: function() {
-					}
-				});
-			}
-			if (cc['add_widgets']) {
-				result.push( {
-					className: 'fa fa-cogs'
-					,name: 'widget'
-					,title: 'Insert Widget'
-					,action: function() {
-					}
-				});
+			/** @type {Object[]} */
+			var plugins = cc['plugins'];
+			if (plugins) {
+				if (cc['add_variables']) {
+					// 2015-10-31
+					// http://underscorejs.org/#findWhere
+					/** @type {Object} */
+					var pluginVariable = _.findWhere(plugins, {name: 'magentovariable'}).options;
+					result.push( {
+						className: 'fa fa-at'
+						,name: 'variable'
+						,title: 'Insert Variable'
+						,action: function() {
+							/**
+							 * 2015-10-31
+							 * По аналогии с
+							 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Variable/Model/Variable/Config.php#L49-L51
+							 */
+							MagentovariablePlugin.loadChooser(pluginVariable.url, config.id);
+						}
+					});
+				}
+				if (cc['add_widgets']) {
+					result.push( {
+						className: 'fa fa-cogs'
+						,name: 'widget'
+						,title: 'Insert Widget'
+						,action: function() {
+						}
+					});
+				}
 			}
 			return result;
 		})()
 	});
-	window.dfEditor = editor;
-	$textarea.bind('dfe.markdown.insert', function(event, id, newValue) {
-		if (id === config.id) {
-			// http://codemirror.net/doc/manual.html#replaceSelection
-			// http://stackoverflow.com/a/23736834
-			editor.codemirror.doc.replaceSelection(newValue);
-		}
-	});
+	/**
+	 * 2015-10-31
+	 * http://codemirror.net/doc/manual.html#replaceSelection
+	 * http://stackoverflow.com/a/23736834
+	 * @param {String} newValue
+	 * @returns void
+	 */
+	var replaceSelection = function(newValue) {editor.codemirror.doc.replaceSelection(newValue);};
 	// https://learn.jquery.com/jquery-ui/widget-factory/extending-widgets/#extending-existing-methods
 	$.widget('mage.mediabrowser', $.mage.mediabrowser, {
 		insertAtCursor: function(element, value) {
-			element.id !== config.id
-				? this._superApply(arguments)
-				: $textarea.trigger('dfe.markdown.insert', [element.id, value])
-			;
+			element.id === config.id ? replaceSelection(value) : this._superApply(arguments);
 		}
 	});
+	/**
+	 * 2015-10-31
+	 * https://github.com/magento/magento2/blob/e3593aef4257c164fc1acd94b01c8c6ba8284989/app/code/Magento/Variable/view/adminhtml/web/variables.js#L121-L130
+	 * @type {Function}
+	 */
+	var _insertVariable = MagentovariablePlugin.insertVariable;
+	MagentovariablePlugin.insertVariable = function(value) {
+		if (this.textareaId !== config.id) {
+			_insertVariable.call(this, value);
+		}
+		else {
+			Variables.closeDialogWindow();
+			replaceSelection(value);
+		}
+	};
 	/**
 	 * 2015-10-27
 	 * http://stackoverflow.com/a/8353537
