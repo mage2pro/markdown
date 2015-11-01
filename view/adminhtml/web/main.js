@@ -9,6 +9,13 @@ define([
 	// https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js
 	,'mage/adminhtml/browser'
 	/**
+	 * 2015-10-31
+	 * Загрузка этого модуля AMD инициализирует объекты window.WysiwygWidget и window.widgetTools.
+	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/wysiwyg/widget.js#L410-L411
+	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L175
+	 */
+	,'mage/adminhtml/wysiwyg/widget'
+	/**
 	 * 2015-10-30
 	 * Загрузка этого модуля AMD инициализирует объекты window.Variables и window.MagentovariablePlugin.
 	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Variable/view/adminhtml/web/variables.js
@@ -24,6 +31,7 @@ define([
 	 * @property {String} files_browser_window_url
 	 * @property {Object[]} plugins
 	 * @property {?Number} store_id
+	 * @property {String} widget_window_url
 	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Model/Wysiwyg/Config.php#L145-L198
 	 * http://usejsdoc.org/tags-typedef.html#examples
 	 */
@@ -111,16 +119,16 @@ define([
 						className: 'fa fa-picture-o'
 						,name: 'image'
 						,title: 'Insert Image (Ctrl+Alt+I)'
+						/**
+						 * 2015-10-29
+						 * target_element_id:
+						 * 1) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Block/Adminhtml/Wysiwyg/Images/Content.php#L160-L163
+						 * 2) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Block/Adminhtml/Wysiwyg/Images/Content.php#L101
+						 * 3) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js#L224-L232
+						 * 4) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js#L185
+						 * 5) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js#L204-L208
+						 */
 						,action: function() {
-							/**
-							 * 2015-10-29
-							 * target_element_id:
-							 * 1) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Block/Adminhtml/Wysiwyg/Images/Content.php#L160-L163
-							 * 2) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Block/Adminhtml/Wysiwyg/Images/Content.php#L101
-							 * 3) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js#L224-L232
-							 * 4) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js#L185
-							 * 5) https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js#L204-L208
-							 */
 							/** @type String */
 							var url = cc.files_browser_window_url + 'target_element_id/' + config.id + '/';
 							if (cc.store_id) {
@@ -139,14 +147,12 @@ define([
 						className: 'fa fa-at'
 						,name: 'variable'
 						,title: 'Insert Variable'
-						,action: function() {
-							/**
-							 * 2015-10-31
-							 * По аналогии с
-							 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Variable/Model/Variable/Config.php#L49-L51
-							 */
-							MagentovariablePlugin.loadChooser(pluginVariable.url, config.id);
-						}
+						/**
+						 * 2015-10-31
+						 * По аналогии с
+						 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Variable/Model/Variable/Config.php#L49-L51
+						 */
+						,action: function() {MagentovariablePlugin.loadChooser(pluginVariable.url, config.id);}
 					});
 				}
 				if (cc.add_widgets) {
@@ -154,7 +160,16 @@ define([
 						className: 'fa fa-cogs'
 						,name: 'widget'
 						,title: 'Insert Widget'
+						/**
+						 * 2015-10-31
+						 * По аналогии с
+						 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L256-L258
+						 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js#L24
+						 */
 						,action: function() {
+							widgetTools.openDialog(
+								cc.widget_window_url + 'widget_target_id/' + config.id + '/'
+							);
 						}
 					});
 				}
@@ -187,6 +202,20 @@ define([
 			}
 			else {
 				Variables.closeDialogWindow();
+				replaceSelection(value);
+			}
+		};
+		/**
+		 * 2015-10-31
+		 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/wysiwyg/widget.js#L269-L277
+		 * @type {Function}
+		 */
+		var widgetUpdateContent = WysiwygWidget.Widget.prototype.updateContent;
+		WysiwygWidget.Widget.prototype.updateContent = function(value) {
+			if (this.widgetTargetId !== config.id) {
+				widgetUpdateContent.call(this, value);
+			}
+			else {
 				replaceSelection(value);
 			}
 		};
