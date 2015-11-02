@@ -34,6 +34,7 @@ class FormElement extends Wysiwyg {
 				 * http://stackoverflow.com/questions/17086538
 				 */
 				$result .= df_x_magento_init('Dfe_Markdown/main', [
+					'core' => df_wysiwyg_config()
 					/**
 					 * 2015-10-26
 					 * На странице товарного раздела
@@ -43,8 +44,7 @@ class FormElement extends Wysiwyg {
 					 * а для стилизации — наоборот, краткий
 					 * (который, кстати, совпадает с кратким именем: значением атрибута «name»).
 					 */
-					'cssClass' => $this['name']
-					,'core' => df_wysiwyg_config()
+					,'cssClass' => $this['name']
 					,'id' => $this->getHtmlId()
 					/**
 					 * 2015-10-30
@@ -53,9 +53,13 @@ class FormElement extends Wysiwyg {
 					 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Helper/Wysiwyg/Images.php#L170
 					 * https://mage2.pro/t/153
 					 */
-					,'mediaBaseURL' => rm_store()->getBaseUrl(
+					,'mediaBaseURL' => df_store()->getBaseUrl(
 						\Magento\Framework\UrlInterface::URL_TYPE_MEDIA
 					)
+					// 2015-11-02
+					// Суффикс скрытого элемента формы,
+					// который будет содержать результат компиляции из Markdown в HTML.
+					,'suffixForCompiled' => self::HTML_COMPILED
 				]);
 			}
 			$this->{__METHOD__} = $result;
@@ -156,7 +160,7 @@ class FormElement extends Wysiwyg {
 		 */
 		if (
 			!self::$_cssAdded
-			&& !rm_state()->hasBlocksBeenGenerated()
+			&& !df_state()->hasBlocksBeenGenerated()
 			&& $this->getIsWysiwygEnabled()
 		) {
 			/** http://devdocs.magento.com/guides/v2.0/architecture/view/page-assets.html#m2devgde-page-assets-api */
@@ -176,6 +180,15 @@ class FormElement extends Wysiwyg {
 			self::$_cssAdded = true;
 		}
 	}
+
+	/**
+	 * 2015-11-02
+	 * Суффикс скрытого элемента формы,
+	 * который будет содержать результат компиляции из Markdown в HTML.
+	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
+	 * @used-by \Dfe\Markdown\Observer\CmsPagePrepareSave::execute()
+	 */
+	const HTML_COMPILED = '_html_compiled';
 
 	/**
 	 * 2015-10-25

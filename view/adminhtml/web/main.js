@@ -42,6 +42,7 @@ define([
 	 * @param {String} config.cssClass
 	 * @param {String} config.id
 	 * @param {String} config.mediaBaseURL
+	 * @param {String} config.suffixForCompiled
 	 * @returns void
 	 * http://stackoverflow.com/a/6460748
 	 * https://code.google.com/p/jsdoc-toolkit/wiki/TagParam
@@ -55,6 +56,16 @@ define([
 		var textarea = document.getElementById(config.id);
 		/** @type {jQuery} HTMLTextAreaElement */
 		var $textarea = $(textarea);
+		/** @type {jQuery} HTMLInputElement */
+		var $contentCompiled = $("<input type='hidden'/>");
+		// 2015-11-02
+		// Не забывайте, что в одной форме может быть сразу несколько редакторов
+		// (например, такова ситуация при редактировании товара, где редакторов 2:
+		// для «description» и для «short_description»),
+		// поэтому нам нужно сделать имя скрытого поля заведомо уникальным
+		// и в то же время вычисляемым по имени поля редактора.
+		$contentCompiled.attr('name', $textarea.attr('name') + config.suffixForCompiled);
+		$textarea.after($contentCompiled);
 		// Добавление класса CSS позволяет нам задать разную высоту редактора
 		// для описания и краткого описания товара.
 		$textarea.wrap($("<div class='dfe-markdown'></div>").addClass(config.cssClass));
@@ -84,9 +95,25 @@ define([
 			 * Сделал unique_id: textarea.id + df.string.hash(location.href)
 			 * чтобы редакторы разных объектов (например, разных самодельных страниц)
 			 * имели разные идентификаторы.
+			 *
+			 * Адрес может иметь вид
+			 * http://site.com/admin/cms/page/new/#page_tabs_content_section_content
+			 * Убираем часть адреса после #.
 			 */
-			,autosave: {enabled: true, unique_id: textarea.id + df.string.hash(location.href)}
+			,autosave: {
+				enabled: true
+				, unique_id: textarea.id + df.string.hash(location.href.split('#')[0])}
 			,element: textarea
+			/**
+			 * 2015-11-02
+			 * Проверка правописания для английского языка (не говоря уже о других)
+			 * работает слабовато: например, выделяет красным слово GitHub.
+			 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L912
+			 *
+			 * По хорошему, надо сделать интеграцию с Grammarly:
+			 * http://code.dmitry-fedyuk.com/m2m/plan/issues/33
+			 */
+			,spellChecker: false
 			,renderingConfig: {codeSyntaxHighlighting: true}
 			,tabSize: 4
 			/**
@@ -251,5 +278,26 @@ define([
 				});
 			}
 		}
+		/**
+		 * 2015-11-02
+		 * Компилируем Markdown в HTML перед отправкой формы на сервер.
+		 * Нам надо подписываться именно на событие beforeSubmit:
+		 * https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/web/mage/backend/form.js#L194-L196
+			if (false !== this._beforeSubmit(e.type, data)) {
+				this.element.trigger('submit', e);
+			}
+		 * https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/web/mage/backend/form.js#L173-L185
+		 * Если вместо beforeSubmit делать нашу обработку на submit, то валидатор сработает раньше,
+		 * и тогда валидатор скажет, что наш textarea пусть,
+		 * потому что наш редактор не обновляет textarea автоматически.
+		 * https://mage2.pro/t/158
+		 */
+		$textarea.closest('form').bind('beforeSubmit', function() {
+			debugger;
+			$textarea.val(editor.value());
+			// По аналогии с https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L355
+			// Наверное, можно использовать и $textarea.val()
+			$contentCompiled.val(editor.options.previewRender(editor.value()))
+		});
 	});
 });

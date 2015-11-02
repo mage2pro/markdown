@@ -30,4 +30,37 @@
 			instance='Dfe\Markdown\Observer\ElementTypes'
 		/>
 	</event>
+	<!--
+		2015-11-02
+		Цель обработки этого события —
+		подставовка в поле «content» Markdown вместо HTML.
+		@see \Magento\Cms\Block/Adminhtml\Page\Edit\Tab\Content::_prepareForm()
+		https://github.com/magento/magento2/blob/c743dec47b2e5de036eb5638fec44a54bfb31040/app/code/Magento/Cms/Block/Adminhtml/Page/Edit/Tab/Content.php#L99
+			$this->_eventManager->dispatch(
+				'adminhtml_cms_page_edit_tab_content_prepare_form', ['form' => $form]
+			);
+	-->
+	<event name='adminhtml_cms_page_edit_tab_content_prepare_form'>
+		<observer
+			name='Dfe\Markdown\Observer\AdminhtmlCmsPageEditTabContentPrepareForm'
+			instance='Dfe\Markdown\Observer\AdminhtmlCmsPageEditTabContentPrepareForm'
+		/>
+	</event>
+	<!--
+		2015-11-02
+		Цель обработки этого события — перетасовка содержимое полей:
+		в поле «content» подставляем HTML вместо Markdown (содержимое поля «content_html_compiled»),
+		а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
+        $this->_eventManager->dispatch(
+        	'cms_page_prepare_save',
+        	['page' => $model, 'request' => $this->getRequest()]
+        );
+        https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/app/code/Magento/Cms/Controller/Adminhtml/Page/Save.php#L57-L60
+	-->
+	<event name='cms_page_prepare_save'>
+		<observer
+			name='Dfe\Markdown\Observer\CmsPagePrepareSave'
+			instance='Dfe\Markdown\Observer\CmsPagePrepareSave'
+		/>
+	</event>
 </config>

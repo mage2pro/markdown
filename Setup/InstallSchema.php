@@ -13,8 +13,8 @@ class InstallSchema extends SetupA\InstallSchema {
 	protected function _install() {
 		$this->createTableEav(self::TABLE_CATEGORY, 'catalog_category_entity_text');
 		$this->createTableEav(self::TABLE_PRODUCT, 'catalog_product_entity_text');
-		$this->c()->addColumn(rm_table('cms_block'), self::F__MARKDOWN, 'text');
-		$this->c()->addColumn(rm_table('cms_page'), self::F__MARKDOWN, 'text');
+		$this->c()->addColumn(df_table('cms_block'), self::F__MARKDOWN, 'text');
+		$this->c()->addColumn(df_table('cms_page'), self::F__MARKDOWN, 'text');
 	}
 
 	/**
