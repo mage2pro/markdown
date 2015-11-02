@@ -3,6 +3,7 @@
 // https://mage2.pro/t/146
 define([
 	'jquery'
+	, 'df'
 	, 'underscore'
 	, 'SimpleMDE'
 	, 'HighlightJs'
@@ -22,7 +23,7 @@ define([
 	 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Backend/view/adminhtml/web/js/bootstrap/editor.js#L7
 	 */
 	,'Magento_Variable/variables'
-], function($, _, SimpleMDE) {return (
+], function($, df, _, SimpleMDE) {return (
 	/**
 	 * @typedef {Object} Magento_Cms_Model_Wysiwyg_Config
 	 * @property {Boolean} add_images
@@ -75,11 +76,16 @@ define([
 			 * ибо зачем администратору на шаге 1 редактировать и не сохранять?
 			 * А если же администратор сохранет изменения, то localStorage сбрасывается:
 			 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L962-L964
-			 * simplemde.element.form.addEventListener("submit", function() {
-				localStorage.setItem(simplemde.options.autosave.unique_id, "");
-			 });
+			 * 	simplemde.element.form.addEventListener("submit", function() {
+					localStorage.setItem(simplemde.options.autosave.unique_id, "");
+			 	});
+			 *
+			 * 2015-11-02
+			 * Сделал unique_id: textarea.id + df.string.hash(location.href)
+			 * чтобы редакторы разных объектов (например, разных самодельных страниц)
+			 * имели разные идентификаторы.
 			 */
-			,autosave: {enabled: true, unique_id: textarea.id}
+			,autosave: {enabled: true, unique_id: textarea.id + df.string.hash(location.href)}
 			,element: textarea
 			,renderingConfig: {codeSyntaxHighlighting: true}
 			,tabSize: 4
