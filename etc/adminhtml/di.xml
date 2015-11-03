@@ -6,8 +6,19 @@
 	<!--
 		2015-10-27
 		Цель плагина — замещение при необходимости стандартного редактора нашим.
+		2015-11-03
+		Этот класс не получается объединить с классом @see \Dfe\Markdown\FormPlugin
 	-->
 	<type name='Magento\Framework\Data\Form\AbstractForm'>
 		<plugin name='Dfe\Markdown\AbstractFormPlugin' type='Dfe\Markdown\AbstractFormPlugin'/>
+	</type>
+	<!--
+		2015-11-03
+		Вторая цель плагина — подмена содержимого поля «content» с HTML на Markdown
+		перед редактированием содержимого.
+		Этот класс не получается объединить с классом @see \Dfe\Markdown\AbstractForm
+	-->
+	<type name='Magento\Framework\Data\Form'>
+		<plugin name='Dfe\Markdown\FormPlugin' type='Dfe\Markdown\FormPlugin'/>
 	</type>
 </config>

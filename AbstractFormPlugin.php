@@ -1,6 +1,10 @@
 <?php
 namespace Dfe\Markdown;
 use Magento\Framework\Data\Form\AbstractForm;
+/**
+ * 2015-11-03
+ * Этот класс не получается объединить с классом @see \Dfe\Markdown\FormPlugin
+ */
 class AbstractFormPlugin {
 	/**
 	 * 2015-10-27
@@ -13,9 +17,7 @@ class AbstractFormPlugin {
 	 * @param bool|string|null $after [optional]
 	 * @return mixed[]
 	 */
-	public function beforeAddField(
-		AbstractForm $subject, $elementId, $type, $config, $after = false
-	) {
+	public function beforeAddField(AbstractForm $subject, $elementId, $type, $config, $after = false) {
 		if ('editor' === $type && \Dfe\Markdown\Settings::s()->enable()) {
 			$type = 'Dfe\Markdown\FormElement';
 		}
