@@ -28,8 +28,15 @@ class ControllerActionPredispatch implements ObserverInterface {
 			// а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
 			/**@var \Zend\Stdlib\ParametersInterface $post */
 			$post = $request->getPost();
-			$post[\Dfe\Markdown\Setup\InstallSchema::F__MARKDOWN] = $post['content'];
-			$post['content'] = $post['content' . \Dfe\Markdown\FormElement::HTML_COMPILED];
+			/** @var string $html */
+			$html = $post['content' . \Dfe\Markdown\FormElement::HTML_COMPILED];
+			// 2015-11-03
+			// Перетасовываем данные только при их наличии.
+			// Мало ли что...
+			if ($html) {
+				$post[\Dfe\Markdown\Setup\InstallSchema::F__MARKDOWN] = $post['content'];
+				$post['content'] = $html;
+			}
 		}
 	}
 }

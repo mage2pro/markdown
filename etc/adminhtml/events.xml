@@ -32,6 +32,28 @@
 	</event>
 	<!--
 		2015-11-03
+		Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
+		на административной странице товарного раздела.
+	-->
+	<event name='adminhtml_catalog_category_edit_prepare_form'>
+		<observer
+			name='Dfe\Markdown\Observer\CatalogPrepareForm'
+			instance='Dfe\Markdown\Observer\CatalogPrepareForm'
+		/>
+	</event>
+	<!--
+		2015-11-03
+		Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
+		на административной странице товара.
+	-->
+	<event name='adminhtml_catalog_product_edit_prepare_form'>
+		<observer
+			name='Dfe\Markdown\Observer\CatalogPrepareForm'
+			instance='Dfe\Markdown\Observer\CatalogPrepareForm'
+		/>
+	</event>
+	<!--
+		2015-11-03
 		Цель обработки этих событий — перетасовка содержимое полей:
 		в поле «content» подставляем HTML вместо Markdown (содержимое поля «content_html_compiled»),
 		а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).

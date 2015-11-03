@@ -38,7 +38,7 @@ class FormPlugin {
 			// 2015-11-03
 			// В настоящее время это условие необязательно,
 			// но на будущее оно полезно: мало ли кто и для каких целей заведёт поле «markdown».
-			&& in_array(df_action_name(), ['cms_page_edit', 'cms_block_edit'])
+			&& in_array(df_action_name(), ['cms_block_edit', 'cms_page_edit'])
 		) {
 			/** @var string $markdown */
  			$markdown = df_a($values, \Dfe\Markdown\Setup\InstallSchema::F__MARKDOWN);
