@@ -38,6 +38,7 @@ define([
 	 */
 	/**
 	 * @param {Object} config
+	 * @param {String} config.action
 	 * @param {Magento_Cms_Model_Wysiwyg_Config} config.core
 	 * @param {String} config.cssClass
 	 * @param {String} config.id
@@ -48,7 +49,6 @@ define([
 	 * https://code.google.com/p/jsdoc-toolkit/wiki/TagParam
 	 */
 	function(config) {
-		debugger;
 		hljs.initHighlightingOnLoad();
 		/** @type {Magento_Cms_Model_Wysiwyg_Config} */
 		var cc = config.core;
@@ -86,6 +86,11 @@ define([
 		// Добавление класса CSS позволяет нам задать разную высоту редактора
 		// для описания и краткого описания товара.
 		$textarea.wrap($("<div class='dfe-markdown'></div>").addClass(config.cssClass));
+		/** @type {Object} */
+		var regex = {
+			media: /\{\{media url="([^"]+)"}}/gm
+			,widget: /\{\{widget type="([^"]+)"[^}]+}}/gm
+		};
 		var editor = new SimpleMDE({
 			autofocus: true
 			/**
@@ -116,10 +121,32 @@ define([
 			 * Адрес может иметь вид
 			 * http://site.com/admin/cms/page/new/#page_tabs_content_section_content
 			 * Убираем часть адреса после #.
+			 *
+			 * 2015-11-05
+			 * Раньше алгоритм был:
+			 * unique_id: textarea.id + df.string.hash(location.href.split('#')[0])}
+			 * Оказалось, что полагаться на адрес не совсем верно,
+			 * потому что на странице редактирования товара адреса могут быть разными
+			 * для одного и того же товара, например:
+			 * http://site.com/admin/catalog/product/edit/id/1/set/4/
+			 * http://site.com/admin/catalog/product/edit/id/1/set/4/back/edit/active_tab/autosettings/
 			 */
 			,autosave: {
 				enabled: true
-				, unique_id: textarea.id + df.string.hash(location.href.split('#')[0])}
+				, unique_id: [
+					textarea.id
+					, config.action
+					, function() {
+						/** @type {Array} */
+						var matches = location.href.match(/\/(?:id|block_id|page_id)\/(\d+)/);
+						// 2015-11-04
+						// JavaScript вполне позволяет обращения к несуществующим индексам массива,
+						// просто при преобразовании undefined к строке получается не пустая строка,
+						// а строка «undefined».
+						return 1 < matches.length ? matches[1] : 0;
+					}()
+				].join('-')
+			}
 			,element: textarea
 			/**
 			 * 2015-11-02
@@ -142,14 +169,14 @@ define([
 			,previewRender: function(markdown) {
 				// 2015-10-30
 				// Замещаем {{media url="wysiwyg/528340.jpg"}} на реальный веб-адрес.
-				markdown = markdown.replace(/\{\{media url="([^"]+)"}}/gm, config.mediaBaseURL + '$1');
+				markdown = markdown.replace(regex.media, config.mediaBaseURL + '$1');
 				/** @type {Object} string => string */
 				var widgetPlaceholders = cc['widget_placeholders'];
 				if (widgetPlaceholders) {
 					// Замещаем код виджетов пиктограммами (так же поступает и стандартный редактор)
 					// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter
 					// https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images
-					markdown = markdown.replace(/\{\{widget type="([^"]+)"[^}]+}}/gm, function(match, type) {
+					markdown = markdown.replace(regex.widget, function(match, type) {
 						// Почему-то слэши в именах классов продублированы:
 						// Magento\\CatalogWidget\\Block\\Product\\ProductsList
 						return '![](' + widgetPlaceholders[type.replace(/\\\\/g, '\\')] + ')';
@@ -283,7 +310,12 @@ define([
 		 * http://stackoverflow.com/a/8353537
 		 */
 		/** @type {jQuery} HTMLDivElement */
-		var $tabs = $('#page_tabs');
+		// 2015-11-04
+		// Левое меню-гармошка.
+		// Раньше искал его по идентификатору #page_tabs,
+		// однако гармошка имеет этот идентификатор только на экране самодельной страницы,
+		// а на экране товара идентификатор у гармошки другой.
+		var $tabs = $('.ui-tabs');
 		if ($tabs.length) {
 			/** @type HTMLDivElement */
 			var tabContent = $textarea.closest('.ui-tabs-panel').get(0);
@@ -310,11 +342,42 @@ define([
 		 * https://mage2.pro/t/158
 		 */
 		$textarea.closest('form').bind('beforeSubmit', function() {
-			debugger;
 			$textarea.val(editor.value());
 			// По аналогии с https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L355
 			// Наверное, можно использовать и $textarea.val()
-			$contentCompiled.val(editor.options.previewRender(editor.value()))
+			//
+			// 2015-11-04
+			// Раньше использовал тут код: editor.options.previewRender(editor.value())
+			// Этот код ошибочен, потому что editor.options.previewRender
+			// отрисовывает виджеты картинками,
+			// а нам на сервер нужно передать виджеты в первозданном виде: в виде кода.
+			//
+			// editor.options.parent.markdown херит нам код виджетов и медиа, например:
+			// {{widget type=&quot;Magento\CatalogWidget\Block\Product\ProductsList&quot; display_type=&quot;all_products&quot;}}
+			/** @type {String} */
+			var content = editor.value();
+			var widgets = {};
+			var medias = {};
+			content = content.replace(regex.widget, function(widget) {
+				/** @type {Number} */
+				var hash = df.string.hash(widget);
+				widgets[hash] = widget;
+				return 'widget-{' + hash + '}';
+			});
+			content = content.replace(regex.media, function(media) {
+				/** @type {Number} */
+				var hash = df.string.hash(media);
+				medias[hash] = media;
+				return 'media-{' + hash + '}';
+			});
+			content = editor.options.parent.markdown(content);
+			content = content.replace(/widget\-{([^}]+)}/, function(match, hash) {
+				return widgets[hash];
+			});
+			content = content.replace(/media\-{([^}]+)}/, function(match, hash) {
+				return medias[hash];
+			});
+			$contentCompiled.val(content);
 		});
 	});
 });

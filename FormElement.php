@@ -34,7 +34,12 @@ class FormElement extends Wysiwyg {
 				 * http://stackoverflow.com/questions/17086538
 				 */
 				$result .= df_x_magento_init('Dfe_Markdown/main', [
-					'core' => df_wysiwyg_config()
+					// 2015-11-04
+					// Нужно нам для идентификации страницы.
+					// Идентификация страницы нужна нам
+					// для правильного кэширования содержимого редактора в Local Storage.
+					'action' => df_action_name()
+					,'core' => df_wysiwyg_config()
 					/**
 					 * 2015-10-26
 					 * На странице товарного раздела

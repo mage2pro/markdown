@@ -20,14 +20,14 @@
 	-->
 	<event name='adminhtml_catalog_category_edit_element_types'>
 		<observer
-			name='Dfe\Markdown\Observer\ElementTypes'
-			instance='Dfe\Markdown\Observer\ElementTypes'
+			name='Dfe\Markdown\Observer\Catalog\ElementTypes'
+			instance='Dfe\Markdown\Observer\Catalog\ElementTypes'
 		/>
 	</event>
 	<event name='adminhtml_catalog_product_edit_element_types'>
 		<observer
-			name='Dfe\Markdown\Observer\ElementTypes'
-			instance='Dfe\Markdown\Observer\ElementTypes'
+			name='Dfe\Markdown\Observer\Catalog\ElementTypes'
+			instance='Dfe\Markdown\Observer\Catalog\ElementTypes'
 		/>
 	</event>
 	<!--
@@ -37,8 +37,8 @@
 	-->
 	<event name='adminhtml_catalog_category_edit_prepare_form'>
 		<observer
-			name='Dfe\Markdown\Observer\CatalogPrepareForm'
-			instance='Dfe\Markdown\Observer\CatalogPrepareForm'
+			name='Dfe\Markdown\Observer\Catalog\PrepareForm'
+			instance='Dfe\Markdown\Observer\Catalog\PrepareForm'
 		/>
 	</event>
 	<!--
@@ -48,13 +48,63 @@
 	-->
 	<event name='adminhtml_catalog_product_edit_prepare_form'>
 		<observer
-			name='Dfe\Markdown\Observer\CatalogPrepareForm'
-			instance='Dfe\Markdown\Observer\CatalogPrepareForm'
+			name='Dfe\Markdown\Observer\Catalog\PrepareForm'
+			instance='Dfe\Markdown\Observer\Catalog\PrepareForm'
+		/>
+	</event>
+	<!--
+		2015-11-04
+		Цель обработки этих событий —
+		сохранение содержимого Markdown после сохранения товара или раздела.
+		$this->_eventManager->dispatch(
+			'controller_action_postdispatch_' . $request->getFullActionName(),
+			$eventParameters
+		);
+        https://github.com/magento/magento2/blob/16dc76df41fac703b322cc0f9ab3dba43742bbed/lib/internal/Magento/Framework/App/Action/Action.php#L105-L108
+        https://github.com/magento/magento2/issues/2253
+	-->
+	<event name='controller_action_postdispatch_catalog_category_save'>
+		<observer
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
+			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
+		/>
+	</event>
+	<event name='controller_action_postdispatch_catalog_product_save'>
+		<observer
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
+			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
+		/>
+	</event>
+	<!--
+		2015-11-04
+		Цель обработки этих событий —
+		перетасовка содержимое полей при сохранении товара или раздела:
+		в основное поле редактора (например: «product[description]»)
+		подставляем HTML вместо Markdown (содержимое поля «product[description_html_compiled]»),
+		а в поле «product[description_markdown]» —
+		прежнее содержимое поля «product[description]» (т.е. Markdown).
+		$this->_eventManager->dispatch(
+			'controller_action_predispatch_' . $request->getFullActionName(),
+			$eventParameters
+		);
+        https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/internal/Magento/Framework/App/Action/Action.php#L93-L96
+	-->
+	<event name='controller_action_predispatch_catalog_category_save'>
+		<observer
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
+			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
+		/>
+	</event>
+	<event name='controller_action_predispatch_catalog_product_save'>
+		<observer
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
+			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
 		/>
 	</event>
 	<!--
 		2015-11-03
-		Цель обработки этих событий — перетасовка содержимое полей:
+		Цель обработки этих событий —
+		перетасовка содержимое полей при сохранении самодельной страницы или блока:
 		в поле «content» подставляем HTML вместо Markdown (содержимое поля «content_html_compiled»),
 		а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
 		$this->_eventManager->dispatch(
@@ -65,14 +115,14 @@
 	-->
 	<event name='controller_action_predispatch_cms_block_save'>
 		<observer
-			name='Dfe\Markdown\Observer\ControllerActionPredispatch'
-			instance='Dfe\Markdown\Observer\ControllerActionPredispatch'
+			name='Dfe\Markdown\Observer\Cms\Predispatch'
+			instance='Dfe\Markdown\Observer\Predispatch\Cms'
 		/>
 	</event>
 	<event name='controller_action_predispatch_cms_page_save'>
 		<observer
-			name='Dfe\Markdown\Observer\ControllerActionPredispatch'
-			instance='Dfe\Markdown\Observer\ControllerActionPredispatch'
+			name='Dfe\Markdown\Observer\Cms\Predispatch'
+			instance='Dfe\Markdown\Observer\Cms\Predispatch'
 		/>
 	</event>
 </config>

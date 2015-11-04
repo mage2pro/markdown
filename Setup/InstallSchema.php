@@ -70,12 +70,13 @@ class InstallSchema extends SetupA\InstallSchema {
 	 */
 	private function createTableEav($name, $master) {
 		$f_MARKDOWN = self::F__MARKDOWN;
+		$f_VALUE_ID = self::F__ID;
 		$this->c()->rawQuery("
 		CREATE TABLE IF NOT EXISTS `{$this->t($name)}` (
 			`value_id` int(11) NOT NULL
 			,`{$f_MARKDOWN}` text
-			,PRIMARY KEY (`value_id`)
-			,FOREIGN KEY (`value_id`)
+			,PRIMARY KEY (`{$f_VALUE_ID}`)
+			,FOREIGN KEY (`{$f_VALUE_ID}`)
 				REFERENCES `{$this->t($master)}` (`value_id`)
 				ON DELETE CASCADE
 			) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -85,4 +86,10 @@ class InstallSchema extends SetupA\InstallSchema {
 	const TABLE_CATEGORY = 'dfe_markdown_category';
 	const TABLE_PRODUCT = 'dfe_markdown_product';
 	const F__MARKDOWN = 'markdown';
+	/**
+	 * 2015-11-04
+	 * @used-by \Dfe\Markdown\Setup\InstallSchema::createTableEav()
+	 * @used-by \Dfe\Markdown\CatalogAction::markdownSave()
+	 */
+	const F__ID = 'value_id';
 }
