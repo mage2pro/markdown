@@ -64,7 +64,24 @@ define([
 		// для «description» и для «short_description»),
 		// поэтому нам нужно сделать имя скрытого поля заведомо уникальным
 		// и в то же время вычисляемым по имени поля редактора.
-		$contentCompiled.attr('name', $textarea.attr('name') + config.suffixForCompiled);
+		$contentCompiled.attr('name', function() {
+			/** @type {String} */
+			var name = $textarea.attr('name');
+			// 2015-11-04
+			// На странице товара поля редактора имеют имена вида
+			// product[description] и product[short_description],
+			// и для таких имён неправильно добавлять наш суффикс в конце имени:
+			// надо добавлять суффикс в конце внутренней части имени, которая в скобках.
+			//
+			// Используем именно lastIndexOf на случай сложных имён типа product[area1][area2].
+			/** @type {Number} */
+			var index = name.lastIndexOf(']');
+			return (
+				-1 === index
+				? name + config.suffixForCompiled
+				: df.string.splice(name, index, config.suffixForCompiled)
+			);
+		}());
 		$textarea.after($contentCompiled);
 		// Добавление класса CSS позволяет нам задать разную высоту редактора
 		// для описания и краткого описания товара.
