@@ -61,7 +61,7 @@
                 >
                     <label>Enable?</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[Enable Markdown Editor?]]></comment>
+                    <comment><![CDATA[Enable Markdown Editor? See the <a href='https://mage2.pro/t/160'>documentation</a>.]]></comment>
                 </field>
             </group>
         </section>
