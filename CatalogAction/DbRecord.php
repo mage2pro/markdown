@@ -59,12 +59,7 @@ class DbRecord extends \Df\Core\O {
 	}
 
 	/** @return string */
-	public function entityType() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = explode('_', df_action_name())[1];
-		}
-		return $this->{__METHOD__};
-	}
+	public function entityType() {return CatalogAction::s()->entityType();}
 
 	/** @return int */
 	public function entityTypeId() {

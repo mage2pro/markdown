@@ -137,13 +137,17 @@ define([
 					textarea.id
 					, config.action
 					, function() {
-						/** @type {Array} */
+						/** @type {?Array} */
 						var matches = location.href.match(/\/(?:id|block_id|page_id)\/(\d+)/);
 						// 2015-11-04
 						// JavaScript вполне позволяет обращения к несуществующим индексам массива,
 						// просто при преобразовании undefined к строке получается не пустая строка,
 						// а строка «undefined».
-						return 1 < matches.length ? matches[1] : 0;
+						//
+						// Если строка не соответствует регулярному выражению,
+						// то .match возвращает null:
+						// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/match#Return_value
+						return matches && 1 < matches.length ? matches[1] : 0;
 					}()
 				].join('-')
 			}
