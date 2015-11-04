@@ -10,6 +10,14 @@
 	// оказывается поверх всплывающих окон Magento (в частности — окна медиа-браузера),
 	// которые имеют z-index 900.
 	.editor-preview-side {z-index: 709;}
+	.CodeMirror {
+		// 2015-11-05
+		// По умолчанию стоит «height: auto»: https://codemirror.net/demo/resize.html
+		// Это приводит к неограниченному растягиванию редактора по высоте,
+		// а это неудобно для длинных текстов:
+		//ведь под редактором почти всегда расположены другие элементы управления.
+		height: 300px;
+	}
 	// 2015-10-26
 	// Для краткого описания товара делаем высоту редактора поменьше.
 	// https://github.com/NextStepWebs/simplemde-markdown-editor#height
@@ -21,6 +29,27 @@
 		// имеет приоритет перед нашим height=
 		// Но и правило height= тоже важно: без него высота всё равно не задаётся.
 		min-height: 250px;
+	}
+	// 20105-11-05
+	// Типографика для окна режима реального соответствия
+	.editor-preview, .editor-preview-side {
+		h1, h2, h3, h4, h5, h6 {
+			font-weight: bold;
+			margin: 0;
+		}
+		// https://github.com/NextStepWebs/simplemde-markdown-editor/blob/e05962d91c6500caf623925400b3c86df73163e0/src/css/simplemde.css#L285-L303
+		h1 {font-size: 200%; line-height: 200%;}
+		h2 {font-size: 160%; line-height: 160%;}
+		h3 {font-size: 125%; line-height: 125%;}
+		h4 {font-size: 110%; line-height: 110%;}
+		p {margin: 0.2em 0 1em 0;}
+		ol, ul {
+			margin: 0 0 1em 1em;
+			list-style-position: inside;
+		}
+		table {
+			margin: 0 0 0 1em;
+		}
 	}
 }
 .catalog-category-edit .dfe-markdown.description .CodeMirror {
