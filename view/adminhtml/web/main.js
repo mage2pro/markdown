@@ -91,66 +91,76 @@ define([
 			media: /\{\{media url="([^"]+)"}}/gm
 			,widget: /\{\{widget type="([^"]+)"[^}]+}}/gm
 		};
+		/**
+		 * 2015-10-30
+		 * https://github.com/NextStepWebs/simplemde-markdown-editor#configuration
+		 * Автосохранение — это интересная функция:
+		 * она восстанавливает состояние редактора после перезагрузки страницы.
+		 * Однако как быть, если содержимое было отредактировано в обход нашего редактора?
+		 * Я столкнулся с такой ситуацией:
+		 * 1) администратор сначала редактирует текст в нашем редакторе и НЕ сохраняет его
+		 * 2) затем администратор переключается на стандартный редактор TinyMCE,
+		 * редактирует этот же текст снова и сохраняет его.
+		 * 3) так вот, при обратном переключении на наш редактор тот игнорирует изменения,
+		 * сделанные посредством TinyMCE
+		 * Но, думаю, такая ситуация — слишко искусственная, и ей можно пренебречь,
+		 * ибо зачем администратору на шаге 1 редактировать и не сохранять?
+		 * А если же администратор сохранет изменения, то localStorage сбрасывается:
+		 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L962-L964
+		 * 	simplemde.element.form.addEventListener("submit", function() {
+				localStorage.setItem(simplemde.options.autosave.unique_id, "");
+		 	});
+		 *
+		 * 2015-11-02
+		 * Сделал unique_id: textarea.id + df.string.hash(location.href)
+		 * чтобы редакторы разных объектов (например, разных самодельных страниц)
+		 * имели разные идентификаторы.
+		 *
+		 * Адрес может иметь вид
+		 * http://site.com/admin/cms/page/new/#page_tabs_content_section_content
+		 * Убираем часть адреса после #.
+		 *
+		 * 2015-11-05
+		 * Раньше алгоритм был:
+		 * unique_id: textarea.id + df.string.hash(location.href.split('#')[0])}
+		 * Оказалось, что полагаться на адрес не совсем верно,
+		 * потому что на странице редактирования товара адреса могут быть разными
+		 * для одного и того же товара, например:
+		 * http://site.com/admin/catalog/product/edit/id/1/set/4/
+		 * http://site.com/admin/catalog/product/edit/id/1/set/4/back/edit/active_tab/autosettings/
+		 */
+		/** @type {String} */
+		var localStorageId = [
+			textarea.id
+			, config.action
+			, function() {
+				/** @type {?Array} */
+				var matches = location.href.match(/\/(?:id|block_id|page_id)\/(\d+)/);
+				// 2015-11-04
+				// JavaScript вполне позволяет обращения к несуществующим индексам массива,
+				// просто при преобразовании undefined к строке получается не пустая строка,
+				// а строка «undefined».
+				//
+				// Если строка не соответствует регулярному выражению,
+				// то .match возвращает null:
+				// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/match#Return_value
+				return matches && 1 < matches.length ? matches[1] : 0;
+			}()
+		].join('-');
+		/**
+		 * 2015-11-05
+		 * Почему-то иногда получается, что в localStorage попадает пустое значение,
+		 * хотя на самом деле содержимое редактора непусто.
+		 * В такой ситуации удаляем ключ из localStorage,
+		 * чтобы в редактор попало значение с сервера.
+		 * http://stackoverflow.com/a/10710029
+		 */
+		if (!localStorage.getItem(localStorageId)) {
+			localStorage.removeItem(localStorageId);
+		}
 		var editor = new SimpleMDE({
 			autofocus: true
-			/**
-			 * 2015-10-30
-			 * https://github.com/NextStepWebs/simplemde-markdown-editor#configuration
-			 * Автосохранение — это интересная функция:
-			 * она восстанавливает состояние редактора после перезагрузки страницы.
-			 * Однако как быть, если содержимое было отредактировано в обход нашего редактора?
-			 * Я столкнулся с такой ситуацией:
-			 * 1) администратор сначала редактирует текст в нашем редакторе и НЕ сохраняет его
-			 * 2) затем администратор переключается на стандартный редактор TinyMCE,
-			 * редактирует этот же текст снова и сохраняет его.
-			 * 3) так вот, при обратном переключении на наш редактор тот игнорирует изменения,
-			 * сделанные посредством TinyMCE
-			 * Но, думаю, такая ситуация — слишко искусственная, и ей можно пренебречь,
-			 * ибо зачем администратору на шаге 1 редактировать и не сохранять?
-			 * А если же администратор сохранет изменения, то localStorage сбрасывается:
-			 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L962-L964
-			 * 	simplemde.element.form.addEventListener("submit", function() {
-					localStorage.setItem(simplemde.options.autosave.unique_id, "");
-			 	});
-			 *
-			 * 2015-11-02
-			 * Сделал unique_id: textarea.id + df.string.hash(location.href)
-			 * чтобы редакторы разных объектов (например, разных самодельных страниц)
-			 * имели разные идентификаторы.
-			 *
-			 * Адрес может иметь вид
-			 * http://site.com/admin/cms/page/new/#page_tabs_content_section_content
-			 * Убираем часть адреса после #.
-			 *
-			 * 2015-11-05
-			 * Раньше алгоритм был:
-			 * unique_id: textarea.id + df.string.hash(location.href.split('#')[0])}
-			 * Оказалось, что полагаться на адрес не совсем верно,
-			 * потому что на странице редактирования товара адреса могут быть разными
-			 * для одного и того же товара, например:
-			 * http://site.com/admin/catalog/product/edit/id/1/set/4/
-			 * http://site.com/admin/catalog/product/edit/id/1/set/4/back/edit/active_tab/autosettings/
-			 */
-			,autosave: {
-				enabled: true
-				, unique_id: [
-					textarea.id
-					, config.action
-					, function() {
-						/** @type {?Array} */
-						var matches = location.href.match(/\/(?:id|block_id|page_id)\/(\d+)/);
-						// 2015-11-04
-						// JavaScript вполне позволяет обращения к несуществующим индексам массива,
-						// просто при преобразовании undefined к строке получается не пустая строка,
-						// а строка «undefined».
-						//
-						// Если строка не соответствует регулярному выражению,
-						// то .match возвращает null:
-						// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/match#Return_value
-						return matches && 1 < matches.length ? matches[1] : 0;
-					}()
-				].join('-')
-			}
+			,autosave: {enabled: true, unique_id: localStorageId}
 			,element: textarea
 			/**
 			 * 2015-11-02

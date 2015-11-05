@@ -1,3 +1,29 @@
+// http://stackoverflow.com/a/20906418
+// 2015-11-05
+// Пока не знаю, как импортировать сюда стандартные стили:
+// https://github.com/magento/magento2/issues/2264
+// @import '../css/source/_typography.less';
+//
+// Убрать проверку из метода
+// @see \Magento\Framework\View\Design\FileResolution\Fallback\Resolver\Simple::assertFilePathFormat()
+// тоже не удаётся: https://github.com/magento/magento2/issues/2265
+//
+// Перекрытие класса @see \Magento\Framework\View\Design\FileResolution\Fallback\Resolver\Simple
+// посредством preference тоже ничего не даёт,
+// потому что метод assertFilePathFormat() — статический.
+//
+// Работают полные файловые пути:
+// @import 'C:/work/mage2.pro/store/lib/web/css/source/lib/_typography.less';
+// Но тогда компилятор Less ругается на зависимости файла _typography.less:
+//
+//	variable @h3__font-size is undefined in file
+//	lib/web/css/source/lib/_typography.less in _typography.less on line 147, column 9
+//	145|     @_margin-bottom: "@{_heading_level}__margin-bottom";
+//	146|     .lib-typography(
+//	147|         @@_font-size,
+//	148|         @@_font-color,
+//	149|         @@_font-family,
+//	150|         @@_font-weight, in main.less
 .dfe-markdown {
 	// 2015-10-25
 	// В оригинале тут «9».
