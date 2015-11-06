@@ -56,25 +56,100 @@
 		// Но и правило height= тоже важно: без него высота всё равно не задаётся.
 		min-height: 250px;
 	}
-	// 20105-11-05
+	// 2015-11-05
 	// Типографика для окна режима реального соответствия
 	.editor-preview, .editor-preview-side {
-		h1, h2, h3, h4, h5, h6 {
+		color: #333333;
+		font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.42857143;
+		font-size: 1.4rem;
+		padding-top: 0;
+		code, pre {
+			font-family: "Courier New",Consolas,Menlo,Monaco,"Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+			line-height: normal;
 			font-weight: bold;
+			font-size: 117%;
+			padding: 0;
+			padding-top: 0.2em;
+			padding-bottom: 0.2em;
 			margin: 0;
+			background-color: rgba(0,0,0,0.04);
+			border-radius: 3px;
 		}
-		// https://github.com/NextStepWebs/simplemde-markdown-editor/blob/e05962d91c6500caf623925400b3c86df73163e0/src/css/simplemde.css#L285-L303
-		h1 {font-size: 200%; line-height: 200%;}
-		h2 {font-size: 160%; line-height: 160%;}
-		h3 {font-size: 125%; line-height: 125%;}
-		h4 {font-size: 110%; line-height: 110%;}
-		p {margin: 0.2em 0 1em 0;}
+		// 2015-11-05
+		// По умолчанию там цвет #fafafa.
+		// Я подумал, что естественный цвет витрины
+		// приблизит соответствие текста в редакторе тексту на витрине.
+		background: white;
+		h1, h2, h3, h4, h5, h6 {
+			color: #333333;
+		}
+		// 2015-11-05
+		// Взял с витрины.
+		h1 {
+			font-weight: 300;
+			line-height: 1.1;
+			font-size: 2.6rem;
+			margin-top: 0rem;
+			margin-bottom: 2rem;
+		}
+		h2 {
+			font-weight: 300;
+			line-height: 1.1;
+			font-size: 2.6rem;
+			margin-top: 2.5rem;
+			margin-bottom: 2rem;
+		}
+		h3 {
+			font-weight: 600;
+			line-height: 1.1;
+			font-size: 1.8rem;
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+		}
+		h4 {
+			font-weight: 700;
+			line-height: 1.1;
+			font-size: 1.4rem;
+			margin-top: 2rem;
+			margin-bottom: 2rem;
+		}
+		h5 {
+			font-weight: 700;
+			line-height: 1.1;
+			font-size: 1.2rem;
+			margin-top: 2rem;
+			margin-bottom: 2rem;
+		}
+		h6 {
+			font-weight: 700;
+			line-height: 1.1;
+			font-size: 1rem;
+			margin-top: 2rem;
+			margin-bottom: 2rem;
+		}
+		p {margin: 0 0 1rem 0;}
 		ol, ul {
-			margin: 0 0 1em 1em;
-			list-style-position: inside;
+			//margin: 0 0 1em 2em;
+			padding-left: 40px;
+			margin-top: 0rem;
+			margin-bottom: 2.5rem;
+			li {
+				margin-top: 0rem;
+				margin-bottom: 1rem;
+			}
+			//list-style-position: inside;
 		}
 		table {
-			margin: 0 0 0 1em;
+			&.layout {
+				td {border: 0;}
+			}
+			td {
+				padding: 11px 10px;
+				vertical-align: top;
+			}
 		}
 	}
 }
