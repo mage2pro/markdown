@@ -2,7 +2,7 @@
 	"name": "dfe/markdown"
 	,"description": "«Markdown» extension"
 	,"type": "magento2-module"
-	,"homepage": "https://mage2.pro"
+	,"homepage": "https://mage2.pro/t/160"
 	,"license": "proprietary"
 	,"authors": [{
 		"name": "Dmitry Fedyuk",
@@ -10,8 +10,6 @@
 		"homepage": "https://mage2.pro/users/dmitry_fedyuk",
 		"role": "Developer"
 	}]
-	,"require": {
-		"df/all": "dev-master"
-	},
-	"extra": {"map": [["*", "Dfe/Markdown"]]}
+	,"require": {"df/all": "dev-master"}
+	,"extra": {"map": [["*", "Dfe/Markdown"]]}
 }
