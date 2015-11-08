@@ -11,8 +11,7 @@
 		"role": "Developer"
 	}]
 	,"require": {
-		"magento/module-variable": ">=1.0.0-beta"
-		,"df/all": "dev-master"
+		"df/all": "dev-master"
 	},
 	"extra": {"map": [["*", "Dfe/Markdown"]]}
 }
