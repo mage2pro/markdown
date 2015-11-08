@@ -116,7 +116,7 @@
 	<event name='controller_action_predispatch_cms_block_save'>
 		<observer
 			name='Dfe\Markdown\Observer\Cms\Predispatch'
-			instance='Dfe\Markdown\Observer\Predispatch\Cms'
+			instance='Dfe\Markdown\Observer\Cms\Predispatch'
 		/>
 	</event>
 	<event name='controller_action_predispatch_cms_page_save'>
