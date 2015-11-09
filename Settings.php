@@ -1,8 +1,8 @@
 <?php
 namespace Dfe\Markdown;
 class Settings extends \Df\Core\Settings {
-	/** @return string */
-	public function enable() {return $this->v('enable');}
+	/** @return bool */
+	public function enable() {return $this->b('enable');}
 
 	/**
 	 * @override
