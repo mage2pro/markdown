@@ -129,24 +129,28 @@ define([
 		 * http://site.com/admin/catalog/product/edit/id/1/set/4/
 		 * http://site.com/admin/catalog/product/edit/id/1/set/4/back/edit/active_tab/autosettings/
 		 */
-		/** @type {String} */
-		var localStorageId = [
-			textarea.id
-			, config.action
-			, function() {
-				/** @type {?Array} */
-				var matches = location.href.match(/\/(?:id|block_id|page_id)\/(\d+)/);
-				// 2015-11-04
-				// JavaScript вполне позволяет обращения к несуществующим индексам массива,
-				// просто при преобразовании undefined к строке получается не пустая строка,
-				// а строка «undefined».
-				//
-				// Если строка не соответствует регулярному выражению,
-				// то .match возвращает null:
-				// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/match#Return_value
-				return matches && 1 < matches.length ? matches[1] : 0;
-			}()
-		].join('-');
+		// 2015-11-12
+		// Вынес вычисление идентификатора объекта в отдельное выражение,
+		// чтобы задействовать локальное хранилище
+		// только при ненулевом значени идентификатора объекта.
+		// Это позволяет избежать проблемы, когда редактор для нового объекта
+		// ошибочно заполняет себя значением от предыщущего нового объекта.
+		/** @var int */
+		var entityId = function() {
+			/** @type {?Array} */
+			var matches = location.href.match(/\/(?:id|block_id|page_id)\/(\d+)/);
+			// 2015-11-04
+			// JavaScript вполне позволяет обращения к несуществующим индексам массива,
+			// просто при преобразовании undefined к строке получается не пустая строка,
+			// а строка «undefined».
+			//
+			// Если строка не соответствует регулярному выражению,
+			// то .match возвращает null:
+			// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/match#Return_value
+			return matches && matches[1] ? parseInt(matches[1]) : 0;
+		}();
+		/** @type {?String} */
+		var localStorageId = entityId ? [textarea.id, config.action, entityId].join('-') : null;
 		/**
 		 * 2015-11-05
 		 * Почему-то иногда получается, что в localStorage попадает пустое значение,
@@ -155,12 +159,12 @@ define([
 		 * чтобы в редактор попало значение с сервера.
 		 * http://stackoverflow.com/a/10710029
 		 */
-		if (!localStorage.getItem(localStorageId)) {
+		if (localStorageId && !localStorage.getItem(localStorageId)) {
 			localStorage.removeItem(localStorageId);
 		}
 		var editor = new SimpleMDE({
 			autofocus: true
-			,autosave: {enabled: true, unique_id: localStorageId}
+			,autosave: {enabled: !!localStorageId, unique_id: localStorageId}
 			,element: textarea
 			/**
 			 * 2015-11-02
@@ -341,6 +345,8 @@ define([
 				});
 			}
 		}
+		/** @type {jQuery} HTMLFormElement */
+		var $form = $textarea.closest('form');
 		/**
 		 * 2015-11-02
 		 * Компилируем Markdown в HTML перед отправкой формы на сервер.
@@ -355,7 +361,7 @@ define([
 		 * потому что наш редактор не обновляет textarea автоматически.
 		 * https://mage2.pro/t/158
 		 */
-		$textarea.closest('form').bind('beforeSubmit', function() {
+		$form.bind('beforeSubmit', function() {
 			$textarea.val(editor.value());
 			// По аналогии с https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L355
 			// Наверное, можно использовать и $textarea.val()
@@ -393,5 +399,14 @@ define([
 			});
 			$contentCompiled.val(content);
 		});
+		// 2015-11-11
+		// Вообще говоря, редактор заявляет, что делает это сам,
+		// но у меня почему-то он порой (а может и всегда?) это не делает.
+		// Сбрасывать localStorage надо именно на submit, а не на beforeSubmit,
+		// чтобы сначала сработали валидаторы, а то вдруг валидация не пройдёт,
+		// а localStorage уже уничтожен.
+		if (localStorageId) {
+			$form.submit(function(){localStorage.removeItem(localStorageId);});
+		}
 	});
 });
