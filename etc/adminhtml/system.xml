@@ -14,7 +14,7 @@
             <label>Mage2.PRO</label>
         </tab>
         <section
-            id='dfe_backend'
+            id='df_backend'
             translate='label'
             type='text'
             showInDefault='1'
