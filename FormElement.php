@@ -181,7 +181,7 @@ class FormElement extends Wysiwyg {
 			 * http://stackoverflow.com/questions/17086538
 			 */
 			/** @uses \Magento\Framework\View\Page\Config::addPageAsset() */
-			array_map(array(df_page(), 'addPageAsset'), self::$_css);
+			array_map([df_page(), 'addPageAsset'], self::$_css);
 			self::$_cssAdded = true;
 		}
 	}
