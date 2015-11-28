@@ -102,7 +102,7 @@ class FormElement extends Wysiwyg {
 			$result = Textarea::getBeforeElementHtml();
 			if ($this->getIsWysiwygEnabled() && !self::$_cssAdded) {
 				/** @uses df_link_inline() */
-				$result .= implode("\n", array_map('df_link_inline', self::$_css));
+				$result .= df_link_inline(self::$_css);
 				self::$_cssAdded = true;
 			}
 			$this->{__METHOD__} = $result;
