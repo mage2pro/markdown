@@ -5,8 +5,8 @@ define([
 	'jquery'
 	, 'df'
 	, 'underscore'
-	, 'SimpleMDE'
-	, 'HighlightJs'
+	, 'Dfe_Markdown/SimpleMDE'
+	, 'Df_Core/HighlightJs'
 	// https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js
 	,'mage/adminhtml/browser'
 	/**

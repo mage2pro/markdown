@@ -202,8 +202,8 @@ class FormElement extends Wysiwyg {
 	 * @var string[]
 	 */
 	private static $_css= [
-		'Dfe_Markdown::highlight/github.css'
-		,'Dfe_Markdown::simple-mde/main.css'
+		'Df_Core::lib/HighlightJs/github.css'
+		,'Dfe_Markdown::lib/SimpleMDE/main.css'
 		,'Dfe_Markdown::main.css'
 	];
 	/** @var bool */
