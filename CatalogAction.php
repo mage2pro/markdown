@@ -38,7 +38,7 @@ class CatalogAction {
 		return $this->{__METHOD__};
 	}
 
-	/** @return \Dfe\Markdown\CatalogAction */
+	/** @return $this */
 	public static function s() {static $r; return $r ? $r : $r = new self;}
 }
 

@@ -11,6 +11,6 @@ class Settings extends \Df\Core\Settings {
 	 */
 	protected function prefix() {return 'df_backend/markdown/';}
 
-	/** @return \Dfe\Markdown\Settings */
+	/** @return $this */
 	public static function s() {static $r; return $r ? $r : $r = df_o(__CLASS__);}
 }
