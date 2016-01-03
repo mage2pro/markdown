@@ -1,11 +1,11 @@
 <?php
-namespace Dfe\Markdown;
-use Magento\Framework\Data\Form;
+namespace Dfe\Markdown\Plugin;
+use Magento\Framework\Data\Form as _Form;
 /**
  * 2015-11-03
- * Этот класс не получается объединить с классом @see \Dfe\Markdown\AbstractFormPlugin
+ * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\AbstractForm
  */
-class FormPlugin {
+class Form {
 	/**
 	 * 2015-11-03
 	 * Цель плагина — подмена содержимого поля «content» с HTML на Markdown
@@ -29,11 +29,11 @@ class FormPlugin {
 	 * Поэтому приходится делать через плагин.
 	 *
 	 * @see \Magento\Framework\Data\Form::setValues()
-	 * @param Form $subject
+	 * @param _Form $subject
 	 * @param array(string => mixed) $values
 	 * @return array(array(string => mixed))
 	 */
-	public function beforeSetValues(Form $subject, array $values) {
+	public function beforeSetValues(_Form $subject, array $values) {
 		if (\Dfe\Markdown\Settings::s()->enable()
 			// 2015-11-03
 			// В настоящее время это условие необязательно,
