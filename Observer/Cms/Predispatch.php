@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\Markdown\Observer\Cms;
+use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
 /**
  * 2015-11-02
@@ -22,10 +23,10 @@ class Predispatch implements ObserverInterface {
 	 * @override
 	 * @see ObserverInterface::execute()
 	 * @used-by \Magento\Framework\Event\Invoker\InvokerDefault::_callObserverMethod()
-	 * @param \Magento\Framework\Event\Observer $o
+	 * @param O $o
 	 * @return void
 	 */
-	public function execute(\Magento\Framework\Event\Observer $o) {
+	public function execute(O $o) {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
 			/** @var \Magento\Framework\App\RequestInterface|\Magento\Framework\App\Request\Http $request */
 			$request = $o['request'];

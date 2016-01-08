@@ -1,9 +1,10 @@
 <?php
-namespace Dfe\Markdown\Plugin;
-use Magento\Framework\Data\Form as _Form;
+namespace Dfe\Markdown\Plugin\Framework\Data;
+use Dfe\Markdown\Settings;
+use Magento\Framework\Data\Form as Sb;
 /**
  * 2015-11-03
- * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\AbstractForm
+ * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form\AbstractForm
  */
 class Form {
 	/**
@@ -29,16 +30,16 @@ class Form {
 	 * Поэтому приходится делать через плагин.
 	 *
 	 * @see \Magento\Framework\Data\Form::setValues()
-	 * @param _Form $subject
+	 * @param Sb $sb
 	 * @param array(string => mixed) $values
 	 * @return array(array(string => mixed))
 	 */
-	public function beforeSetValues(_Form $subject, array $values) {
-		if (\Dfe\Markdown\Settings::s()->enable()
+	public function beforeSetValues(Sb $sb, array $values) {
+		if (Settings::s()->enable()
 			// 2015-11-03
 			// В настоящее время это условие необязательно,
 			// но на будущее оно полезно: мало ли кто и для каких целей заведёт поле «markdown».
-			&& in_array(df_action_name(), ['cms_block_edit', 'cms_page_edit'])
+			&& df_action_is('cms_block_edit', 'cms_page_edit')
 		) {
 			/** @var string $markdown */
  			$markdown = df_a($values, \Dfe\Markdown\Setup\InstallSchema::F__MARKDOWN);

@@ -1,26 +1,25 @@
 <?php
-namespace Dfe\Markdown\Plugin;
-use Magento\Framework\Data\Form\AbstractForm as _AbstractForm;
+namespace Dfe\Markdown\Plugin\Framework\Data\Form;
+use Dfe\Markdown\Settings;
+use Magento\Framework\Data\Form\AbstractForm as Sb;
 /**
  * 2015-11-03
- * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Form
+ * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form
  */
 class AbstractForm {
 	/**
 	 * 2015-10-27
 	 * Цель плагина — замещение при необходимости стандартного редактора нашим.
 	 * @see \Magento\Framework\Data\Form\AbstractForm::addField()
-	 * @param _AbstractForm $subject
+	 * @param Sb $sb
 	 * @param string $elementId
 	 * @param string $type
 	 * @param mixed[] $config
 	 * @param bool|string|null $after [optional]
 	 * @return mixed[]
 	 */
-	public function beforeAddField(_AbstractForm $subject, $elementId, $type, $config, $after = false) {
-		if (
-			'editor' === $type
-			&& \Dfe\Markdown\Settings::s()->enable()
+	public function beforeAddField(Sb $sb, $elementId, $type, $config, $after = false) {
+		if ('editor' === $type && Settings::s()->enable()
 			/**
 			 * 2015-11-03
 			 * Включаем наш редактор только для избранных типов страниц,
@@ -35,7 +34,7 @@ class AbstractForm {
 			 * здесь так же перечислять не надо, потому что для них наш редактор добавляется иначе:
 			 * методом @see \Dfe\Markdown\Observer\ElementTypes::execute()
 			 */
-			&& in_array(df_action_name(), ['cms_block_edit', 'cms_page_edit'])
+			&& df_action_is('cms_block_edit', 'cms_page_edit')
 		) {
 			$type = \Dfe\Markdown\FormElement::class;
 		}

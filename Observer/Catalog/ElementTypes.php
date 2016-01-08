@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\Markdown\Observer\Catalog;
+use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
 /**
  * 2015-10-23
@@ -36,12 +37,12 @@ class ElementTypes implements ObserverInterface {
 	 * @override
 	 * @see ObserverInterface::execute()
 	 * @used-by \Magento\Framework\Event\Invoker\InvokerDefault::_callObserverMethod()
-	 * @param \Magento\Framework\Event\Observer $o
+	 * @param O $o
 	 * @return void
 	 */
-	public function execute(\Magento\Framework\Event\Observer $o) {
+	public function execute(O $o) {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
-			$o['response']['types'] = ['textarea' => 'Dfe\Markdown\FormElement'];
+			$o['response']['types'] = ['textarea' => \Dfe\Markdown\FormElement::class];
 		}
 	}
 }

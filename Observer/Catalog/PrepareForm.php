@@ -2,6 +2,7 @@
 namespace Dfe\Markdown\Observer\Catalog;
 use Dfe\Markdown\CatalogAction;
 use Dfe\Markdown\CatalogAction\DbRecord;
+use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
 /**
  * 2015-11-03
@@ -34,10 +35,10 @@ class PrepareForm implements ObserverInterface {
 	 * @used-by \Magento\Framework\Event\Invoker\InvokerDefault::_callObserverMethod()
 	 * @see \Magento\Catalog\Block\Adminhtml\Category\Tab\Attributes::_prepareForm()
 	 * @see \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attributes::_prepareForm()
-	 * @param \Magento\Framework\Event\Observer $o
+	 * @param O $o
 	 * @return void
 	 */
-	public function execute(\Magento\Framework\Event\Observer $o) {
+	public function execute(O $o) {
 		if (CatalogAction::s()->entityId() && \Dfe\Markdown\Settings::s()->enable()) {
 			/** @var \Magento\Framework\Data\Form $form */
 			$form = $o['form'];

@@ -7,10 +7,10 @@
 		2015-10-27
 		Цель плагина — замещение при необходимости стандартного редактора нашим.
 		2015-11-03
-		Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Form
+		Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form
 	-->
 	<type name='Magento\Framework\Data\Form\AbstractForm'>
-		<plugin name='Dfe\Markdown\Plugin\AbstractForm' type='Dfe\Markdown\Plugin\AbstractForm'/>
+		<plugin name='Dfe\Markdown\Plugin\Framework\Data\Form\AbstractForm' type='Dfe\Markdown\Plugin\Framework\Data\Form\AbstractForm'/>
 	</type>
 	<!--
 		2015-11-03
@@ -19,6 +19,16 @@
 		Этот класс не получается объединить с классом @see \Dfe\Markdown\AbstractForm
 	-->
 	<type name='Magento\Framework\Data\Form'>
-		<plugin name='Dfe\Markdown\Plugin\Form' type='Dfe\Markdown\Plugin\Form'/>
+		<plugin name='Dfe\Markdown\Plugin\Framework\Data\Form' type='Dfe\Markdown\Plugin\Framework\Data\Form'/>
+	</type>
+	<!--
+		2016-01-06
+		Цель метода — ...
+	-->
+	<type name='Magento\Ui\Component\Form\Element\Wysiwyg'>
+		<plugin
+			name='Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg'
+			type='Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg'
+		/>
 	</type>
 </config>
