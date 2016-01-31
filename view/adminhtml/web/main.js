@@ -203,8 +203,16 @@ define([
 				return this.parent.markdown(markdown);
 			}
 			,toolbar: (function() {
+				/**
+				 * 2016-02-01
+				 * Раньше тут стояло:
+				 * var result = SimpleMDE.toolbar.slice();
+				 * В версии 1.10.0 свойство SimpleMDE.toolbar пропало.
+				 * В версии 1.8.1 оно было:
+				 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/1.8.1/debug/simplemde.debug.js#L13617
+				 */
 				/** @type Array */
-				var result = SimpleMDE.toolbar.slice();
+				var result = ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen", "guide"];
 				/**
 				 * 2015-10-29
 				 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Model/Wysiwyg/Config.php#L172-L181
