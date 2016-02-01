@@ -212,7 +212,7 @@ define([
 				 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/1.8.1/debug/simplemde.debug.js#L13617
 				 */
 				/** @type Array */
-				var result = ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen", "guide"];
+				var result = ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'preview', 'side-by-side', 'fullscreen', 'guide'];
 				/**
 				 * 2015-10-29
 				 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Model/Wysiwyg/Config.php#L172-L181
@@ -279,6 +279,33 @@ define([
 				return result;
 			})()
 		});
+		var cm = editor.codemirror;
+		(function() {
+			/**
+			 * @param {String[]} lines
+			 * @param {Object} pos
+			 * @returns {String}
+			 */
+			var getTextFromBeginToCursor = function(lines, pos) {
+				var fullLines = !pos.line ? [] : lines.slice(0, pos.line);
+				if (pos.ch) {
+					fullLines.push(lines[pos.line].substring(0, pos.ch));
+				}
+				return fullLines.join("\n");
+			};
+			var $widgetButton = $(editor.toolbarElements['widget']);
+			cm.on('cursorActivity', function() {
+				var before = getTextFromBeginToCursor(cm.getValue().split("\n"), cm.getCursor());
+				var after = cm.getValue().substring(before.length);
+				var startTag = '{{';
+				var endTag = '}}';
+				var indexOfStartTagInAfter = after.indexOf(startTag);
+				$widgetButton.toggleClass('active',
+					before.lastIndexOf(startTag) > before.lastIndexOf(endTag)
+					&& (-1 === indexOfStartTagInAfter || indexOfStartTagInAfter > after.indexOf(endTag))
+				);
+			});
+		})();
 		/**
 		 * 2015-10-31
 		 * http://codemirror.net/doc/manual.html#replaceSelection
@@ -286,7 +313,7 @@ define([
 		 * @param {String} newValue
 		 * @returns void
 		 */
-		var replaceSelection = function(newValue) {editor.codemirror.doc.replaceSelection(newValue);};
+		var replaceSelection = function(newValue) {cm.doc.replaceSelection(newValue);};
 		// https://learn.jquery.com/jquery-ui/widget-factory/extending-widgets/#extending-existing-methods
 		$.widget('mage.mediabrowser', $.mage.mediabrowser, {
 			insertAtCursor: function(element, value) {
@@ -348,11 +375,19 @@ define([
 			if (tabContent) {
 				$tabs.bind('tabsactivate', function(event, data) {
 					if (data.newPanel.get(0) === tabContent) {
-						editor.codemirror.refresh();
+						cm.refresh();
 					}
 				});
 			}
 		}
+		// 2016-02-01
+		// Грязный хак.
+		// Без него положение курсора при переносе строк обрабатывается некорректно.
+		$textarea
+			.closest('.admin__collapsible-content')
+			.siblings('.fieldset-wrapper-title')
+			.click(function() {setTimeout(function() {cm.refresh();}, 500);})
+		;
 		/** @type {jQuery} HTMLFormElement */
 		var $form = $textarea.closest('form');
 		/**
