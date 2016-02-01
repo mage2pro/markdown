@@ -162,6 +162,17 @@ define([
 		if (localStorageId && !localStorage.getItem(localStorageId)) {
 			localStorage.removeItem(localStorageId);
 		}
+		/**
+		 * 2015-10-31
+		 * По аналогии с
+		 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L256-L258
+		 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js#L24
+		 */
+		var openWidgetDialog = function() {
+			widgetTools.openDialog(
+				cc.widget_window_url + 'widget_target_id/' + config.id + '/'
+			);
+		};
 		var editor = new SimpleMDE({
 			autofocus: true
 			,autosave: {enabled: !!localStorageId, unique_id: localStorageId}
@@ -263,24 +274,18 @@ define([
 						className: 'fa fa-cogs'
 						,name: 'widget'
 						,title: 'Insert Widget'
-						/**
-						 * 2015-10-31
-						 * По аналогии с
-						 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L256-L258
-						 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js#L24
-						 */
-						,action: function() {
-							widgetTools.openDialog(
-								cc.widget_window_url + 'widget_target_id/' + config.id + '/'
-							);
-						}
+						,action: openWidgetDialog
 					});
 				}
 				return result;
 			})()
 		});
 		var cm = editor.codemirror;
-		(function() {
+		/**
+		 * 2016-02-01
+		 * @return {Object}
+		 */
+		var getTextBeforeAndAfterTheCursor = function() {
 			/**
 			 * @param {String[]} lines
 			 * @param {Object} pos
@@ -293,17 +298,75 @@ define([
 				}
 				return fullLines.join("\n");
 			};
+			var before = getTextFromBeginToCursor(cm.getValue().split("\n"), cm.getCursor());
+			var after = cm.getValue().substring(before.length);
+			return {before: before, after: after}
+		};
+		/**
+		 * 2016-02-01
+		 * @return {Boolean}
+		 */
+		var areTheCursorOnAWidget = function() {
+			var ba = getTextBeforeAndAfterTheCursor();
+			var startTag = '{{';
+			var endTag = '}}';
+			var indexOfStartTagInAfter = ba.after.indexOf(startTag);
+			return (
+				ba.before.lastIndexOf(startTag) > ba.before.lastIndexOf(endTag)
+				&& (-1 === indexOfStartTagInAfter || indexOfStartTagInAfter > ba.after.indexOf(endTag))
+			);
+		};
+		(function() {
 			var $widgetButton = $(editor.toolbarElements['widget']);
 			cm.on('cursorActivity', function() {
-				var before = getTextFromBeginToCursor(cm.getValue().split("\n"), cm.getCursor());
-				var after = cm.getValue().substring(before.length);
-				var startTag = '{{';
-				var endTag = '}}';
-				var indexOfStartTagInAfter = after.indexOf(startTag);
-				$widgetButton.toggleClass('active',
-					before.lastIndexOf(startTag) > before.lastIndexOf(endTag)
-					&& (-1 === indexOfStartTagInAfter || indexOfStartTagInAfter > after.indexOf(endTag))
-				);
+				$widgetButton.toggleClass('active', areTheCursorOnAWidget());
+			});
+		})();
+		(function() {
+			cm.on('dblclick', function() {});
+		})();
+		/**
+		 * 2016-02-01
+		 * Сначала хотел использовать cm.on('dblclick', function() {});
+		 * однако в режиме preview события CodeMirror не работают,
+		 * поэтому используем для их отлова jQuery.
+		 */
+		(function() {
+			var $wrapper = $(cm.getWrapperElement());
+			/**
+			 * 2016-02-01
+			 * По аналогии с https://github.com/NextStepWebs/simplemde-markdown-editor/blob/1.10.0/src/js/simplemde.js#L460-L465
+			 */
+			var $preview = $wrapper.children('.editor-preview');
+			if (!$preview.length) {
+				//noinspection ReuseOfLocalVariableJS
+				$preview = $('<div>').addClass('editor-preview');
+				$wrapper.append($preview)
+			}
+			$preview.dblclick(function(event) {
+				var el = event.toElement;
+				/**
+				 * 2016-02-01
+				 * https://github.com/NextStepWebs/simplemde-markdown-editor/commit/efc38f43dabf84345fa60811373473862d7a693d
+				 * https://github.com/NextStepWebs/simplemde-markdown-editor#useful-methods
+				 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/1.10.0/src/js/simplemde.js#L1619-L1625
+				 */
+				if (editor.isPreviewActive()
+					&& el
+					&& 'IMG' === el.tagName.toUpperCase()
+					&& el.src
+					&& -1 < el.src.indexOf('Magento_CatalogWidget')
+				) {
+					/**
+					 * 2016-02-01
+					 * Пока эта функциональность не доделана из-за дефекта ядра:
+					 * «Bug: double click on a widget inside TinyMCE editor
+					 * does not edit the widget but creates a new one»
+					 * https://mage2.pro/t/157
+					 * https://github.com/magento/magento2/issues/2238
+					 */
+					openWidgetDialog();
+				}
 			});
 		})();
 		/**
