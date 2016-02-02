@@ -451,24 +451,14 @@ define([
 			.siblings('.fieldset-wrapper-title')
 			.click(function() {setTimeout(function() {cm.refresh();}, 500);})
 		;
-		/** @type {jQuery} HTMLFormElement */
-		var $form = $textarea.closest('form');
 		/**
-		 * 2015-11-02
+		 * 2016-02-03
 		 * Компилируем Markdown в HTML перед отправкой формы на сервер.
-		 * Нам надо подписываться именно на событие beforeSubmit:
-		 * https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/web/mage/backend/form.js#L194-L196
-			if (false !== this._beforeSubmit(e.type, data)) {
-				this.element.trigger('submit', e);
-			}
-		 * https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/web/mage/backend/form.js#L173-L185
-		 * Если вместо beforeSubmit делать нашу обработку на submit, то валидатор сработает раньше,
-		 * и тогда валидатор скажет, что наш textarea пусть,
-		 * потому что наш редактор не обновляет textarea автоматически.
-		 * https://mage2.pro/t/158
 		 */
-		$form.bind('beforeSubmit', function() {
-			$textarea.val(editor.value());
+		var prepareForSubmission = function() {
+			/** @type {String} */
+			var content = editor.value();
+			$textarea.val(content);
 			// По аналогии с https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L355
 			// Наверное, можно использовать и $textarea.val()
 			//
@@ -480,10 +470,9 @@ define([
 			//
 			// editor.options.parent.markdown херит нам код виджетов и медиа, например:
 			// {{widget type=&quot;Magento\CatalogWidget\Block\Product\ProductsList&quot; display_type=&quot;all_products&quot;}}
-			/** @type {String} */
-			var content = editor.value();
 			var widgets = {};
 			var medias = {};
+			//noinspection JSCheckFunctionSignatures
 			content = content.replace(regex.widget, function(widget) {
 				/** @type {Number} */
 				var hash = df.string.hash(widget);
@@ -504,15 +493,44 @@ define([
 				return medias[hash];
 			});
 			$contentCompiled.val(content);
-		});
+		};
+		/** @type {jQuery} HTMLFormElement */
+		var $form = $textarea.closest('form');
+		/**
+		 * 2015-11-02
+		 * Нам надо подписываться именно на событие beforeSubmit:
+		 * https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/web/mage/backend/form.js#L194-L196
+			if (false !== this._beforeSubmit(e.type, data)) {
+				this.element.trigger('submit', e);
+			}
+		 * https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/web/mage/backend/form.js#L173-L185
+		 * Если вместо beforeSubmit делать нашу обработку на submit, то валидатор сработает раньше,
+		 * и тогда валидатор скажет, что наш textarea пусть,
+		 * потому что наш редактор не обновляет textarea автоматически.
+		 * https://mage2.pro/t/158
+		 */
+		$form.bind('beforeSubmit', prepareForSubmission);
 		// 2015-11-11
 		// Вообще говоря, редактор заявляет, что делает это сам,
 		// но у меня почему-то он порой (а может и всегда?) это не делает.
 		// Сбрасывать localStorage надо именно на submit, а не на beforeSubmit,
 		// чтобы сначала сработали валидаторы, а то вдруг валидация не пройдёт,
 		// а localStorage уже уничтожен.
-		if (localStorageId) {
-			$form.submit(function(){localStorage.removeItem(localStorageId);});
-		}
+		var resetLocalStorage = function() {
+			if (localStorageId) {
+				localStorage.removeItem(localStorageId);
+			}
+		};
+		$form.submit(resetLocalStorage);
+		/**
+		 * 2016-02-03
+		 * В свежих версиях Magento 2
+		 * административные экраны самодельных страниц и блоков реализованы как UI Components,
+		 * там нет тега <form>, и поэтому используемый выше метод
+		 * $form.bind('beforeSubmit', ...); не сработает.
+		 * Обрабатываем вместо этого своё событие.
+		 */
+		$(window).bind('dfe.markdown.beforeValidation', prepareForSubmission);
+		$(window).bind('dfe.markdown.afterValidation', resetLocalStorage);
 	});
 });
