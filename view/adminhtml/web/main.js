@@ -530,7 +530,17 @@ define([
 		 * $form.bind('beforeSubmit', ...); не сработает.
 		 * Обрабатываем вместо этого своё событие.
 		 */
-		$(window).bind('dfe.markdown.beforeValidation', prepareForSubmission);
+		$(window).bind('dfe.markdown.beforeValidation', function(event, data) {
+			prepareForSubmission();
+			data[$contentCompiled.attr('name')] = $contentCompiled.val();
+			// 2016-02-03
+			// Не совсем правильно, потому что textarea может иметь сложное имя типа
+			// product[description] и product[short_description],
+			// но пока UI Components в нашем сценарии используются
+			// только на экранах самодельных страниц и блоков,
+			// а там имя простое — «content».
+			data[$textarea.attr('name')] = $textarea.val();
+		});
 		$(window).bind('dfe.markdown.afterValidation', resetLocalStorage);
 	});
 });
