@@ -23,7 +23,9 @@ class Wysiwyg extends Sb {
 	public function beforePrepare(Sb $sb) {
 		if (Settings::s()->enable()) {
 			/** @var \Magento\Framework\Data\Form\Element\Editor $editor */
-			$editor = $sb->editorElement;
+			// 2016-02-18
+			// В предыдущих версиях Magento свойство называлось «editorElement».
+			$editor = $sb->editor;
 			/** @var FormElement $element */
 			$element = df_create(FormElement::class, $editor->getData());
 			$element->setForm($editor->getForm());
