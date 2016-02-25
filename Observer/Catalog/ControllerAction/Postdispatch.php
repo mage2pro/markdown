@@ -7,7 +7,7 @@ use Dfe\Markdown\Observer\Catalog\ControllerAction;
  * 		controller_action_postdispatch_catalog_category_save
  * 		controller_action_postdispatch_catalog_product_save
  * Цель обработки этих событий —
- * сохранение содержимого Markdown после сохранения товара или раздела..
+ * сохранение содержимого Markdown после сохранения товара или раздела.
  *
  * @see \Magento\Framework\App\Action\Action::execute()
  * https://github.com/magento/magento2/blob/16dc76df41fac703b322cc0f9ab3dba43742bbed/lib/internal/Magento/Framework/App/Action/Action.php#L105-L108

@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <config
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd"
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:noNamespaceSchemaLocation='urn:magento:framework:ObjectManager/etc/config.xsd'
 >
 	<!--
 		2015-10-27
@@ -30,5 +30,28 @@
 			name='Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg'
 			type='Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg'
 		/>
+	</type>
+	<!-- 2016-02-25 -->
+	<type name='Magento\Ui\DataProvider\Modifier\Pool'>
+		<arguments>
+			<argument name='modifiers' xsi:type='array'>
+				<item name='dfe_markdown' xsi:type='array'>
+					<item name='class' xsi:type='string'>Dfe\Markdown\Modifier</item>
+					<!--
+						2016-02-26
+						Этот параметр является обязательным.
+						Причём нам надо делать значение большим, чем значение у
+						Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav (10),
+						потому что сначала должен сработать
+						Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav,
+						и лишь затем наш, чтобы мы могли сменить стандартные значения
+						полей «description» и «short_description» на свои.
+						https://mage2.pro/t/775
+						https://github.com/magento/magento2/blob/e0ed4bad/app/code/Magento/Catalog/etc/adminhtml/di.xml#L92-L95
+					-->
+					<item name='sortOrder' xsi:type='number'>11</item>
+				</item>
+			</argument>
+		</arguments>
 	</type>
 </config>

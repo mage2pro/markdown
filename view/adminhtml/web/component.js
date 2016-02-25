@@ -15,6 +15,10 @@ define([
 		 * to its UI component on the client (JavaScript) side?»
 		 * https://mage2.pro/t/769
 		 */
+		// 2016-02-26
+		// На страницах каталога поля «markdown» нет,
+		// там поля «description» и «short_description» уже содержат Markdown
+		// благодаря методу \Dfe\Markdown\Modifier::modifyData()
 		imports: {markdown: '${ $.provider }:${ $.parentScope }.markdown'}
 	},
 
@@ -28,7 +32,13 @@ define([
 		this._super();
 		// 2016-02-21
 		// Надо устанавливать именно value, а не initialValue;
-		this.value(this.markdown);
+		// 2016-02-26
+		// На страницах каталога поля «markdown» нет,
+		// там поля «description» и «short_description» уже содержат Markdown
+		// благодаря методу \Dfe\Markdown\Modifier::modifyData()
+		if (this.markdown) {
+			this.value(this.markdown);
+		}
 		this.dfeConfig = config.dfeConfig;
 		return this;
 	},

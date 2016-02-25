@@ -24,6 +24,15 @@
 //	148|         @@_font-color,
 //	149|         @@_font-family,
 //	150|         @@_font-weight, in main.less
+//
+// 2016-02-22
+// Надо будет потестировать совет Алана Кента:
+// https://github.com/magento/magento2/issues/3288#issuecomment-187022136
+// So instead of
+// @import '../../../source/lib/_responsive.less';
+// Try something like
+// @baseDir: '../../../';
+// @import '@{baseDir}source/lib/_responsive.less';
 .dfe-markdown {
 	// 2015-10-25
 	// В оригинале тут «9».
