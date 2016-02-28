@@ -34,12 +34,25 @@ class Form {
 	 * @param array(string => mixed) $values
 	 * @return array(array(string => mixed))
 	 */
-	public function beforeSetValues(Sb $sb, array $values) {
+	public function beforeSetValues(Sb $sb, $values) {
 		if (Settings::s()->enable()
 			// 2015-11-03
 			// В настоящее время это условие необязательно,
 			// но на будущее оно полезно: мало ли кто и для каких целей заведёт поле «markdown».
 			&& df_action_is('cms_block_edit', 'cms_page_edit')
+			/**
+			 * 2016-02-26
+			 * @see \Magento\Integration\Block\Adminhtml\Integration\Edit\Tab\Info::_prepareForm() method
+			 * does not check whether the $integrationData is null
+			 * and passes it to methods which expect an array
+			 * https://mage2.pro/t/825
+			 * По этой причине убрал «array» из сигнатуры метода.
+			 * Иначе получим сбой:
+			 * «Recoverable Error: Argument 2 passed to
+			 * Dfe\Markdown\Plugin\Framework\Data\Form::beforeSetValues()
+			 * must be of the type array, null given»
+			 */
+			&& $values
 		) {
 			/** @var string $markdown */
  			$markdown = df_a($values, \Dfe\Markdown\Setup\InstallSchema::F__MARKDOWN);
