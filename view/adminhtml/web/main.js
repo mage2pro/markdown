@@ -49,6 +49,12 @@ define([
 	 * https://code.google.com/p/jsdoc-toolkit/wiki/TagParam
 	 */
 	function(config) {
+		/**
+		 * 2016-03-01
+		 * Отключаю на период отладки.
+		 * @type {boolean}
+		 */
+		var enableAutoSave = true;
 		hljs.initHighlightingOnLoad();
 		/** @type {Magento_Cms_Model_Wysiwyg_Config} */
 		var cc = config.core;
@@ -175,7 +181,7 @@ define([
 		};
 		var editor = new SimpleMDE({
 			autofocus: true
-			,autosave: {enabled: !!localStorageId, unique_id: localStorageId}
+			,autosave: {enabled: enableAutoSave && !!localStorageId, unique_id: localStorageId}
 			,element: textarea
 			/**
 			 * 2015-11-02
