@@ -54,7 +54,7 @@ abstract class ControllerAction implements ObserverInterface {
 				/** @var string $keyCustom */
 				$keyCustom = $key . $this->suffix();
 				/** @var string|null $valueCustom */
-				$valueCustom = df_a($post, $keyCustom);
+				$valueCustom = dfa($post, $keyCustom);
 				if ($valueCustom) {
 					$this->handleCustomValue($post, $key);
 					$keysToUnset[]= $keyCustom;
