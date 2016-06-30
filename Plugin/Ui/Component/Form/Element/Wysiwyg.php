@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\Markdown\Plugin\Ui\Component\Form\Element;
-use Df\Framework\Data\Form\Element\Editor;
+use Df\Framework\Form\Element\Editor;
 use Dfe\Markdown\FormElement;
 use Dfe\Markdown\Settings;
 use Magento\Ui\Component\Form\Element\Wysiwyg as Sb;
