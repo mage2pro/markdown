@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <config
-    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:noNamespaceSchemaLocation='urn:magento:module:Magento_Config:etc/system_file.xsd'
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="urn:magento:module:Df_Config:etc/system_file.xsd"
 >
     <system>
         <section
@@ -35,6 +35,8 @@
                 showInStore='1'
             >
                 <label>Markdown</label>
+                <dfExtension>Dfe\Markdown\Ext</dfExtension>
+            	<frontend_model>Df\Config\Block\System\Config\Form\Fieldset\Ext</frontend_model>
                 <field
                     id='enable'
                     translate='label'
