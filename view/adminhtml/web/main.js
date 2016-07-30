@@ -190,7 +190,7 @@ define([
 			 * https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L912
 			 *
 			 * По хорошему, надо сделать интеграцию с Grammarly:
-			 * http://code.dmitry-fedyuk.com/m2m/plan/issues/33
+			 * https://code.dmitry-fedyuk.com/m2m/plan/issues/33
 			 */
 			,spellChecker: false
 			,renderingConfig: {codeSyntaxHighlighting: true}
