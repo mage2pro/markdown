@@ -61,7 +61,7 @@ define([
 	 */
 	validate: function() {
 		$(window).trigger('dfe.markdown.beforeValidation', this.source.data);
-		var result =  this._super();
+		var result = this._super();
 		if (result.valid) {
 			$(window).trigger('dfe.markdown.afterValidation');
 		}
