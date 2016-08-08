@@ -4,7 +4,7 @@
 define([
 	'jquery'
 	, 'df'
-	, 'underscore'
+	, 'df-lodash'
 	, 'Dfe_Markdown/SimpleMDE'
 	, 'Df_Core/HighlightJs'
 	// https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/browser.js
@@ -85,7 +85,7 @@ define([
 			return (
 				-1 === index
 				? name + config.suffixForCompiled
-				: df.string.splice(name, index, config.suffixForCompiled)
+				: df.s.splice(name, index, config.suffixForCompiled)
 			);
 		}());
 		$textarea.after($contentCompiled);
@@ -118,7 +118,7 @@ define([
 		 	});
 		 *
 		 * 2015-11-02
-		 * Сделал unique_id: textarea.id + df.string.hash(location.href)
+		 * Сделал unique_id: textarea.id + df.s.hash(location.href)
 		 * чтобы редакторы разных объектов (например, разных самодельных страниц)
 		 * имели разные идентификаторы.
 		 *
@@ -128,7 +128,7 @@ define([
 		 *
 		 * 2015-11-05
 		 * Раньше алгоритм был:
-		 * unique_id: textarea.id + df.string.hash(location.href.split('#')[0])}
+		 * unique_id: textarea.id + df.s.hash(location.href.split('#')[0])}
 		 * Оказалось, что полагаться на адрес не совсем верно,
 		 * потому что на странице редактирования товара адреса могут быть разными
 		 * для одного и того же товара, например:
@@ -260,9 +260,9 @@ define([
 				}
 				if (cc.add_variables) {
 					// 2015-10-31
-					// http://underscorejs.org/#findWhere
+					// https://lodash.com/docs#find
 					/** @type {Object} */
-					var pluginVariable = _.findWhere(cc.plugins, {name: 'magentovariable'}).options;
+					var pluginVariable = _.find(cc.plugins, {name: 'magentovariable'}).options;
 					result.push( {
 						className: 'fa fa-at'
 						,name: 'variable'
@@ -481,13 +481,13 @@ define([
 			//noinspection JSCheckFunctionSignatures
 			content = content.replace(regex.widget, function(widget) {
 				/** @type {Number} */
-				var hash = df.string.hash(widget);
+				var hash = df.s.hash(widget);
 				widgets[hash] = widget;
 				return 'widget-{' + hash + '}';
 			});
 			content = content.replace(regex.media, function(media) {
 				/** @type {Number} */
-				var hash = df.string.hash(media);
+				var hash = df.s.hash(media);
 				medias[hash] = media;
 				return 'media-{' + hash + '}';
 			});
