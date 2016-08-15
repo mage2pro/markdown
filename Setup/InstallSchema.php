@@ -1,16 +1,14 @@
 <?php
 namespace Dfe\Markdown\Setup;
-use Df\Framework\SetupA;
-use Magento\Framework\DB\Ddl\Table;
-class InstallSchema extends SetupA\InstallSchema {
+class InstallSchema extends \Df\Framework\SetupA\Schema {
 	/**
 	 * 2015-10-23
 	 * @override
-	 * @see \Df\Framework\SetupA\InstallSchema::_install()  
-	 * @used-by \Df\Framework\SetupA\InstallSchema::install()
+	 * @see \Df\Framework\SetupA\Schema::_process()
+	 * @used-by \Df\Framework\SetupA\Schema::process()
 	 * @return void
 	 */
-	protected function _install() {
+	protected function _process() {
 		$this->createTableEav(self::TABLE_CATEGORY, 'catalog_category_entity_text');
 		$this->createTableEav(self::TABLE_PRODUCT, 'catalog_product_entity_text');
 		$this->c()->addColumn(df_table('cms_block'), self::F__MARKDOWN, 'text');
