@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\Markdown;
 /** @method static Settings s() */
-class Settings extends \Df\Core\Settings {
+final class Settings extends \Df\Core\Settings {
 	/**
 	 * @override
 	 * @see \Df\Core\Settings::prefix()
