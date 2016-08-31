@@ -105,7 +105,7 @@ class DbRecord extends \Df\Core\O {
 	 */
 	protected function _construct() {
 		parent::_construct();
-		$this->_prop(self::$P__ATTRIBUTE_CODE, RM_V_STRING_NE);
+		$this->_prop(self::$P__ATTRIBUTE_CODE, DF_V_STRING_NE);
 	}
 
 	/**
