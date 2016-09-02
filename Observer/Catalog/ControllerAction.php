@@ -61,7 +61,7 @@ abstract class ControllerAction implements ObserverInterface {
 				}
 			}
 		}
-		return array_diff_key($post, array_flip($keysToUnset));
+		return dfa_unset($post, $keysToUnset);
 	}
 
 	const MARKDOWN_SUFFIX = '_markdown';

@@ -1,6 +1,6 @@
 {
 	"name": "mage2pro/markdown"
-	,"version": "1.0.6"
+	,"version": "1.0.7"
 	,"description": "The «Markdown» extension."
 	,"type": "magento2-module"
 	,"homepage": "https://mage2.pro/t/160"
@@ -11,6 +11,6 @@
 		"homepage": "https://mage2.pro/users/dmitry_fedyuk",
 		"role": "Developer"
 	}]
-	,"require": {"mage2pro/core": "^1.7.25"}
+	,"require": {"mage2pro/core": "^1.7.28"}
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Dfe\\Markdown\\": ""}}
 }
