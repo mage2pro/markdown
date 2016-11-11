@@ -289,7 +289,7 @@ define([
 		var cm = editor.codemirror;
 		/**
 		 * 2016-02-01
-		 * @return {Object}
+		 * @returns {Object}
 		 */
 		var getTextBeforeAndAfterTheCursor = function() {
 			/**
@@ -310,7 +310,7 @@ define([
 		};
 		/**
 		 * 2016-02-01
-		 * @return {Boolean}
+		 * @returns {Boolean}
 		 */
 		var areTheCursorOnAWidget = function() {
 			var ba = getTextBeforeAndAfterTheCursor();

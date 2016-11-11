@@ -378,7 +378,7 @@ Typo.prototype = {
 	 * Removes comment lines and then cleans up blank lines and trailing whitespace.
 	 *
 	 * @param {String} data The data from an affix file.
-	 * @return {String} The cleaned-up data.
+	 * @returns {String} The cleaned-up data.
 	 */
 	
 	_removeAffixComments : function (data) {
@@ -489,7 +489,7 @@ Typo.prototype = {
 	 * Removes comment lines and then cleans up blank lines and trailing whitespace.
 	 *
 	 * @param {String} data The data from a .dic file.
-	 * @return {String} The cleaned-up data.
+	 * @returns {String} The cleaned-up data.
 	 */
 	
 	_removeDicComments : function (data) {
@@ -677,7 +677,7 @@ Typo.prototype = {
 	 *
 	 * @param {String} word The word in question.
 	 * @param {String} flag The flag in question.
-	 * @return {Boolean}
+	 * @returns {Boolean}
 	 */
 	 
 	hasFlag : function (word, flag, wordFlags) {
