@@ -125,20 +125,12 @@ class FormElement extends Textarea {
 				 * http://stackoverflow.com/questions/8349571
 				 * http://stackoverflow.com/questions/17086538
 				 */
-				$result .= df_x_magento_init($this->js(), $this->config());
+				$result .= df_x_magento_init(__CLASS__, 'main', $this->config());
 			}
 			$this->{__METHOD__} = $result;
 		}
 		return $this->{__METHOD__};
 	}
-
-	/**
-	 * 2016-01-06
-	 * @used-by \Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg::beforePrepare()
-	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
-	 * @return string
-	 */
-	public function js() {return 'Dfe_Markdown/main';}
 
 	/**
 	 * 2016-01-08
