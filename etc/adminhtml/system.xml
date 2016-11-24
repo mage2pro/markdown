@@ -3,54 +3,54 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="urn:magento:module:Df_Config:etc/system_file.xsd"
 >
-    <system>
-        <section
-            id='df_backend'
-            translate='label'
-            type='text'
-            showInDefault='1'
-            showInWebsite='1'
-            showInStore='1'
-        >
-            <tab>_df</tab>
-            <label>Backend</label>
-            <class>separator-top</class>
-            <!--
-                2015-10-05
-                https://mage2.pro/t/114
-            -->
-            <resource>Df_Backend::config</resource>
-            <!--
-                2015-09-25
-                Первые 2 цифры sortOrder соответствуют порядковому номеру первой буквы модуля
-                в английском алфавите: https://en.wikipedia.org/wiki/English_alphabet
-            -->
-            <group
-                id='markdown'
-                translate='label'
-                type='text'
-                sortOrder='13'
-                showInDefault='1'
-                showInWebsite='1'
-                showInStore='1'
-            >
-                <label>Markdown</label>
-                <dfExtension>Dfe\Markdown\Ext</dfExtension>
-            	<frontend_model>Df\Config\Block\System\Config\Form\Fieldset\Ext</frontend_model>
-                <field
-                    id='enable'
-                    translate='label'
-                    type='Df\Framework\Form\Element\Checkbox'
-                    sortOrder='1'
-                    showInDefault='1'
-                    showInWebsite='0'
-                    showInStore='0'
-                >
-                    <label>Enable?</label>
+	<system>
+		<section
+			id='df_backend'
+			translate='label'
+			type='text'
+			showInDefault='1'
+			showInWebsite='1'
+			showInStore='1'
+		>
+			<tab>_df</tab>
+			<label>Backend</label>
+			<class>separator-top</class>
+<!--
+2015-10-05
+https://mage2.pro/t/114
+-->
+			<resource>Df_Backend::config</resource>
+<!--
+2015-09-25
+Первые 2 цифры sortOrder соответствуют порядковому номеру первой буквы модуля
+в английском алфавите: https://en.wikipedia.org/wiki/English_alphabet
+-->
+			<group
+				id='markdown'
+				translate='label'
+				type='text'
+				sortOrder='13'
+				showInDefault='1'
+				showInWebsite='1'
+				showInStore='1'
+			>
+				<label>Markdown</label>
+				<dfExtension>Dfe\Markdown\Ext</dfExtension>
+				<frontend_model>Df\Config\Block\System\Config\Form\Fieldset\Ext</frontend_model>
+				<field
+					id='enable'
+					translate='label'
+					type='Df\Framework\Form\Element\Checkbox'
+					sortOrder='1'
+					showInDefault='1'
+					showInWebsite='0'
+					showInStore='0'
+				>
+					<label>Enable?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-                    <comment><![CDATA[Enable Markdown Editor? See the <a href='https://mage2.pro/t/160'>documentation</a>.]]></comment>
-                </field>
-            </group>
-        </section>
-    </system>
+					<comment><![CDATA[Enable Markdown Editor? See the <a href='https://mage2.pro/t/160'>documentation</a>.]]></comment>
+				</field>
+			</group>
+		</section>
+	</system>
 </config>
