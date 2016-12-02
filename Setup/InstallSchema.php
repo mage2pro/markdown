@@ -1,11 +1,11 @@
 <?php
 namespace Dfe\Markdown\Setup;
-class InstallSchema extends \Df\Framework\SetupA\Schema {
+class InstallSchema extends \Df\Framework\Install\Schema {
 	/**
 	 * 2015-10-23
 	 * @override
-	 * @see \Df\Framework\SetupA\Schema::_process()
-	 * @used-by \Df\Framework\SetupA\Schema::process()
+	 * @see \Df\Framework\Install::_process()
+	 * @used-by \Df\Framework\Install::process()
 	 * @return void
 	 */
 	protected function _process() {
