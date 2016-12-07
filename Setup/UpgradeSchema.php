@@ -1,22 +1,24 @@
 <?php
 namespace Dfe\Markdown\Setup;
-class InstallSchema extends \Df\Framework\Install\Schema {
+class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	/**
 	 * 2015-10-23
 	 * @override
-	 * @see \Df\Framework\Install::_process()
-	 * @used-by \Df\Framework\Install::process()
+	 * @see \Df\Framework\Upgrade::_process()
+	 * @used-by \Df\Framework\Upgrade::process()
 	 * @return void
 	 */
 	protected function _process() {
-		$this->createTableEav(self::TABLE_CATEGORY, 'catalog_category_entity_text');
-		$this->createTableEav(self::TABLE_PRODUCT, 'catalog_product_entity_text');
-		/**
-		 * 2016-11-04
-		 * У нас теперь также есть функция @see df_db_column_add()
-		 */
-		$this->c()->addColumn(df_table('cms_block'), self::F__MARKDOWN, 'text');
-		$this->c()->addColumn(df_table('cms_page'), self::F__MARKDOWN, 'text');
+		if ($this->isInitial()) {
+			$this->createTableEav(self::TABLE_CATEGORY, 'catalog_category_entity_text');
+			$this->createTableEav(self::TABLE_PRODUCT, 'catalog_product_entity_text');
+			/**
+			 * 2016-11-04
+			 * У нас теперь также есть функция @see df_db_column_add()
+			 */
+			$this->c()->addColumn(df_table('cms_block'), self::F__MARKDOWN, 'text');
+			$this->c()->addColumn(df_table('cms_page'), self::F__MARKDOWN, 'text');
+		}
 	}
 
 	/**
@@ -90,7 +92,7 @@ class InstallSchema extends \Df\Framework\Install\Schema {
 	const F__MARKDOWN = 'markdown';
 	/**
 	 * 2015-11-04
-	 * @used-by \Dfe\Markdown\Setup\InstallSchema::createTableEav()
+	 * @used-by \Dfe\Markdown\Setup\UpgradeSchema::createTableEav()
 	 * @used-by \Dfe\Markdown\CatalogAction::markdownSave()
 	 */
 	const F__ID = 'value_id';

@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\Markdown\CatalogAction;
 use Dfe\Markdown\CatalogAction;
-use Dfe\Markdown\Setup\InstallSchema;
+use Dfe\Markdown\Setup\UpgradeSchema;
 class DbRecord extends \Df\Core\O {
 	/** @return string */
 	private function attributeCode() {return $this[self::$P__ATTRIBUTE_CODE];}
@@ -11,7 +11,7 @@ class DbRecord extends \Df\Core\O {
 	 * @used-by \Dfe\Markdown\Observer\Catalog\PrepareForm::execute()
 	 * @return string|null
 	 */
-	private function _load() {return $this->fetch(InstallSchema::F__MARKDOWN);}
+	private function _load() {return $this->fetch(UpgradeSchema::F__MARKDOWN);}
 
 	/**
 	 * 2015-11-04
@@ -20,17 +20,17 @@ class DbRecord extends \Df\Core\O {
 	 */
 	private function _save($value) {
 		/** @var int $id */
-		$id = $this->fetch(InstallSchema::F__ID);
+		$id = $this->fetch(UpgradeSchema::F__ID);
 		if ($id) {
 			df_conn()->update($this->markdownTable()
-				, [InstallSchema::F__MARKDOWN => $value]
-				, ['? = ' . InstallSchema::F__ID => $id]
+				,[UpgradeSchema::F__MARKDOWN => $value]
+				,['? = ' . UpgradeSchema::F__ID => $id]
 			);
 		}
 		else {
 			df_conn()->insert($this->markdownTable(), [
-				InstallSchema::F__ID => $this->valueId()
-				, InstallSchema::F__MARKDOWN => $value
+				UpgradeSchema::F__ID => $this->valueId()
+				,UpgradeSchema::F__MARKDOWN => $value
 			]);
 		}
 	}
@@ -43,7 +43,7 @@ class DbRecord extends \Df\Core\O {
 		return
 			!$this->valueId()
 			? null
-			: df_fetch_one($this->markdownTable(), $column, [InstallSchema::F__ID => $this->valueId()])
+			: df_fetch_one($this->markdownTable(), $column, [UpgradeSchema::F__ID => $this->valueId()])
 		;
 	}
 
@@ -72,8 +72,8 @@ class DbRecord extends \Df\Core\O {
 	}
 
 	/**
-	 * @use InstallSchema::TABLE_CATEGORY
-	 * @use InstallSchema::TABLE_PRODUCT
+	 * @uses \Dfe\Markdown\Setup\UpgradeSchema::TABLE_CATEGORY
+	 * @uses \Dfe\Markdown\Setup\UpgradeSchema::TABLE_PRODUCT
 	 * @return string
 	 */
 	private function markdownTable() {

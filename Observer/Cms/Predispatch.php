@@ -41,7 +41,7 @@ class Predispatch implements ObserverInterface {
 			// Перетасовываем данные только при их наличии.
 			// Мало ли что...
 			if ($html) {
-				$post[\Dfe\Markdown\Setup\InstallSchema::F__MARKDOWN] = $post['content'];
+				$post[\Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN] = $post['content'];
 				$post['content'] = $html;
 			}
 		}

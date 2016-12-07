@@ -55,7 +55,7 @@ class Form {
 			&& $values
 		) {
 			/** @var string $markdown */
- 			$markdown = dfa($values, \Dfe\Markdown\Setup\InstallSchema::F__MARKDOWN);
+ 			$markdown = dfa($values, \Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN);
 			// Важное условие!
 			// Замещаем HTML на Markdown только при наличии Markdown,
 			// иначе ведь администратор мог редактировать ранее статью в обычном редакторе,
