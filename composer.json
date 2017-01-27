@@ -1,7 +1,7 @@
 {
 	"name": "mage2pro/markdown"
 	,"version": "1.0.13"
-	,"description": "The «Markdown» extension."
+	,"description": "The «Markdown» extension for Magento 2."
 	,"type": "magento2-module"
 	,"homepage": "https://mage2.pro/t/160"
 	,"license": "proprietary"
