@@ -10,7 +10,7 @@ class Wysiwyg extends Sb {
 	 * @override
 	 * @see \Magento\Ui\Component\Form\Element\Wysiwyg::__construct()
 	 */
-	public function __construct() {}
+	function __construct() {}
 
 	/**
 	 * 2016-01-06
@@ -20,7 +20,7 @@ class Wysiwyg extends Sb {
 	 * @param Sb $sb
 	 * @return void
 	 */
-	public function beforePrepare(Sb $sb) {
+	function beforePrepare(Sb $sb) {
 		if (Settings::s()->enable()) {
 			/** @var \Magento\Framework\Data\Form\Element\Editor $editor */
 			// 2016-02-18

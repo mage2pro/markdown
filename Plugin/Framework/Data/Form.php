@@ -34,7 +34,7 @@ class Form {
 	 * @param array(string => mixed) $values
 	 * @return array(array(string => mixed))
 	 */
-	public function beforeSetValues(Sb $sb, $values) {
+	function beforeSetValues(Sb $sb, $values) {
 		if (Settings::s()->enable()
 			// 2015-11-03
 			// В настоящее время это условие необязательно,

@@ -23,7 +23,7 @@ class FormElement extends Textarea {
 	 * https://github.com/magento/magento2/blob/c58d2d/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L103-L121
 	 * @return string
 	 */
-	public function componentHtml() {
+	function componentHtml() {
 		if (!isset($this->{__METHOD__})) {
 			$this->{__METHOD__} = df_tag('textarea', [
 				 'class' => ['textarea', $this->getClass()]
@@ -42,7 +42,7 @@ class FormElement extends Textarea {
 	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
 	 * @return array(mixed => mixed)
 	 */
-	public function config() {
+	function config() {
 		if (!isset($this->{__METHOD__})) {
 			$this->{__METHOD__} = [
 				// 2015-11-04
@@ -85,7 +85,7 @@ class FormElement extends Textarea {
 	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
 	 * @return bool
 	 */
-	public function enabled() {
+	function enabled() {
 		if (!isset($this->{__METHOD__})) {
 			/** @var \Magento\Eav\Model\Entity\Attribute\AbstractAttribute|null $a */
 			$a = $this['entity_attribute'];
@@ -108,7 +108,7 @@ class FormElement extends Textarea {
 	 * is sometimes computation expensive
 	 * but called by the core multiple times for the same for element without caching»
 	 */
-	public function getAfterElementHtml() {
+	function getAfterElementHtml() {
 		if (!isset($this->{__METHOD__})) {
 			/** http://stackoverflow.com/a/8212262 */
 			/** @var string $result */

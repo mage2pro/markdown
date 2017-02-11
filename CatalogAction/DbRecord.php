@@ -59,10 +59,10 @@ class DbRecord extends \Df\Core\O {
 	}
 
 	/** @return string */
-	public function entityType() {return CatalogAction::s()->entityType();}
+	function entityType() {return CatalogAction::s()->entityType();}
 
 	/** @return int */
-	public function entityTypeId() {
+	function entityTypeId() {
 		if (!isset($this->{__METHOD__})) {
 			$this->{__METHOD__} =
 				df_eav_config()->getEntityType('catalog_' . $this->entityType())->getId()

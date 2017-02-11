@@ -40,7 +40,7 @@ class ElementTypes implements ObserverInterface {
 	 * @param O $o
 	 * @return void
 	 */
-	public function execute(O $o) {
+	function execute(O $o) {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
 			$o['response']['types'] = ['textarea' => \Dfe\Markdown\FormElement::class];
 		}

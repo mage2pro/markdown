@@ -38,7 +38,7 @@ class PrepareForm implements ObserverInterface {
 	 * @param O $o
 	 * @return void
 	 */
-	public function execute(O $o) {
+	function execute(O $o) {
 		if (CatalogAction::s()->entityId() && \Dfe\Markdown\Settings::s()->enable()) {
 			/** @var \Magento\Framework\Data\Form $form */
 			$form = $o['form'];

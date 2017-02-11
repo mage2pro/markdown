@@ -5,7 +5,7 @@ class CatalogAction {
 	 * @used-by \Dfe\Markdown\Observer\Catalog\PrepareForm::execute()
 	 * @return int
 	 */
-	public function entityId() {
+	function entityId() {
 		/**
 		 * 2015-11-04
 		 * Раньше здесь стоял код df_request('id'), однако он ошибочен,
@@ -31,7 +31,7 @@ class CatalogAction {
 	}
 
 	/** @return string */
-	public function entityType() {
+	function entityType() {
 		if (!isset($this->{__METHOD__})) {
 			$this->{__METHOD__} = explode('_', df_action_name())[1];
 		}

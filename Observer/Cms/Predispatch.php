@@ -26,7 +26,7 @@ class Predispatch implements ObserverInterface {
 	 * @param O $o
 	 * @return void
 	 */
-	public function execute(O $o) {
+	function execute(O $o) {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
 			/** @var \Magento\Framework\App\RequestInterface|\Magento\Framework\App\Request\Http $request */
 			$request = $o['request'];

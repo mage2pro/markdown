@@ -18,7 +18,7 @@ class AbstractForm {
 	 * @param bool|string|null $after [optional]
 	 * @return mixed[]
 	 */
-	public function beforeAddField(Sb $sb, $elementId, $type, $config, $after = false) {
+	function beforeAddField(Sb $sb, $elementId, $type, $config, $after = false) {
 		if ('editor' === $type && Settings::s()->enable()
 			/**
 			 * 2015-11-03

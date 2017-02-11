@@ -16,7 +16,7 @@ class Modifier extends AbstractModifier {
 	 * @param array(string => mixed) $data
 	 * @return array(string => mixed) $data
 	 */
-	public function modifyData(array $data) {return
+	function modifyData(array $data) {return
 		!Settings::s()->enable() ? $data : array_replace_recursive($data, [
 			df_catalog_locator()->getProduct()->getId() => [
 				self::DATA_SOURCE_DEFAULT => df_clean([
@@ -35,7 +35,7 @@ class Modifier extends AbstractModifier {
 	 * @param array(string => mixed) $meta
 	 * @return array(string => mixed) $meta
 	 */
-	public function modifyMeta(array $meta) {return $meta;}
+	function modifyMeta(array $meta) {return $meta;}
 }
 
 
