@@ -113,7 +113,7 @@ class DbRecord extends \Df\Core\O {
 	 * @param string $attributeCode
 	 * @return string|null
 	 */
-	public static function load($attributeCode) {return self::i($attributeCode)->_load();}
+	static function load($attributeCode) {return self::i($attributeCode)->_load();}
 
 	/**
 	 * @used-by \Dfe\Markdown\Observer\ControllerAction\Catalog\Postdispatch::handleCustomValue()
@@ -121,7 +121,7 @@ class DbRecord extends \Df\Core\O {
 	 * @param string $value
 	 * @return void
 	 */
-	public static function save($attributeCode, $value) {self::i($attributeCode)->_save($value);}
+	static function save($attributeCode, $value) {self::i($attributeCode)->_save($value);}
 
 	/**
 	 * @param string $attributeCode
