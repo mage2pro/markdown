@@ -31,12 +31,7 @@ class CatalogAction {
 	}
 
 	/** @return string */
-	function entityType() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = explode('_', df_action_name())[1];
-		}
-		return $this->{__METHOD__};
-	}
+	function entityType() {return dfc($this, function() {return explode('_', df_action_name())[1];});}
 
 	/** @return self */
 	static function s() {static $r; return $r ? $r : $r = new self;}

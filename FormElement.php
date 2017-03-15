@@ -42,42 +42,37 @@ class FormElement extends Textarea {
 	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
 	 * @return array(mixed => mixed)
 	 */
-	function config() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = [
-				// 2015-11-04
-				// Нужно нам для идентификации страницы.
-				// Идентификация страницы нужна нам
-				// для правильного кэширования содержимого редактора в Local Storage.
-				'action' => df_action_name()
-				,'core' => df_wysiwyg_config()->getConfig()->getData()
-				/**
-				 * 2015-10-26
-				 * На странице товарного раздела
-				 * textarea имеет идентификатор «group4_description»,
-				 * где «description» — это $this['html_id'], а «group4_» — это префикс.
-				 * Для инициализации редактора нам нужен полный идентификатор,
-				 * а для стилизации — наоборот, краткий
-				 * (который, кстати, совпадает с кратким именем: значением атрибута «name»).
-				 */
-				,'cssClass' => $this['name']
-				,'id' => $this->getHtmlId()
-				/**
-				 * 2015-10-30
-				 * По аналогии с
-				 * @see \Magento\Cms\Helper\Wysiwyg\Images::getImageHtmlDeclaration()
-				 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Helper/Wysiwyg/Images.php#L170
-				 * https://mage2.pro/t/153
-				 */
-				,'mediaBaseURL' => df_media_url()
-				// 2015-11-02
-				// Суффикс скрытого элемента формы,
-				// который будет содержать результат компиляции из Markdown в HTML.
-				,'suffixForCompiled' => self::HTML_COMPILED
-			];
-		}
-		return $this->{__METHOD__};
-	}
+	function config() {return dfc($this, function() {return [
+		// 2015-11-04
+		// Нужно нам для идентификации страницы.
+		// Идентификация страницы нужна нам
+		// для правильного кэширования содержимого редактора в Local Storage.
+		'action' => df_action_name()
+		,'core' => df_wysiwyg_config()->getConfig()->getData()
+		/**
+		 * 2015-10-26
+		 * На странице товарного раздела
+		 * textarea имеет идентификатор «group4_description»,
+		 * где «description» — это $this['html_id'], а «group4_» — это префикс.
+		 * Для инициализации редактора нам нужен полный идентификатор,
+		 * а для стилизации — наоборот, краткий
+		 * (который, кстати, совпадает с кратким именем: значением атрибута «name»).
+		 */
+		,'cssClass' => $this['name']
+		,'id' => $this->getHtmlId()
+		/**
+		 * 2015-10-30
+		 * По аналогии с
+		 * @see \Magento\Cms\Helper\Wysiwyg\Images::getImageHtmlDeclaration()
+		 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Helper/Wysiwyg/Images.php#L170
+		 * https://mage2.pro/t/153
+		 */
+		,'mediaBaseURL' => df_media_url()
+		// 2015-11-02
+		// Суффикс скрытого элемента формы,
+		// который будет содержать результат компиляции из Markdown в HTML.
+		,'suffixForCompiled' => self::HTML_COMPILED
+	];});}
 
 	/**
 	 * 2016-01-06
