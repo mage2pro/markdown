@@ -25,14 +25,14 @@ use Magento\Framework\Event\ObserverInterface;
  *
  * @see \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attributes::_getAdditionalElementTypes()
  * https://github.com/magento/magento2/blob/0be91a56d050791ac0b67a47185d79df31e79329/app/code/Magento/Catalog/Block/Adminhtml/Product/Edit/Tab/Attributes.php#L151
-	$response = new \Magento\Framework\DataObject();
-	$response->setTypes([]);
-	$this->_eventManager->dispatch(
-		'adminhtml_catalog_product_edit_element_types', ['response' => $response]
-	);
+ *	$response = new \Magento\Framework\DataObject();
+ *	$response->setTypes([]);
+ *	$this->_eventManager->dispatch(
+ *		'adminhtml_catalog_product_edit_element_types', ['response' => $response]
+ *	);
  * https://3v4l.org/UidhW
  */
-class ElementTypes implements ObserverInterface {
+final class ElementTypes implements ObserverInterface {
 	/**
 	 * @override
 	 * @see ObserverInterface::execute()

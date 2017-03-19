@@ -21,14 +21,14 @@ use Magento\Framework\Event\ObserverInterface;
  * Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
  * на административной странице товара.
  * https://github.com/magento/magento2/blob/c743dec47b2e5de036eb5638fec44a54bfb31040/app/code/Magento/Catalog/Block/Adminhtml/Product/Edit/Tab/Attributes.php#L124-L126
-	$form->addValues($values);
-	$form->setFieldNameSuffix('product');
-	$this->_eventManager->dispatch(
-		'adminhtml_catalog_product_edit_prepare_form',
-		['form' => $form, 'layout' => $this->getLayout()]
-	);
+ *	$form->addValues($values);
+ *	$form->setFieldNameSuffix('product');
+ *	$this->_eventManager->dispatch(
+ *		'adminhtml_catalog_product_edit_prepare_form',
+ *		['form' => $form, 'layout' => $this->getLayout()]
+ *	);
  */
-class PrepareForm implements ObserverInterface {
+final class PrepareForm implements ObserverInterface {
 	/**
 	 * @override
 	 * @see ObserverInterface::execute()

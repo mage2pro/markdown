@@ -5,7 +5,7 @@ use Magento\Framework\Event\ObserverInterface;
 abstract class ControllerAction implements ObserverInterface {
 	/**
 	 * 2015-11-04
-	 * @used-by \Dfe\Markdown\Observer\ControllerAction\Catalog::processPost()
+	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
 	 * @return void
@@ -14,7 +14,7 @@ abstract class ControllerAction implements ObserverInterface {
 
 	/**
 	 * 2015-11-04
-	 * @used-by \Dfe\Markdown\Observer\ControllerAction\Catalog::processPost()
+	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
 	 * @return string
 	 */
 	abstract protected function suffix();

@@ -13,12 +13,12 @@ use Magento\Framework\Event\ObserverInterface;
  *
  * @see \Magento\Framework\App\Action\Action::execute()
  * https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/internal/Magento/Framework/App/Action/Action.php#L93-L96
-	$this->_eventManager->dispatch(
-		'controller_action_predispatch_' . $request->getFullActionName(),
-		$eventParameters
-	);
+ *	$this->_eventManager->dispatch(
+ *		'controller_action_predispatch_' . $request->getFullActionName(),
+ *		$eventParameters
+ *	);
  */
-class Predispatch implements ObserverInterface {
+final class Predispatch implements ObserverInterface {
 	/**
 	 * @override
 	 * @see ObserverInterface::execute()
