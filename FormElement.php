@@ -26,8 +26,7 @@ class FormElement extends Textarea {
 	function componentHtml() {
 		if (!isset($this->{__METHOD__})) {
 			$this->{__METHOD__} = df_tag('textarea', [
-				 'class' => ['textarea', $this->getClass()]
-				 ,'title' => $this->getTitle()
+				 'class' => ['textarea', $this->getClass()], 'title' => $this->getTitle()
 			] + df_fe_attrs($this), $this->getEscapedValue());
 			if ($this->enabled()) {
 				$this->{__METHOD__} .= $this->css();
@@ -143,8 +142,9 @@ class FormElement extends Textarea {
 	 * 2015-11-02
 	 * Суффикс скрытого элемента формы,
 	 * который будет содержать результат компиляции из Markdown в HTML.
-	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
-	 * @used-by \Dfe\Markdown\Observer\CmsPagePrepareSave::execute()
+	 * @used-by config()
+	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch::suffix()
+	 * @used-by \Dfe\Markdown\Observer\Cms\Predispatch::execute()
 	 */
 	const HTML_COMPILED = '_html_compiled';
 }

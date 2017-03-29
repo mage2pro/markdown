@@ -23,8 +23,8 @@ class Predispatch extends ControllerAction {
 	/**
 	 * 2015-11-04
 	 * @override
-	 * @see \Dfe\Markdown\Observer\ControllerAction\Catalog::handleCustomValue()
-	 * @used-by \Dfe\Markdown\Observer\ControllerAction\Catalog::processPost()
+	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction::handleCustomValue()
+	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
 	 * @return void
@@ -43,8 +43,8 @@ class Predispatch extends ControllerAction {
 	/**
 	 * 2015-11-04
 	 * @override
-	 * @see \Dfe\Markdown\Observer\ControllerAction\Catalog::suffix()
-	 * @used-by \Dfe\Markdown\Observer\ControllerAction\Catalog::processPost()
+	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction::suffix()
+	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
 	 * @return string
 	 */
 	protected function suffix() {return \Dfe\Markdown\FormElement::HTML_COMPILED;}
