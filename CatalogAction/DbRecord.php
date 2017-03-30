@@ -16,7 +16,6 @@ class DbRecord extends \Df\Core\O {
 	/**
 	 * 2015-11-04
 	 * @param string $value
-	 * @return void
 	 */
 	private function _save($value) {
 		/** @var int $id */
@@ -100,8 +99,8 @@ class DbRecord extends \Df\Core\O {
 	}
 
 	/**
-	 * @override
-	 * @return void
+	 * @override 
+	 * @see \Df\Core\O::_construct()
 	 */
 	protected function _construct() {
 		parent::_construct();
@@ -119,7 +118,6 @@ class DbRecord extends \Df\Core\O {
 	 * @used-by \Dfe\Markdown\Observer\ControllerAction\Catalog\Postdispatch::handleCustomValue()
 	 * @param string $attributeCode
 	 * @param string $value
-	 * @return void
 	 */
 	static function save($attributeCode, $value) {self::i($attributeCode)->_save($value);}
 

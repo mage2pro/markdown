@@ -18,7 +18,6 @@ class Wysiwyg extends Sb {
 	 * @see \Magento\Ui\Component\Form\Element\Wysiwyg::prepare()
 	 * https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/AbstractComponent.php#L83-L113
 	 * @param Sb $sb
-	 * @return void
 	 */
 	function beforePrepare(Sb $sb) {
 		if (Settings::s()->enable()) {

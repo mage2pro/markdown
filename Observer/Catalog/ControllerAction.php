@@ -8,7 +8,6 @@ abstract class ControllerAction implements ObserverInterface {
 	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
-	 * @return void
 	 */
 	abstract protected function handleCustomValue(array &$post, $shortKey);
 
@@ -24,7 +23,6 @@ abstract class ControllerAction implements ObserverInterface {
 	 * @see ObserverInterface::execute()
 	 * @used-by \Magento\Framework\Event\Invoker\InvokerDefault::_callObserverMethod()
 	 * @param O $o
-	 * @return void
 	 */
 	function execute(O $o) {
 		if (\Dfe\Markdown\Settings::s()->enable()) {

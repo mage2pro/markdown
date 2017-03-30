@@ -6,7 +6,6 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	 * @override
 	 * @see \Df\Framework\Upgrade::_process()
 	 * @used-by \Df\Framework\Upgrade::process()
-	 * @return void
 	 */
 	protected function _process() {
 		if ($this->isInitial()) {
@@ -70,7 +69,6 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	 * @used-by install()
 	 * @param string $name
 	 * @param string $master
-	 * @return void
 	 */
 	private function createTableEav($name, $master) {
 		$f_MARKDOWN = self::F__MARKDOWN;
