@@ -78,6 +78,7 @@ I provide the [**customization service**](https://mage2.pro/t/2020) for my payme
 - «[**Facebook Login**](https://mage2.pro/c/extensions/facebook-login)» (a single sign-on extension).
 - «[**Blackbaud NetCommunity**](https://mage2.pro/c/extensions/blackbaud-netcommunity)» (an  integration with an online fundraising software).  
 - «[**Markdown Editor**](https://mage2.pro/c/extensions/markdown)» (an alternative content editor for the Magento 2 backend).
+- «[**Twitter Timeline**](https://mage2.pro/c/extensions/twitter-timeline)» (shows your latest tweets in your store's frontend sidebar).
 
 ## Need a custom payment extension?
 I provide a [custom payment gateway integration service](https://mage2.pro/t/917).
