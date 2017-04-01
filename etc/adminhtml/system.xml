@@ -48,7 +48,7 @@ https://mage2.pro/t/114
 				>
 					<label>Enable?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/markdown-editor' target='_blank'>Markdown Editor</a>» extension?]]></comment>
+					<comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/markdown' target='_blank'>Markdown Editor</a>» extension?]]></comment>
 				</field>
 			</group>
 		</section>

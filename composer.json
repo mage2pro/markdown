@@ -1,9 +1,9 @@
 {
 	"name": "mage2pro/markdown"
-	,"version": "1.0.16"
+	,"version": "1.0.17"
 	,"description": "The «Markdown» extension for Magento 2."
 	,"type": "magento2-module"
-	,"homepage": "https://mage2.pro/c/extensions/markdown-editor"
+	,"homepage": "https://mage2.pro/c/extensions/markdown"
 	,"license": "proprietary"
 	,"authors": [{
 		"name": "Dmitry Fedyuk",
