@@ -13,4 +13,14 @@
 	}]
 	,"require": {"mage2pro/core": ">=2.4.19"}
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Dfe\\Markdown\\": ""}}
+	,"keywords": [
+		"Backend"
+		,"eCommerce"
+		,"Editor"
+		,"Editor"
+		,"Magento"
+		,"Magento 2"
+		,"Magento extension"
+		,"Markdown"
+	]
 }
