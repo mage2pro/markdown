@@ -16,7 +16,7 @@ The standard Magento editor (TinyMCE) produces lot of HTML mess. Markdown allows
 - Autosaves the article as you type.
 - Precise preview rendering.
 
-[**Demo video**](https://www.youtube.com/watch?v=gGL0IPJhzvY).
+**Demo video**: https://www.youtube.com/watch?v=gGL0IPJhzvY
 
 ## Screenshots
 
