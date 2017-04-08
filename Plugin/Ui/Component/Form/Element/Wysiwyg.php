@@ -26,7 +26,7 @@ class Wysiwyg extends Sb {
 			// В предыдущих версиях Magento свойство называлось «editorElement».
 			$editor = $sb->editor;
 			/** @var FormElement $element */
-			$element = df_create(FormElement::class, $editor->getData());
+			$element = df_new_omd(FormElement::class, $editor->getData());
 			$element->setForm($editor->getForm());
 			/**
 			 * 2016-01-06
