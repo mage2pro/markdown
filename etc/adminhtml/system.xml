@@ -35,8 +35,8 @@ https://mage2.pro/t/114
 				showInStore='1'
 			>
 				<label>Markdown</label>
-				<dfExtension>Dfe\Markdown\Ext</dfExtension>
-				<frontend_model>Df\Config\Block\System\Config\Form\Fieldset\Ext</frontend_model>
+				<dfExtension>Dfe_Markdown</dfExtension>
+				<frontend_model>Df\Config\Fieldset</frontend_model>
 				<field
 					id='enable'
 					translate='label'
