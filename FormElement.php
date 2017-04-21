@@ -1,12 +1,11 @@
 <?php
 namespace Dfe\Markdown;
+use Magento\Eav\Model\Entity\Attribute\AbstractAttribute as A;
 use Magento\Framework\Data\Form\Element\Textarea;
 /**
  * 2016-01-06
  * Наш класс замещает класс @see \Magento\Catalog\Block\Adminhtml\Helper\Form\Wysiwyg
  * но отныне не наследуется от него.
- */
-/**
  * @method string|null getClass()
  * @method string|null getTitle()
  */
@@ -23,17 +22,12 @@ class FormElement extends Textarea {
 	 * https://github.com/magento/magento2/blob/c58d2d/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L103-L121
 	 * @return string
 	 */
-	function componentHtml() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = df_tag('textarea', [
-				 'class' => ['textarea', $this->getClass()], 'title' => $this->getTitle()
-			] + df_fe_attrs($this), $this->getEscapedValue());
-			if ($this->enabled()) {
-				$this->{__METHOD__} .= $this->css();
-			}
-		}
-		return $this->{__METHOD__};
-	}
+	function componentHtml() {return dfc($this, function() {return
+		df_tag('textarea', [
+			'class' => ['textarea', $this->getClass()], 'title' => $this->getTitle()
+		] + df_fe_attrs($this), $this->getEscapedValue())
+		. (!$this->enabled() ? '' : $this->css())
+	;});}
 
 	/**
 	 * 2016-01-06
@@ -48,15 +42,13 @@ class FormElement extends Textarea {
 		// для правильного кэширования содержимого редактора в Local Storage.
 		'action' => df_action_name()
 		,'core' => df_wysiwyg_config()->getConfig()->getData()
-		/**
-		 * 2015-10-26
-		 * На странице товарного раздела
-		 * textarea имеет идентификатор «group4_description»,
-		 * где «description» — это $this['html_id'], а «group4_» — это префикс.
-		 * Для инициализации редактора нам нужен полный идентификатор,
-		 * а для стилизации — наоборот, краткий
-		 * (который, кстати, совпадает с кратким именем: значением атрибута «name»).
-		 */
+		// 2015-10-26
+		// На странице товарного раздела
+		// textarea имеет идентификатор «group4_description»,
+		// где «description» — это $this['html_id'], а «group4_» — это префикс.
+		// Для инициализации редактора нам нужен полный идентификатор,
+		// а для стилизации — наоборот, краткий
+		// (который, кстати, совпадает с кратким именем: значением атрибута «name»).
 		,'cssClass' => $this['name']
 		,'id' => $this->getHtmlId()
 		/**
@@ -79,20 +71,18 @@ class FormElement extends Textarea {
 	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
 	 * @return bool
 	 */
-	function enabled() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var \Magento\Eav\Model\Entity\Attribute\AbstractAttribute|null $a */
-			$a = $this['entity_attribute'];
-			$this->{__METHOD__} = df_wysiwyg_config()->isEnabled() && (!$a || $a['is_wysiwyg_enabled']);
-		}
-		return $this->{__METHOD__};
-	}
+	function enabled() {return dfc($this, function() {return df_wysiwyg_config()->isEnabled() && (
+		/** @var A|null $a */!($a = $this['entity_attribute']) || $a['is_wysiwyg_enabled']
+	);});}
 
 	/**
 	 * 2015-10-24
-	 * @override
-	 * @see \Magento\Framework\Data\Form\Element\Textarea::getAfterElementHtml()
-	 * @used-by \Magento\Framework\Data\Form\Element\Textarea::getElementHtml()
+	 * 2015-10-25
+	 * Наш скрипт надо загружать именно через «text/x-magento-init».
+	 * Сначала я ошибочно загружал его через df_page()->addPageAsset('Dfe_Markdown::main.js');
+	 * однако это приводило к тому, что содержимое редактора не показывалось до клика по нему:
+	 * http://stackoverflow.com/questions/8349571
+	 * http://stackoverflow.com/questions/17086538
 	 * 2015-10-26
 	 * Результат метода надо обязательно кэшировать!
 	 * https://github.com/magento/magento2/issues/2189
@@ -101,30 +91,13 @@ class FormElement extends Textarea {
 	 * in \Magento\Framework\Data\Form\Element\AbstractElement descendants
 	 * is sometimes computation expensive
 	 * but called by the core multiple times for the same for element without caching»
+	 * @override
+	 * @see \Magento\Framework\Data\Form\Element\Textarea::getAfterElementHtml()
+	 * @used-by \Magento\Framework\Data\Form\Element\Textarea::getElementHtml()
 	 */
-	function getAfterElementHtml() {
-		if (!isset($this->{__METHOD__})) {
-			/** http://stackoverflow.com/a/8212262 */
-			/** @var string $result */
-			$result = parent::getAfterElementHtml();
-			if ($this->enabled()) {
-				$result .= $this->css();
-				/**
-				 * 2015-10-25
-				 * Наш скрипт надо загружать именно через «text/x-magento-init».
-				 * Сначала я ошибочно загружал его через
-				 * df_page()->addPageAsset('Dfe_Markdown::main.js');
-				 * однако это приводило к тому, что содержимое редактора не показывалось
-				 * до клика по нему:
-				 * http://stackoverflow.com/questions/8349571
-				 * http://stackoverflow.com/questions/17086538
-				 */
-				$result .= df_x_magento_init(__CLASS__, 'main', $this->config());
-			}
-			$this->{__METHOD__} = $result;
-		}
-		return $this->{__METHOD__};
-	}
+	function getAfterElementHtml() {return dfc($this, function() {return parent::getAfterElementHtml() . (
+		!$this->enabled() ? '' : $this->css() . df_x_magento_init(__CLASS__, 'main', $this->config())
+	);});}
 
 	/**
 	 * 2016-01-08
