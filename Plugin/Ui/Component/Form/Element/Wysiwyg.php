@@ -55,7 +55,7 @@ class Wysiwyg extends Sb {
 				'component' => 'Dfe_Markdown/component'
 				,'content' => Editor::wrapIntoContainerSt($editor, $element->componentHtml())
 				,'dfeConfig' => $element->config()
-			] + df_nta($sb['config']);
+			] + df_eta($sb['config']);
 		}
 	}
 }
