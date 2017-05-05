@@ -32,7 +32,7 @@ class AbstractForm {
 			 *
 			 * Адреса для каталога («catalog_category_edit» и «catalog_product_edit»)
 			 * здесь так же перечислять не надо, потому что для них наш редактор добавляется иначе:
-			 * методом @see \Dfe\Markdown\Observer\ElementTypes::execute()
+			 * методом @see \Dfe\Markdown\Observer\Catalog\ElementTypes::execute()
 			 */
 			&& df_action_is('cms_block_edit', 'cms_page_edit')
 		) {
