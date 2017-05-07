@@ -105,11 +105,11 @@ class FormElement extends Textarea {
 	 * чтобы наши правила CSS загружались позже и переопределяли стандартные.
 	 * @return string
 	 */
-	private function css() {return df_link_inline([
+	private function css() {return df_cc_n(df_link_inline([
 		df_asset_third_party('HighlightJs/github.css')
 		,'Dfe_Markdown::lib/SimpleMDE/main.css'
 		,'Dfe_Markdown::main.css'
-	]);}
+	]));}
 
 	/**
 	 * 2015-11-02
