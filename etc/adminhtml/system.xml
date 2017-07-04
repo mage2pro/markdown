@@ -6,10 +6,8 @@
 	<system>
 		<section
 			id='df_backend'
+			showInDefault='1' showInStore='1' showInWebsite='1'
 			translate='label'
-			showInDefault='1'
-			showInWebsite='1'
-			showInStore='1'
 		>
 			<tab>_df</tab>
 			<label>Backend</label>
@@ -23,23 +21,19 @@
 -->
 			<group
 				id='markdown'
-				translate='label'
+				showInDefault='1' showInStore='1' showInWebsite='1'
 				sortOrder='13'
-				showInDefault='1'
-				showInWebsite='1'
-				showInStore='1'
+				translate='label'
 			>
 				<label>Markdown</label>
 				<dfExtension>Dfe_Markdown</dfExtension>
 				<frontend_model>Df\Config\Fieldset</frontend_model>
 				<field
 					id='enable'
+					showInDefault='1' showInStore='0' showInWebsite='0'
+					sortOrder='1'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='1'
-					showInDefault='1'
-					showInWebsite='0'
-					showInStore='0'
 				>
 					<label>Enable?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
