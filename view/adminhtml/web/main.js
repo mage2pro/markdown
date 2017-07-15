@@ -147,7 +147,7 @@ define([
 			// Если строка не соответствует регулярному выражению,
 			// то .match возвращает null:
 			// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/match#Return_value
-			return matches && matches[1] ? parseInt(matches[1]) : 0;
+			return matches && matches[1] ? df.int(matches[1]) : 0;
 		}();
 		/** @type {?String} */
 		var localStorageId = entityId ? [textarea.id, config.action, entityId].join('-') : null;
