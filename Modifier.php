@@ -1,7 +1,5 @@
 <?php
 namespace Dfe\Markdown;
-use Dfe\Markdown\CatalogAction\DbRecord;
-use Dfe\Markdown\Settings;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
 /**
  * 2016-02-25

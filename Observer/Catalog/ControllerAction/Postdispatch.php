@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\Markdown\Observer\Catalog\ControllerAction;
-use Dfe\Markdown\CatalogAction\DbRecord;
+use Dfe\Markdown\DbRecord;
 use Dfe\Markdown\Observer\Catalog\ControllerAction;
 /**
  * События:
@@ -26,9 +26,9 @@ class Postdispatch extends ControllerAction {
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
 	 */
-	protected function handleCustomValue(array &$post, $shortKey) {
-		DbRecord::save($shortKey, $post[$shortKey . $this->suffix()]);
-	}
+	protected function handleCustomValue(array &$post, $shortKey) {DbRecord::save(
+		$shortKey, $post["$shortKey{$this->suffix()}"]
+	);}
 
 	/**
 	 * 2015-11-04
