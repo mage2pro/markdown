@@ -164,9 +164,9 @@ define([
 		}
 		/**
 		 * 2015-10-31
-		 * По аналогии с
-		 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L256-L258
-		 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/lib/web/mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js#L24
+		 * By analogy with
+		 * https://github.com/magento/magento2/blob/2.0.0/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L256-L258
+		 * https://github.com/magento/magento2/blob/2.0.0/lib/web/mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js#L24
 		 */
 		var openWidgetDialog = function() {
 			widgetTools.openDialog(
@@ -261,11 +261,7 @@ define([
 						className: 'fa fa-at'
 						,name: 'variable'
 						,title: 'Insert Variable'
-						/**
-						 * 2015-10-31
-						 * По аналогии с
-						 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Variable/Model/Variable/Config.php#L49-L51
-						 */
+						// 2015-10-31 By analogy with https://github.com/magento/magento2/blob/2.0.0/app/code/Magento/Variable/Model/Variable/Config.php#L49-L51
 						,action: function() {MagentovariablePlugin.loadChooser(pluginVariable.url, config.id);}
 					});
 				}
@@ -333,10 +329,7 @@ define([
 		 */
 		(function() {
 			var $wrapper = $(cm.getWrapperElement());
-			/**
-			 * 2016-02-01
-			 * По аналогии с https://github.com/NextStepWebs/simplemde-markdown-editor/blob/1.10.0/src/js/simplemde.js#L460-L465
-			 */
+			// 2016-02-01 By analogy with https://github.com/NextStepWebs/simplemde-markdown-editor/blob/1.10.0/src/js/simplemde.js#L460-L465
 			var $preview = $wrapper.children('.editor-preview');
 			if (!$preview.length) {
 				//noinspection ReuseOfLocalVariableJS
@@ -459,7 +452,7 @@ define([
 			/** @type {String} */
 			var content = editor.value();
 			$textarea.val(content);
-			// По аналогии с https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e46634610eab43a374389a757e680021fd6a5/src/js/simplemde.js#L355
+			// By analogy with https://github.com/NextStepWebs/simplemde-markdown-editor/blob/0e6e4663/src/js/simplemde.js#L355
 			// Наверное, можно использовать и $textarea.val()
 			//
 			// 2015-11-04

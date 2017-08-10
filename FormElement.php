@@ -53,9 +53,8 @@ class FormElement extends Textarea {
 		,'id' => $this->getHtmlId()
 		/**
 		 * 2015-10-30
-		 * По аналогии с
-		 * @see \Magento\Cms\Helper\Wysiwyg\Images::getImageHtmlDeclaration()
-		 * https://github.com/magento/magento2/blob/550f10ef2bb6dcc3ba1ea492b7311d7a80d01560/app/code/Magento/Cms/Helper/Wysiwyg/Images.php#L170
+		 * By analogy with @see \Magento\Cms\Helper\Wysiwyg\Images::getImageHtmlDeclaration()
+		 * https://github.com/magento/magento2/blob/2.0.0/app/code/Magento/Cms/Helper/Wysiwyg/Images.php#L170
 		 * https://mage2.pro/t/153
 		 */
 		,'mediaBaseURL' => df_media_url()
