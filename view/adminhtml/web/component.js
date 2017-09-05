@@ -1,8 +1,7 @@
 // 2016-01-08
-define([
-	'jquery'
-	,'Magento_Ui/js/form/element/wysiwyg'
-], function($, Wysiwyg) {return Wysiwyg.extend({
+define(['jquery', 'Magento_Ui/js/form/element/wysiwyg'], function($, Wysiwyg) {
+/** 2017-09-06 @uses Class::extend() https://github.com/magento/magento2/blob/2.2.0-rc2.3/app/code/Magento/Ui/view/base/web/js/lib/core/class.js#L106-L140 */	
+return Wysiwyg.extend({
 	defaults: {
 		/**
 		 * 2016-02-21
