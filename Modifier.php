@@ -15,7 +15,14 @@ class Modifier extends AbstractModifier {
 	 * @return array(string => mixed) $data
 	 */
 	function modifyData(array $data) {return
-		!Settings::s()->enable() ? $data : array_replace_recursive($data, [
+		/**
+		 * 2018-09-27
+		 * Magento 2.3 calls the `modifyData` method on the backend product list,
+		 * and it leads to the error «The product wasn't registered»:
+		 * https://github.com/mage2pro/markdown/issues/2
+		 * @see \Magento\Catalog\Model\Locator\RegistryLocator::getProduct
+		 */
+		!Settings::s()->enable() || df_action_is('catalog_product_index') ? $data : array_replace_recursive($data, [
 			df_catalog_locator()->getProduct()->getId() => [
 				self::DATA_SOURCE_DEFAULT => df_clean([
 					'description' => DbRecord::load('description')
