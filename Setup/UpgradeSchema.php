@@ -11,9 +11,8 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 		if ($this->isInitial()) {
 			$this->createTableEav('dfe_markdown_category', 'catalog_category_entity_text');
 			$this->createTableEav('dfe_markdown_product', 'catalog_product_entity_text');
-			/** 2016-11-04 У нас теперь также есть функция @see df_db_column_add() */
-			$this->column('cms_block', self::F__MARKDOWN, 'text');
-			$this->column('cms_page', self::F__MARKDOWN, 'text');
+			df_db_column_add('cms_block', self::F__MARKDOWN, 'text');
+			df_db_column_add('cms_page', self::F__MARKDOWN, 'text');
 		}
 	}
 
