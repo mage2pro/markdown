@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\Markdown\Setup;
+use Df\Framework\DB\ColumnType as T;
 class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	/**
 	 * 2015-10-23
@@ -11,8 +12,9 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 		if ($this->isInitial()) {
 			$this->createTableEav('dfe_markdown_category', 'catalog_category_entity_text');
 			$this->createTableEav('dfe_markdown_product', 'catalog_product_entity_text');
-			df_db_column_add('cms_block', self::F__MARKDOWN, 'text');
-			df_db_column_add('cms_page', self::F__MARKDOWN, 'text');
+			array_map(function($t) {df_db_column_add(
+				$t, self::F__MARKDOWN, T::textLong('[Mage2.PRO] Markdown')
+			);}, ['cms_block', 'cms_page']);
 		}
 	}
 
