@@ -57,7 +57,7 @@ class FormElement extends Textarea {
 		 * https://github.com/magento/magento2/blob/2.0.0/app/code/Magento/Cms/Helper/Wysiwyg/Images.php#L170
 		 * https://mage2.pro/t/153
 		 */
-		,'mediaBaseURL' => df_media_url()
+		,'mediaBaseURL' => df_media_path2url()
 		// 2015-11-02
 		// Суффикс скрытого элемента формы,
 		// который будет содержать результат компиляции из Markdown в HTML.
