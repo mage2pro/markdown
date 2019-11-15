@@ -29,14 +29,12 @@ class Modifier extends AbstractModifier {
 		 * https://github.com/mage2pro/markdown/issues/3
 		 */
 		$p = df_product_current(); /** @var P|null $p */
-		return !$p || !Settings::s()->enable() ? $data : array_replace_recursive($data, [
-			df_catalog_locator()->getProduct()->getId() => [
-				self::DATA_SOURCE_DEFAULT => df_clean([
-					'description' => DbRecord::load('description')
-					,'short_description' => DbRecord::load('short_description')
-				])
-			]
-		]);
+		return !$p || !Settings::s()->enable() ? $data : array_replace_recursive($data, [$p->getId() => [
+			self::DATA_SOURCE_DEFAULT => df_clean([
+				'description' => DbRecord::load('description')
+				,'short_description' => DbRecord::load('short_description')
+			])
+		]]);
 	}
 
 	/**
