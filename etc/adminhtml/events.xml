@@ -1,131 +1,104 @@
 <?xml version='1.0'?>
 <config
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd"
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:noNamespaceSchemaLocation='urn:magento:framework:Event/etc/events.xsd'
 >
-	<!--
-		2015-10-23
-		Обработка этих событий позволяет нам подставить свой класс
-		для обработки товарных свойств типа «textarea»
-		вместо стандартного класса \Magento\Catalog\Block\Adminhtml\Helper\Form\Wysiwyg
-		https://github.com/magento/magento2/blob/0be91a56d050791ac0b67a47185d79df31e79329/app/code/Magento/Catalog/Block/Adminhtml/Product/Edit/Tab/Attributes.php#L151
+<!-- 2015-10-23
+	Обработка этих событий позволяет нам подставить свой класс
+	для обработки товарных свойств типа «textarea»
+	вместо стандартного класса \Magento\Catalog\Block\Adminhtml\Helper\Form\Wysiwyg
+	https://github.com/magento/magento2/blob/0be91a56d050791ac0b67a47185d79df31e79329/app/code/Magento/Catalog/Block/Adminhtml/Product/Edit/Tab/Attributes.php#L151
 
-		Обратите внимание, что аналогичное событие для товарных разделов пока отсутствует:
-        https://github.com/magento/magento2/issues/2165
-        Inconsistency:
-        \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attributes::_getAdditionalElementTypes()
-        fires the event «adminhtml_catalog_product_edit_element_types»
-        but \Magento\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes()
-        does not fire a similar event.
+	Обратите внимание, что аналогичное событие для товарных разделов пока отсутствует:
+	https://github.com/magento/magento2/issues/2165
+	Inconsistency:
+	\Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attributes::_getAdditionalElementTypes()
+	fires the event «adminhtml_catalog_product_edit_element_types»
+	but \Magento\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes()
+	does not fire a similar event.
 
-        Я пока добавил это событие своим классом, перекрывающим стандартный:
-		@see \Df\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes()
-	-->
+	Я пока добавил это событие своим классом, перекрывающим стандартный:
+	@see \Df\Catalog\Block\Adminhtml\Category\Tab\Attributes::_getAdditionalElementTypes() -->
 	<event name='adminhtml_catalog_category_edit_element_types'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\ElementTypes'
-			instance='Dfe\Markdown\Observer\Catalog\ElementTypes'
+			instance='Dfe\Markdown\Observer\Catalog\ElementTypes' name='Dfe\Markdown\Observer\Catalog\ElementTypes'
 		/>
 	</event>
 	<event name='adminhtml_catalog_product_edit_element_types'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\ElementTypes'
-			instance='Dfe\Markdown\Observer\Catalog\ElementTypes'
+			instance='Dfe\Markdown\Observer\Catalog\ElementTypes' name='Dfe\Markdown\Observer\Catalog\ElementTypes'
 		/>
 	</event>
-	<!--
-		2015-11-03
-		Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
-		на административной странице товарного раздела.
-	-->
+<!-- 2015-11-03
+Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
+на административной странице товарного раздела. -->
 	<event name='adminhtml_catalog_category_edit_prepare_form'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\PrepareForm'
-			instance='Dfe\Markdown\Observer\Catalog\PrepareForm'
+			instance='Dfe\Markdown\Observer\Catalog\PrepareForm' name='Dfe\Markdown\Observer\Catalog\PrepareForm'
 		/>
 	</event>
-	<!--
-		2015-11-03
-		Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
-		на административной странице товара.
-	-->
+<!-- 2015-11-03
+Цель обработки события — подстановка Markdown вместо HTML в поля редакторов на административной странице товара. -->
 	<event name='adminhtml_catalog_product_edit_prepare_form'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\PrepareForm'
-			instance='Dfe\Markdown\Observer\Catalog\PrepareForm'
+			instance='Dfe\Markdown\Observer\Catalog\PrepareForm' name='Dfe\Markdown\Observer\Catalog\PrepareForm'
 		/>
 	</event>
-	<!--
-		2015-11-04
-		Цель обработки этих событий —
-		сохранение содержимого Markdown после сохранения товара или раздела.
-		$this->_eventManager->dispatch(
-			'controller_action_postdispatch_' . $request->getFullActionName(),
-			$eventParameters
-		);
-        https://github.com/magento/magento2/blob/16dc76df41fac703b322cc0f9ab3dba43742bbed/lib/internal/Magento/Framework/App/Action/Action.php#L105-L108
-        https://github.com/magento/magento2/issues/2253
-	-->
+<!-- 2015-11-04
+	Цель обработки этих событий — сохранение содержимого Markdown после сохранения товара или раздела.
+	$this->_eventManager->dispatch(
+		'controller_action_postdispatch_' . $request->getFullActionName(), $eventParameters
+	);
+	https://github.com/magento/magento2/blob/16dc76df41fac703b322cc0f9ab3dba43742bbed/lib/internal/Magento/Framework/App/Action/Action.php#L105-L108
+	https://github.com/magento/magento2/issues/2253 -->
 	<event name='controller_action_postdispatch_catalog_category_save'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
 			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
 		/>
 	</event>
 	<event name='controller_action_postdispatch_catalog_product_save'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
 			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch'
 		/>
 	</event>
-	<!--
-		2015-11-04
-		Цель обработки этих событий —
-		перетасовка содержимое полей при сохранении товара или раздела:
-		в основное поле редактора (например: «product[description]»)
-		подставляем HTML вместо Markdown (содержимое поля «product[description_html_compiled]»),
-		а в поле «product[description_markdown]» —
-		прежнее содержимое поля «product[description]» (т.е. Markdown).
-		$this->_eventManager->dispatch(
-			'controller_action_predispatch_' . $request->getFullActionName(),
-			$eventParameters
-		);
-        https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/internal/Magento/Framework/App/Action/Action.php#L93-L96
-	-->
+<!-- 2015-11-04
+	Цель обработки этих событий —
+	перетасовка содержимое полей при сохранении товара или раздела:
+	в основное поле редактора (например: «product[description]»)
+	подставляем HTML вместо Markdown (содержимое поля «product[description_html_compiled]»),
+	а в поле «product[description_markdown]» —
+	прежнее содержимое поля «product[description]» (т.е. Markdown).
+	$this->_eventManager->dispatch(
+		'controller_action_predispatch_' . $request->getFullActionName(), $eventParameters
+	);
+	https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/internal/Magento/Framework/App/Action/Action.php#L93-L96 -->
 	<event name='controller_action_predispatch_catalog_category_save'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
 			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
 		/>
 	</event>
 	<event name='controller_action_predispatch_catalog_product_save'>
 		<observer
-			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
 			instance='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
+			name='Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch'
 		/>
 	</event>
-	<!--
-		2015-11-03
-		Цель обработки этих событий —
-		перетасовка содержимое полей при сохранении самодельной страницы или блока:
-		в поле «content» подставляем HTML вместо Markdown (содержимое поля «content_html_compiled»),
-		а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
-		$this->_eventManager->dispatch(
-			'controller_action_predispatch_' . $request->getFullActionName(),
-			$eventParameters
-		);
-        https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/internal/Magento/Framework/App/Action/Action.php#L93-L96
-	-->
+<!-- 2015-11-03
+	Цель обработки этих событий —
+	перетасовка содержимое полей при сохранении самодельной страницы или блока:
+	в поле «content» подставляем HTML вместо Markdown (содержимое поля «content_html_compiled»),
+	а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
+	$this->_eventManager->dispatch(
+		'controller_action_predispatch_' . $request->getFullActionName(), $eventParameters
+	);
+	https://github.com/magento/magento2/blob/f578e54e093c31378ca981cfe336f7e651194585/lib/internal/Magento/Framework/App/Action/Action.php#L93-L96 -->
 	<event name='controller_action_predispatch_cms_block_save'>
-		<observer
-			name='Dfe\Markdown\Observer\Cms\Predispatch'
-			instance='Dfe\Markdown\Observer\Cms\Predispatch'
-		/>
+		<observer instance='Dfe\Markdown\Observer\Cms\Predispatch' name='Dfe\Markdown\Observer\Cms\Predispatch'/>
 	</event>
 	<event name='controller_action_predispatch_cms_page_save'>
-		<observer
-			name='Dfe\Markdown\Observer\Cms\Predispatch'
-			instance='Dfe\Markdown\Observer\Cms\Predispatch'
-		/>
+		<observer instance='Dfe\Markdown\Observer\Cms\Predispatch' name='Dfe\Markdown\Observer\Cms\Predispatch'/>
 	</event>
 </config>
