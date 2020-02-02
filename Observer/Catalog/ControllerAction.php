@@ -36,27 +36,20 @@ abstract class ControllerAction implements ObserverInterface {
 
 	/**
 	 * 2015-11-04
+	 * @used-by execute()
+	 * @used-by processPost()
 	 * @param array(string => string|array) $post
 	 * @return array(string => string|array)
 	 */
 	private function processPost(array $post) {
-		/** @var string[] $keysToUnset */
-		$keysToUnset = [];
-		foreach ($post as $key => $value) {
-			/** @var string $key */
-			/** @var string|array $value */
-			if (is_array($value)) {
-				$post[$key] = $this->processPost($value);
+		$keysToUnset = [];  /** @var string[] $keysToUnset */
+		foreach ($post as $k => $v) {/** @var string $k */ /** @var string|array $value */
+			if (is_array($v)) {
+				$post[$k] = $this->processPost($v);
 			}
-			else {
-				/** @var string $keyCustom */
-				$keyCustom = $key . $this->suffix();
-				/** @var string|null $valueCustom */
-				$valueCustom = dfa($post, $keyCustom);
-				if ($valueCustom) {
-					$this->handleCustomValue($post, $key);
-					$keysToUnset[]= $keyCustom;
-				}
+			else if (dfa($post, $kCustom = $k . $this->suffix())) { /** @var string $kCustom */
+				$this->handleCustomValue($post, $k);
+				$keysToUnset[]= $kCustom;
 			}
 		}
 		return dfa_unset($post, $keysToUnset);
