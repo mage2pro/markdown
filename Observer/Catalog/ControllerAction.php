@@ -28,8 +28,7 @@ abstract class ControllerAction implements ObserverInterface {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
 			/** @var \Magento\Framework\App\RequestInterface|\Magento\Framework\App\Request\Http $request */
 			$request = $o['request'];
-			/**@var \Zend\Stdlib\ParametersInterface|\Zend\Stdlib\Parameters $post */
-			$post = $request->getPost();
+			$post = $request->getPost(); /**@var \Laminas\Stdlib\ParametersInterface|\Laminas\Stdlib\Parameters $post */
 			$post->fromArray($this->processPost($post->toArray()));
 		}
 	}

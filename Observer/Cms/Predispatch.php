@@ -32,13 +32,9 @@ final class Predispatch implements ObserverInterface {
 			// Обратите внимание, что мы перетасовываем содержимое полей:
 			// в поле «content» подставляем HTML вместо Markdown,
 			// а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
-			/**@var \Zend\Stdlib\ParametersInterface $post */
-			$post = $request->getPost();
-			/** @var string $html */
-			$html = $post['content' . \Dfe\Markdown\FormElement::HTML_COMPILED];
-			// 2015-11-03
-			// Перетасовываем данные только при их наличии.
-			// Мало ли что...
+			$post = $request->getPost(); /** @var \Laminas\Stdlib\ParametersInterface $post */
+			$html = $post['content' . \Dfe\Markdown\FormElement::HTML_COMPILED]; /** @var string $html */
+			// 2015-11-03 Перетасовываем данные только при их наличии. Мало ли что...
 			if ($html) {
 				$post[\Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN] = $post['content'];
 				$post['content'] = $html;
