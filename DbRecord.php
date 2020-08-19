@@ -2,7 +2,7 @@
 namespace Dfe\Markdown;
 use Dfe\Markdown\CatalogAction as A;
 use Dfe\Markdown\Setup\UpgradeSchema as U;
-// 2015-11-04
+# 2015-11-04
 final class DbRecord {
 	/**
 	 * 2017-07-31
@@ -19,7 +19,7 @@ final class DbRecord {
 					'attribute_code' => df_param_sne($attributeCode, 0)
 					,'entity_type_id' => df_eav_config()->getEntityType("catalog_{$entityType}")->getId()
 				])
-				,'entity_id' => A::entityId() // 2017-08-01 The product or category ID
+				,'entity_id' => A::entityId() # 2017-08-01 The product or category ID
 				,'store_id' => df_store()->getId()
 			]
 		);

@@ -36,9 +36,9 @@ class Form {
 	 */
 	function beforeSetValues(Sb $sb, $values) {
 		if (Settings::s()->enable()
-			// 2015-11-03
-			// В настоящее время это условие необязательно,
-			// но на будущее оно полезно: мало ли кто и для каких целей заведёт поле «markdown».
+			# 2015-11-03
+			# В настоящее время это условие необязательно,
+			# но на будущее оно полезно: мало ли кто и для каких целей заведёт поле «markdown».
 			&& df_action_is('cms_block_edit', 'cms_page_edit')
 			/**
 			 * 2016-02-26
@@ -56,11 +56,11 @@ class Form {
 		) {
 			/** @var string $markdown */
  			$markdown = dfa($values, \Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN);
-			// Важное условие!
-			// Замещаем HTML на Markdown только при наличии Markdown,
-			// иначе ведь администратор мог редактировать ранее статью в обычном редакторе,
-			// и у статью будет HTML, но не будет Markdown,
-			// и тогда замена HTML на Markdown приведёт к утрате HTML.
+			# Важное условие!
+			# Замещаем HTML на Markdown только при наличии Markdown,
+			# иначе ведь администратор мог редактировать ранее статью в обычном редакторе,
+			# и у статью будет HTML, но не будет Markdown,
+			# и тогда замена HTML на Markdown приведёт к утрате HTML.
 			if ($markdown) {
 				$values['content'] = $markdown;
 			}

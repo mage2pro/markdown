@@ -2,7 +2,7 @@
 namespace Dfe\Markdown;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\Product;
-// 2015-11-04
+# 2015-11-04
 final class CatalogAction {
 	/**
 	 * 2015-11-04

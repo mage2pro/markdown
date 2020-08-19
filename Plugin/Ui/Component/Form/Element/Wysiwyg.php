@@ -22,7 +22,7 @@ class Wysiwyg extends Sb {
 	function beforePrepare(Sb $sb) {
 		if (Settings::s()->enable()) {
 			/** @var \Magento\Framework\Data\Form\Element\Editor $editor */
-			$editor = $sb->editor; // 2016-02-18 В предыдущих версиях Magento свойство называлось «editorElement».
+			$editor = $sb->editor; # 2016-02-18 В предыдущих версиях Magento свойство называлось «editorElement».
 			$e = df_new_omd(FormElement::class, $editor->getData()); /** @var FormElement $e */
 			$e->setForm($editor->getForm());
 			/**
@@ -47,7 +47,7 @@ class Wysiwyg extends Sb {
 			 */
 			/** @var array(string => mixed)|null $config */
 			$sb['config'] = [
-				'component' => 'Dfe_Markdown/component' // 2016-01-08 Вместо «Magento_Ui/js/form/element/wysiwyg»
+				'component' => 'Dfe_Markdown/component' # 2016-01-08 Вместо «Magento_Ui/js/form/element/wysiwyg»
 				,'content' => Editor::wrapIntoContainerSt($editor, $e->componentHtml())
 				,'dfeConfig' => $e->config()
 			] + df_eta($sb['config']);
