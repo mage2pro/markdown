@@ -28,16 +28,15 @@ final class CatalogAction {
 	 * @return int
 	 */
 	static function entityId() {
-		$model = df_registry(self::entityType()); /** @var Category|Product $model */
-		return $model->getId();
+		$m = df_registry(self::entityType()); /** @var Category|Product $m */
+		return $m->getId();
 	}
 
 	/**
 	 * 2015-11-04
-	 * @used-by entityId()
+	 * @used-by self::entityId()
 	 * @used-by \Dfe\Markdown\DbRecord::__construct()
 	 * @return string
 	 */
 	static function entityType() {return dfcf(function() {return explode('_', df_action_name())[1];});}
 }
-

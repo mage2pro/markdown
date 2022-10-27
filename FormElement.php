@@ -31,15 +31,14 @@ class FormElement extends Textarea {
 
 	/**
 	 * 2016-01-06
+	 * @used-by self::getAfterElementHtml()
 	 * @used-by \Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg::beforePrepare()
-	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
 	 * @return array(mixed => mixed)
 	 */
 	function config() {return dfc($this, function() {return [
 		# 2015-11-04
 		# Нужно нам для идентификации страницы.
-		# Идентификация страницы нужна нам
-		# для правильного кэширования содержимого редактора в Local Storage.
+		# Идентификация страницы нужна нам для правильного кэширования содержимого редактора в Local Storage.
 		'action' => df_action_name()
 		,'core' => df_wysiwyg_config()->getConfig()->getData()
 		# 2015-10-26
@@ -100,8 +99,7 @@ class FormElement extends Textarea {
 
 	/**
 	 * 2016-01-08
-	 * Порядок загрузки лучше сделать именно таким,
-	 * чтобы наши правила CSS загружались позже и переопределяли стандартные.
+	 * Порядок загрузки лучше сделать именно таким, чтобы наши правила CSS загружались позже и переопределяли стандартные.
 	 * @return string
 	 */
 	private function css() {return df_cc_n(df_link_inline([
@@ -111,10 +109,8 @@ class FormElement extends Textarea {
 	]));}
 
 	/**
-	 * 2015-11-02
-	 * Суффикс скрытого элемента формы,
-	 * который будет содержать результат компиляции из Markdown в HTML.
-	 * @used-by config()
+	 * 2015-11-02 Суффикс скрытого элемента формы, который будет содержать результат компиляции из Markdown в HTML.
+	 * @used-by self::config()
 	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch::suffix()
 	 * @used-by \Dfe\Markdown\Observer\Cms\Predispatch::execute()
 	 */

@@ -64,7 +64,7 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	 *			ON DELETE CASCADE
 	 *		;
 	 * https://github.com/magento/magento2/blob/4197d0ec6053b3f963165021f9e5b3a6a476b3bb/app/code/Magento/Catalog/Setup/InstallSchema.php#L1965-L2033
-	 * @used-by install()
+	 * @used-by self::install()
 	 * @param string $name
 	 * @param string $master
 	 */
@@ -84,15 +84,15 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	}
 	/**
 	 * 2015-11-04
-	 * @used-by createTableEav()
+	 * @used-by self::createTableEav()
 	 * @used-by \Dfe\Markdown\DbRecord::__construct()
 	 * @used-by \Dfe\Markdown\DbRecord::save()
 	 */
 	const F__ID = 'value_id';
 	/**
 	 * 2015-11-04
-	 * @used-by createTableEav()
-	 * @used-by _process()
+	 * @used-by self::createTableEav()
+	 * @used-by self::_process()
 	 * @used-by \Dfe\Markdown\DbRecord::load()
 	 * @used-by \Dfe\Markdown\DbRecord::save()
 	 * @used-by \Dfe\Markdown\Observer\Cms\Predispatch::execute()

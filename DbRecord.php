@@ -6,8 +6,8 @@ use Dfe\Markdown\Setup\UpgradeSchema as U;
 final class DbRecord {
 	/**
 	 * 2017-07-31
-	 * @used-by load()
-	 * @used-by save()
+	 * @used-by self::load()
+	 * @used-by self::save()
 	 * @param string $attributeCode
 	 */
 	private function __construct($attributeCode) {
@@ -46,25 +46,28 @@ final class DbRecord {
 		? df_conn()->update($i->_table, [U::F__MARKDOWN => $value], ['? = ' . U::F__ID => $id])
 		: df_conn()->insert($i->_table, [U::F__ID => $i->_id, U::F__MARKDOWN => $value]);
 	}
+
 	/**
 	 * 2017-08-01
-	 * @used-by __construct()
-	 * @used-by save()
+	 * @used-by self::__construct()
+	 * @used-by self::save()
 	 * @var int|null
 	 */
 	private $_id;
+
 	/**
 	 * 2017-08-01
-	 * @used-by __construct()
-	 * @used-by load()
-	 * @used-by save()
+	 * @used-by self::__construct()
+	 * @used-by self::load()
+	 * @used-by self::save()
 	 * @var array(string => string|int)
 	 */
 	private $_record;
+
 	/**
 	 * 2017-08-01
-	 * @used-by __construct()
-	 * @used-by save()
+	 * @used-by self::__construct()
+	 * @used-by self::save()
 	 * @var string
 	 */
 	private $_table;
