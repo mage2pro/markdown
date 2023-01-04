@@ -8,17 +8,11 @@ use Magento\Framework\Data\Form\AbstractForm as Sb;
  */
 class AbstractForm {
 	/**
-	 * 2015-10-27
-	 * Цель плагина — замещение при необходимости стандартного редактора нашим.
+	 * 2015-10-27 Цель плагина — замещение при необходимости стандартного редактора нашим.
 	 * @see \Magento\Framework\Data\Form\AbstractForm::addField()
-	 * @param Sb $sb
-	 * @param string $elementId
-	 * @param string $type
-	 * @param mixed[] $config
 	 * @param bool|string|null $after [optional]
-	 * @return mixed[]
 	 */
-	function beforeAddField(Sb $sb, $elementId, $type, $config, $after = false) {
+	function beforeAddField(Sb $sb, string $elementId, string $type, array $config, $after = false):array {
 		if ('editor' === $type && Settings::s()->enable()
 			/**
 			 * 2015-11-03

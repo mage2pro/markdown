@@ -8,7 +8,7 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	 * @see \Df\Framework\Upgrade::_process()
 	 * @used-by \Df\Framework\Upgrade::process()
 	 */
-	protected function _process() {
+	protected function _process():void {
 		if ($this->isInitial()) {
 			$this->createTableEav('dfe_markdown_category', 'catalog_category_entity_text');
 			$this->createTableEav('dfe_markdown_product', 'catalog_product_entity_text');

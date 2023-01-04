@@ -46,7 +46,7 @@ abstract class ControllerAction implements ObserverInterface {
 			if (is_array($v)) {
 				$post[$k] = $this->processPost($v);
 			}
-			else if (dfa($post, $kCustom = $k . $this->suffix())) { /** @var string $kCustom */
+			elseif (dfa($post, $kCustom = $k . $this->suffix())) { /** @var string $kCustom */
 				$this->handleCustomValue($post, $k);
 				$keysToUnset[]= $kCustom;
 			}
