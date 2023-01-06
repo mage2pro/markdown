@@ -23,7 +23,6 @@ final class Predispatch implements ObserverInterface {
 	 * @override
 	 * @see ObserverInterface::execute()
 	 * @used-by \Magento\Framework\Event\Invoker\InvokerDefault::_callObserverMethod()
-	 * @param O $o
 	 */
 	function execute(O $o) {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
