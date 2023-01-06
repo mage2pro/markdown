@@ -44,5 +44,3 @@ final class ElementTypes implements ObserverInterface {
 		}
 	}
 }
-
-
