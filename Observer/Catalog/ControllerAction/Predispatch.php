@@ -28,7 +28,7 @@ class Predispatch extends ControllerAction {
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
 	 */
-	protected function handleCustomValue(array &$post, $shortKey) {
+	protected function handleCustomValue(array &$post, $shortKey):void {
 		/** @var string $keyHtml */
 		$keyHtml = $shortKey . $this->suffix();
 		/** @var string|null $html */
