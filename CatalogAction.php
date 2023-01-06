@@ -35,7 +35,6 @@ final class CatalogAction {
 	 * 2015-11-04
 	 * @used-by self::entityId()
 	 * @used-by \Dfe\Markdown\DbRecord::__construct()
-	 * @return string
 	 */
-	static function entityType() {return dfcf(function() {return explode('_', df_action_name())[1];});}
+	static function entityType():string {return dfcf(function() {return explode('_', df_action_name())[1];});}
 }
