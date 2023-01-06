@@ -30,9 +30,9 @@ class Predispatch extends ControllerAction {
 	protected function handleCustomValue(array &$post, string $shortKey):void {
 		$keyHtml = $shortKey . $this->suffix(); /** @var string $keyHtml */
 		$html = $post[$keyHtml]; /** @var string|null $html */
-		$value = $post[$shortKey]; /** @var string $value */
+		$v = $post[$shortKey]; /** @var string $v */
 		$post[$shortKey] = $html;
-		$post[$shortKey . self::MARKDOWN_SUFFIX] = $value;
+		$post[$shortKey . self::MARKDOWN_SUFFIX] = $v;
 	}
 
 	/**
