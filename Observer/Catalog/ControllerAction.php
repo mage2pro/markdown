@@ -15,6 +15,8 @@ abstract class ControllerAction implements ObserverInterface {
 	/**
 	 * 2015-11-04
 	 * @used-by self::processPost()
+	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch::suffix()
+	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch::suffix()
 	 */
 	abstract protected function suffix():string;
 
