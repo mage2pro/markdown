@@ -10,7 +10,7 @@ use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
 /**
  * 2015-11-03
- * Обработка события «adminhtml_catalog_category_edit_prepare_form».
+ * 1) Обработка события «adminhtml_catalog_category_edit_prepare_form».
  * Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
  * на административной странице товарного раздела.
  * https://github.com/magento/magento2/blob/c743dec47b2e5de036eb5638fec44a54bfb31040/app/code/Magento/Catalog
@@ -19,10 +19,7 @@ use Magento\Framework\Event\ObserverInterface;
  *		$this->_eventManager->dispatch(
  *			'adminhtml_catalog_category_edit_prepare_form', ['form' => $form]
  *		);
- */
-/**
- * 2015-11-03
- * Обработка события «adminhtml_catalog_product_edit_prepare_form».
+ * 2) Обработка события «adminhtml_catalog_product_edit_prepare_form».
  * Цель обработки события — подстановка Markdown вместо HTML в поля редакторов
  * на административной странице товара.
  * https://github.com/magento/magento2/blob/c743dec47b2e5de036eb5638fec44a54bfb31040/app/code/Magento/Catalog/Block/Adminhtml/Product/Edit/Tab/Attributes.php#L124-L126
