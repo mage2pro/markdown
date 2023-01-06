@@ -3,6 +3,7 @@ namespace Dfe\Markdown\Observer\Catalog;
 use Dfe\Markdown\CatalogAction;
 use Dfe\Markdown\DbRecord;
 use Dfe\Markdown\FormElement as FE;
+use Magento\Framework\Data\Form\Element\AbstractElement as AE;
 use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
 /**
@@ -45,8 +46,7 @@ final class PrepareForm implements ObserverInterface {
 			$form = $o['form'];
 			/** @var \Magento\Framework\Data\Form\Element\Fieldset $fieldset */
 			$fieldset = $form->getElements()[0];
-			foreach ($fieldset->getElements() as $e) {
-				/** @var \Magento\Framework\Data\Form\Element\AbstractElement|FE $e */
+			foreach ($fieldset->getElements() as $e) {/** @var AE|FE $e */
 				if ($e instanceof FE) {
 					/**
 					 * 2015-11-03
