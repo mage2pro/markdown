@@ -30,10 +30,10 @@ class Form {
 	 * Поэтому приходится делать через плагин.
 	 *
 	 * @see \Magento\Framework\Data\Form::setValues()
-	 * @param array(string => mixed) $values
+	 * @param array(string => mixed) $v
 	 * @return array(array(string => mixed))
 	 */
-	function beforeSetValues(Sb $sb, array $values):array {
+	function beforeSetValues(Sb $sb, array $v):array {
 		if (Settings::s()->enable()
 			# 2015-11-03
 			# В настоящее время это условие необязательно,
@@ -51,16 +51,16 @@ class Form {
 			 * Dfe\Markdown\Plugin\Framework\Data\Form::beforeSetValues()
 			 * must be of the type array, null given»
 			 */
-			&& $values
+			&& $v
 			# Важное условие!
 			# Замещаем HTML на Markdown только при наличии Markdown,
 			# иначе ведь администратор мог редактировать ранее статью в обычном редакторе,
 			# и у статью будет HTML, но не будет Markdown,
 			# и тогда замена HTML на Markdown приведёт к утрате HTML.
-			&& ($markdown = dfa($values, \Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN)) /** @var string $markdown */
+			&& ($markdown = dfa($v, \Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN)) /** @var string $markdown */
 		) {
-			$values['content'] = $markdown;
+			$v['content'] = $markdown;
 		}
-		return [$values];
+		return [$v];
 	}
 }
