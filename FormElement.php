@@ -68,9 +68,8 @@ class FormElement extends Textarea {
 	 * 2016-01-06
 	 * @used-by \Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg::beforePrepare()
 	 * @used-by \Dfe\Markdown\FormElement::getAfterElementHtml()
-	 * @return bool
 	 */
-	function enabled() {return dfc($this, function() {return df_wysiwyg_config()->isEnabled() && (
+	function enabled():bool {return dfc($this, function() {return df_wysiwyg_config()->isEnabled() && (
 		/** @var A|null $a */!($a = $this['entity_attribute']) || $a['is_wysiwyg_enabled']
 	);});}
 
