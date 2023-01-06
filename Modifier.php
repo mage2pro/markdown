@@ -46,7 +46,7 @@ class Modifier extends AbstractModifier {
 	 * @param array(string => mixed) $v
 	 * @return array(string => mixed)
 	 */
-	function modifyMeta(array $v) {return $v;}
+	function modifyMeta(array $v):array {return $v;}
 }
 
 
