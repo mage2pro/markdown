@@ -38,7 +38,6 @@ final class PrepareForm implements ObserverInterface {
 	 * @used-by \Magento\Framework\Event\Invoker\InvokerDefault::_callObserverMethod()
 	 * @see \Magento\Catalog\Block\Adminhtml\Category\Tab\Attributes::_prepareForm()
 	 * @see \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attributes::_prepareForm()
-	 * @param O $o
 	 */
 	function execute(O $o) {
 		if (CatalogAction::entityId() && \Dfe\Markdown\Settings::s()->enable()) {
