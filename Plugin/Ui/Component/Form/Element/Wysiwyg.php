@@ -56,5 +56,3 @@ class Wysiwyg extends Sb {
 		}
 	}
 }
-
-
