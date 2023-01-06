@@ -25,9 +25,8 @@ final class CatalogAction {
 	 *
 	 * @used-by \Dfe\Markdown\Observer\Catalog\PrepareForm::execute()
 	 * @used-by \Dfe\Markdown\DbRecord::valueId()
-	 * @return int
 	 */
-	static function entityId() {
+	static function entityId():int {
 		$m = df_registry(self::entityType()); /** @var Category|Product $m */
 		return $m->getId();
 	}
