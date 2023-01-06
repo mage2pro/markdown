@@ -26,7 +26,7 @@ class Postdispatch extends ControllerAction {
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
 	 */
-	protected function handleCustomValue(array &$post, $shortKey) {DbRecord::save(
+	protected function handleCustomValue(array &$post, $shortKey):void {DbRecord::save(
 		$shortKey, $post["$shortKey{$this->suffix()}"]
 	);}
 
