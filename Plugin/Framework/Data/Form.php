@@ -52,16 +52,14 @@ class Form {
 			 * must be of the type array, null given»
 			 */
 			&& $values
-		) {
- 			$markdown = dfa($values, \Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN); /** @var string $markdown */
 			# Важное условие!
 			# Замещаем HTML на Markdown только при наличии Markdown,
 			# иначе ведь администратор мог редактировать ранее статью в обычном редакторе,
 			# и у статью будет HTML, но не будет Markdown,
 			# и тогда замена HTML на Markdown приведёт к утрате HTML.
-			if ($markdown) {
-				$values['content'] = $markdown;
-			}
+			&& ($markdown = dfa($values, \Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN)) /** @var string $markdown */
+		) {
+			$values['content'] = $markdown;
 		}
 		return [$values];
 	}
