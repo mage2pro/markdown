@@ -1,6 +1,6 @@
 {
 	"name": "mage2pro/markdown"
-	,"version": "1.1.7"
+	,"version": "1.2.0"
 	,"description": "The «Markdown» extension for Magento 2"
 	,"type": "magento2-module"
 	,"homepage": "https://mage2.pro/c/extensions/markdown"
@@ -11,7 +11,7 @@
 		"homepage": "https://www.upwork.com/fl/mage2pro",
 		"role": "Developer"
 	}]
-	,"require": {"mage2pro/core": ">=5.4.6"}
+	,"require": {"mage2pro/core": ">=9.0.5"}
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Dfe\\Markdown\\": ""}}
 	,"keywords": [
 		"Backend"
