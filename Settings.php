@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\Markdown;
 /** @method static Settings s() */
+/** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 final class Settings extends \Df\Config\Settings {
 	/**
 	 * @override
