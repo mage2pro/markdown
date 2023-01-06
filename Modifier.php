@@ -14,7 +14,7 @@ class Modifier extends AbstractModifier {
 	 * @param array(string => mixed) $v
 	 * @return array(string => mixed)
 	 */
-	function modifyData(array $v) {
+	function modifyData(array $v):array {
 		/**
 		 * 2018-09-27
 		 * 1) Magento 2.3 calls the `modifyData` method on the backend product list,
