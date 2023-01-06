@@ -30,7 +30,6 @@ final class Predispatch implements ObserverInterface {
 	 */
 	function execute(O $o):void {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
-			/** @var \Magento\Framework\App\RequestInterface|\Magento\Framework\App\Request\Http $request */
 			$req = $o['request']; /** @var IRequest|Http $req */
 			# Обратите внимание, что мы перетасовываем содержимое полей:
 			# в поле «content» подставляем HTML вместо Markdown,
