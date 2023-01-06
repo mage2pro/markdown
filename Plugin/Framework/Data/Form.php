@@ -3,10 +3,7 @@ namespace Dfe\Markdown\Plugin\Framework\Data;
 use Dfe\Markdown\Settings;
 use Dfe\Markdown\Setup\UpgradeSchema;
 use Magento\Framework\Data\Form as Sb;
-/**
- * 2015-11-03
- * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form\AbstractForm
- */
+/** 2015-11-03 Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form\AbstractForm */
 final class Form {
 	/**
 	 * 2015-11-03
