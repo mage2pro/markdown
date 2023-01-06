@@ -3,6 +3,7 @@ namespace Dfe\Markdown\Plugin\Ui\Component\Form\Element;
 use Df\Framework\Form\Element\Editor;
 use Dfe\Markdown\FormElement;
 use Dfe\Markdown\Settings;
+use Magento\Framework\Data\Form\Element\Editor as EditorM;
 use Magento\Ui\Component\Form\Element\Wysiwyg as Sb;
 # 2016-01-06
 /** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
@@ -22,7 +23,7 @@ class Wysiwyg extends Sb {
 	 */
 	function beforePrepare(Sb $sb) {
 		if (Settings::s()->enable()) {
-			/** @var \Magento\Framework\Data\Form\Element\Editor $editor */
+			/** @var EditorM $editor */
 			$editor = $sb->editor; # 2016-02-18 В предыдущих версиях Magento свойство называлось «editorElement».
 			$e = df_new_omd(FormElement::class, $editor->getData()); /** @var FormElement $e */
 			$e->setForm($editor->getForm());
