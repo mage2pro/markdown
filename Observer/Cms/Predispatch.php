@@ -36,9 +36,8 @@ final class Predispatch implements ObserverInterface {
 			# в поле «content» подставляем HTML вместо Markdown,
 			# а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
 			$post = $req->getPost(); /** @var IParams|Params $post */
-			$html = $post['content' . \Dfe\Markdown\FormElement::HTML_COMPILED]; /** @var string $html */
-			# 2015-11-03 Перетасовываем данные только при их наличии. Мало ли что...
-			if ($html) {
+			if ($html = $post['content' . \Dfe\Markdown\FormElement::HTML_COMPILED]) { /** @var string $html */
+				# 2015-11-03 Перетасовываем данные только при их наличии. Мало ли что...
 				$post[\Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN] = $post['content'];
 				$post['content'] = $html;
 			}
