@@ -58,9 +58,9 @@ class Form {
 			# иначе ведь администратор мог редактировать ранее статью в обычном редакторе,
 			# и у статью будет HTML, но не будет Markdown,
 			# и тогда замена HTML на Markdown приведёт к утрате HTML.
-			&& ($markdown = dfa($v, UpgradeSchema::F__MARKDOWN)) /** @var string $markdown */
+			&& ($m = dfa($v, UpgradeSchema::F__MARKDOWN)) /** @var string $m */
 		) {
-			$v['content'] = $markdown;
+			$v['content'] = $m;
 		}
 		return [$v];
 	}
