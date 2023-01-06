@@ -15,9 +15,8 @@ abstract class ControllerAction implements ObserverInterface {
 	/**
 	 * 2015-11-04
 	 * @used-by self::processPost()
-	 * @return string
 	 */
-	abstract protected function suffix();
+	abstract protected function suffix():string;
 
 	/**
 	 * @override
