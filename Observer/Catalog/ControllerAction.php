@@ -1,5 +1,7 @@
 <?php
 namespace Dfe\Markdown\Observer\Catalog;
+use Laminas\Stdlib\Parameters as Params;
+use Laminas\Stdlib\ParametersInterface as IParams;
 use Magento\Framework\App\RequestInterface as IRequest;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Event\Observer as O;
