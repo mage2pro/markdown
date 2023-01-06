@@ -57,8 +57,6 @@ abstract class ControllerAction implements ObserverInterface {
 		}
 		return dfa_unset($post, $keysToUnset);
 	}
-
-	const MARKDOWN_SUFFIX = '_markdown';
 }
 
 
