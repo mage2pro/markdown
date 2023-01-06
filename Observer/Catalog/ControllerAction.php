@@ -9,7 +9,7 @@ abstract class ControllerAction implements ObserverInterface {
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
 	 */
-	abstract protected function handleCustomValue(array &$post, $shortKey);
+	abstract protected function handleCustomValue(array &$post, string $shortKey);
 
 	/**
 	 * 2015-11-04
