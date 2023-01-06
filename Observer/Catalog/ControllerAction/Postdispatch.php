@@ -34,9 +34,8 @@ class Postdispatch extends ControllerAction {
 	 * @override
 	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction::suffix()
 	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
-	 * @return string
 	 */
-	protected function suffix() {return Predispatch::MARKDOWN_SUFFIX;}
+	protected function suffix():string {return Predispatch::MARKDOWN_SUFFIX;}
 }
 
 
