@@ -44,7 +44,7 @@ abstract class ControllerAction implements ObserverInterface {
 	 * @param array(string => string|array) $post
 	 * @return array(string => string|array)
 	 */
-	private function processPost(array $post) {
+	private function processPost(array $post):array {
 		$keysToUnset = [];  /** @var string[] $keysToUnset */
 		foreach ($post as $k => $v) {/** @var string $k */ /** @var string|array $value */
 			if (is_array($v)) {
