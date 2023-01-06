@@ -17,7 +17,7 @@ use Dfe\Markdown\Observer\Catalog\ControllerAction;
 		$eventParameters
 	);
  */
-class Postdispatch extends ControllerAction {
+final class Postdispatch extends ControllerAction {
 	/**
 	 * 2015-11-04
 	 * @override
