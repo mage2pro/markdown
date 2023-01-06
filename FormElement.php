@@ -20,6 +20,7 @@ class FormElement extends Textarea {
 	 * В то же время мы учитываем, как работает
 	 * @see \Magento\Framework\Data\Form\Element\Editor::getElementHtml()
 	 * https://github.com/magento/magento2/blob/c58d2d/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L103-L121
+	 * @used-by \Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg::beforePrepare()
 	 */
 	function componentHtml():string {return dfc($this, function() {return
 		df_tag('textarea', [
