@@ -6,6 +6,7 @@ abstract class ControllerAction implements ObserverInterface {
 	/**
 	 * 2015-11-04
 	 * @used-by self::processPost()
+	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch::handleCustomValue()
 	 * @param array(string => string|array) $post
 	 * @param string $shortKey
 	 */
