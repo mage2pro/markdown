@@ -35,10 +35,8 @@ final class DbRecord {
 	/**
 	 * 2015-11-04
 	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch::handleCustomValue()
-	 * @param string $attributeC
-	 * @param string $value
 	 */
-	static function save($attributeC, $value) {
+	static function save(string $attributeC, string $value) {
 		$i = new self($attributeC); /** @var self $i */
 		($id = dfa($i->_record, U::F__ID) /** @var int|null $id */)
 		? df_conn()->update($i->_table, [U::F__MARKDOWN => $value], ['? = ' . U::F__ID => $id])
