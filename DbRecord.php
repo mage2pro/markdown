@@ -8,9 +8,8 @@ final class DbRecord {
 	 * 2017-07-31
 	 * @used-by self::load()
 	 * @used-by self::save()
-	 * @param string $attributeCode
 	 */
-	private function __construct($attributeCode) {
+	private function __construct(string $attributeCode) {
 		$entityType = A::entityType(); /** @var string $entityType */
 		$this->_table = df_table("dfe_markdown_{$entityType}");
 		$this->_id = df_fetch_one_int(
