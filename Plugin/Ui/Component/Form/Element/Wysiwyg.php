@@ -4,6 +4,7 @@ use Df\Framework\Form\Element\Editor;
 use Dfe\Markdown\FormElement;
 use Dfe\Markdown\Settings;
 use Magento\Ui\Component\Form\Element\Wysiwyg as Sb;
+/** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 class Wysiwyg extends Sb {
 	/**
 	 * 2016-01-06
