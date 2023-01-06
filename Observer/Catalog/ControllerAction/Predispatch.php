@@ -26,9 +26,8 @@ class Predispatch extends ControllerAction {
 	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction::handleCustomValue()
 	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
 	 * @param array(string => string|array) $post
-	 * @param string $shortKey
 	 */
-	protected function handleCustomValue(array &$post, $shortKey):void {
+	protected function handleCustomValue(array &$post, string $shortKey):void {
 		/** @var string $keyHtml */
 		$keyHtml = $shortKey . $this->suffix();
 		/** @var string|null $html */
