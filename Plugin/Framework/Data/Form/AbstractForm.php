@@ -6,7 +6,7 @@ use Magento\Framework\Data\Form\AbstractForm as Sb;
  * 2015-11-03
  * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form
  */
-class AbstractForm {
+final class AbstractForm {
 	/**
 	 * 2015-10-27 Цель плагина — замещение при необходимости стандартного редактора нашим.
 	 * @see \Magento\Framework\Data\Form\AbstractForm::addField()
