@@ -1,5 +1,7 @@
 <?php
 namespace Dfe\Markdown\Observer\Catalog;
+use Magento\Framework\App\RequestInterface as IRequest;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
 abstract class ControllerAction implements ObserverInterface {
@@ -27,8 +29,7 @@ abstract class ControllerAction implements ObserverInterface {
 	 */
 	function execute(O $o):void {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
-			/** @var \Magento\Framework\App\RequestInterface|\Magento\Framework\App\Request\Http $request */
-			$request = $o['request'];
+			$request = $o['request']; /** @var IRequest|Http $request */
 			$post = $request->getPost(); /**@var \Laminas\Stdlib\ParametersInterface|\Laminas\Stdlib\Parameters $post */
 			$post->fromArray($this->processPost($post->toArray()));
 		}
