@@ -93,7 +93,7 @@ class FormElement extends Textarea {
 	 * @see \Magento\Framework\Data\Form\Element\Textarea::getAfterElementHtml()
 	 * @used-by \Magento\Framework\Data\Form\Element\Textarea::getElementHtml()
 	 */
-	function getAfterElementHtml() {return dfc($this, function() {return parent::getAfterElementHtml() . (
+	function getAfterElementHtml():string {return dfc($this, function():string {return parent::getAfterElementHtml() . (
 		!$this->enabled() ? '' : $this->css() . df_js(__CLASS__, '', $this->config())
 	);});}
 
