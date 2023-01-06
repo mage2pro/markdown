@@ -15,8 +15,8 @@ final class Form {
 	 * @see \Magento\Cms\Block/Adminhtml\Page\Edit\Tab\Content::_prepareForm()
 	 * https://github.com/magento/magento2/blob/c743dec47b2e5de036eb5638fec44a54bfb31040/app/code/Magento/Cms/Block/Adminhtml/Page/Edit/Tab/Content.php#L99
 		$this->_eventManager->dispatch(
-			'adminhtml_cms_page_edit_tab_content_prepare_form', ['form' => $form]
-		);
+	 *		'adminhtml_cms_page_edit_tab_content_prepare_form', ['form' => $form]
+	 *	);
 	 *
 	 * Однако оказалось, что для самодельных блоков аналогичное событие отсутствует:
 	 * https://github.com/magento/magento2/blob/c743dec47b2e5de036eb5638fec44a54bfb31040/app/code/Magento/Cms/Block/Adminhtml/Block/Edit/Form.php#L61-L158
