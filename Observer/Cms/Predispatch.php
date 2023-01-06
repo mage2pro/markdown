@@ -2,6 +2,8 @@
 namespace Dfe\Markdown\Observer\Cms;
 use Laminas\Stdlib\Parameters as Params;
 use Laminas\Stdlib\ParametersInterface as IParams;
+use Magento\Framework\App\RequestInterface as IRequest;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
 /**
@@ -29,11 +31,11 @@ final class Predispatch implements ObserverInterface {
 	function execute(O $o):void {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
 			/** @var \Magento\Framework\App\RequestInterface|\Magento\Framework\App\Request\Http $request */
-			$request = $o['request'];
+			$req = $o['request']; /** @var IRequest|Http $req */
 			# Обратите внимание, что мы перетасовываем содержимое полей:
 			# в поле «content» подставляем HTML вместо Markdown,
 			# а в поле «markdown» — прежнее содержимое поля «content» (т.е. Markdown).
-			$post = $request->getPost(); /** @var IParams|Params $post */
+			$post = $req->getPost(); /** @var IParams|Params $post */
 			$html = $post['content' . \Dfe\Markdown\FormElement::HTML_COMPILED]; /** @var string $html */
 			# 2015-11-03 Перетасовываем данные только при их наличии. Мало ли что...
 			if ($html) {
