@@ -22,12 +22,12 @@ class FormElement extends Textarea {
 	 * https://github.com/magento/magento2/blob/c58d2d/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L103-L121
 	 * @used-by \Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg::beforePrepare()
 	 */
-	function componentHtml():string {return dfc($this, function() {return
+	function componentHtml():string {return
 		df_tag('textarea', [
 			'class' => ['textarea', $this->getClass()], 'title' => $this->getTitle()
 		] + df_fe_attrs($this), $this->getEscapedValue())
 		. (!$this->enabled() ? '' : $this->css())
-	;});}
+	;}
 
 	/**
 	 * 2016-01-06
