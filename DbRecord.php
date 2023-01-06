@@ -30,7 +30,7 @@ final class DbRecord {
 	 * @used-by \Dfe\Markdown\Observer\Catalog\PrepareForm::execute()
 	 * @return string|null
 	 */
-	static function load(string $attributeCode) {return dfa((new self($attributeCode))->_record, U::F__MARKDOWN);}
+	static function load(string $attributeC) {return dfa((new self($attributeC))->_record, U::F__MARKDOWN);}
 
 	/**
 	 * 2015-11-04
