@@ -36,7 +36,7 @@ class FormElement extends Textarea {
 	 * @used-by \Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg::beforePrepare()
 	 * @return array(mixed => mixed)
 	 */
-	function config() {return dfc($this, function() {return [
+	function config():array {return dfc($this, function():array {return [
 		# 2015-11-04
 		# Нужно нам для идентификации страницы.
 		# Идентификация страницы нужна нам для правильного кэширования содержимого редактора в Local Storage.
