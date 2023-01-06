@@ -1,10 +1,8 @@
 <?php
 namespace Dfe\Markdown;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
-/**
- * 2016-02-25
- * https://mage2.pro/tags/ui-component-data-modifier
- */
+# 2016-02-25 https://mage2.pro/tags/ui-component-data-modifier
+/** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 class Modifier extends AbstractModifier {
 	/**
 	 * 2016-02-25
