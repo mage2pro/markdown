@@ -10,7 +10,7 @@ abstract class ControllerAction implements ObserverInterface {
 	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch::handleCustomValue()
 	 * @param array(string => string|array) $post
 	 */
-	abstract protected function handleCustomValue(array &$post, string $shortKey);
+	abstract protected function handleCustomValue(array &$post, string $shortKey):void;
 
 	/**
 	 * 2015-11-04
