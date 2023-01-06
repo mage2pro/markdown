@@ -6,6 +6,11 @@ use Magento\Framework\App\RequestInterface as IRequest;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
+/**
+ * 2015-11-04
+ * @see \Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch
+ * @see \Dfe\Markdown\Observer\Catalog\ControllerAction\Predispatch
+ */
 abstract class ControllerAction implements ObserverInterface {
 	/**
 	 * 2015-11-04
