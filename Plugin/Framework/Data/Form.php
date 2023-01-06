@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\Markdown\Plugin\Framework\Data;
 use Dfe\Markdown\Settings;
+use Dfe\Markdown\Setup\UpgradeSchema;
 use Magento\Framework\Data\Form as Sb;
 /**
  * 2015-11-03
@@ -57,7 +58,7 @@ class Form {
 			# иначе ведь администратор мог редактировать ранее статью в обычном редакторе,
 			# и у статью будет HTML, но не будет Markdown,
 			# и тогда замена HTML на Markdown приведёт к утрате HTML.
-			&& ($markdown = dfa($v, \Dfe\Markdown\Setup\UpgradeSchema::F__MARKDOWN)) /** @var string $markdown */
+			&& ($markdown = dfa($v, UpgradeSchema::F__MARKDOWN)) /** @var string $markdown */
 		) {
 			$v['content'] = $markdown;
 		}
