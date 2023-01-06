@@ -7,7 +7,7 @@ use Magento\Framework\Data\Form as Sb;
  * 2015-11-03
  * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form\AbstractForm
  */
-class Form {
+final class Form {
 	/**
 	 * 2015-11-03
 	 * Цель плагина — подмена содержимого поля «content» с HTML на Markdown
