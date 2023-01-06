@@ -30,7 +30,6 @@ class Form {
 	 * Поэтому приходится делать через плагин.
 	 *
 	 * @see \Magento\Framework\Data\Form::setValues()
-	 * @param Sb $sb
 	 * @param array(string => mixed) $values
 	 * @return array(array(string => mixed))
 	 */
