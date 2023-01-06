@@ -29,8 +29,8 @@ abstract class ControllerAction implements ObserverInterface {
 	 */
 	function execute(O $o):void {
 		if (\Dfe\Markdown\Settings::s()->enable()) {
-			$request = $o['request']; /** @var IRequest|Http $request */
-			$post = $request->getPost(); /**@var \Laminas\Stdlib\ParametersInterface|\Laminas\Stdlib\Parameters $post */
+			$req = $o['request']; /** @var IRequest|Http $req */
+			$post = $req->getPost(); /**@var \Laminas\Stdlib\ParametersInterface|\Laminas\Stdlib\Parameters $post */
 			$post->fromArray($this->processPost($post->toArray()));
 		}
 	}
