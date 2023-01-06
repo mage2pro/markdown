@@ -59,5 +59,3 @@ final class PrepareForm implements ObserverInterface {
 		}
 	}
 }
-
-
