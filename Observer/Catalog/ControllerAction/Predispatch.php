@@ -40,9 +40,8 @@ class Predispatch extends ControllerAction {
 	 * @override
 	 * @see \Dfe\Markdown\Observer\Catalog\ControllerAction::suffix()
 	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction::processPost()
-	 * @return string
 	 */
-	protected function suffix() {return \Dfe\Markdown\FormElement::HTML_COMPILED;}
+	protected function suffix():string {return \Dfe\Markdown\FormElement::HTML_COMPILED;}
 
 	const MARKDOWN_SUFFIX = '_markdown';
 }
