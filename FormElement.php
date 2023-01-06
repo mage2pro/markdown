@@ -100,9 +100,8 @@ class FormElement extends Textarea {
 	/**
 	 * 2016-01-08
 	 * Порядок загрузки лучше сделать именно таким, чтобы наши правила CSS загружались позже и переопределяли стандартные.
-	 * @return string
 	 */
-	private function css() {return df_cc_n(df_link_inline([
+	private function css():string {return df_cc_n(df_link_inline([
 		df_asset_third_party('HighlightJs/github.css')
 		,'Dfe_Markdown::lib/SimpleMDE/main.css'
 		,'Dfe_Markdown::main.css'
