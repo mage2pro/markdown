@@ -65,10 +65,8 @@ class UpgradeSchema extends \Df\Framework\Upgrade\Schema {
 	 *		;
 	 * https://github.com/magento/magento2/blob/4197d0ec6053b3f963165021f9e5b3a6a476b3bb/app/code/Magento/Catalog/Setup/InstallSchema.php#L1965-L2033
 	 * @used-by self::install()
-	 * @param string $name
-	 * @param string $master
 	 */
-	private function createTableEav($name, $master) {
+	private function createTableEav(string $name, string $master) {
 		$f_MARKDOWN = self::F__MARKDOWN;
 		$f_VALUE_ID = self::F__ID;
 		$this->c()->rawQuery("
