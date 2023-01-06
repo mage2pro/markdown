@@ -35,11 +35,11 @@ final class DbRecord {
 	/**
 	 * 2015-11-04
 	 * @used-by \Dfe\Markdown\Observer\Catalog\ControllerAction\Postdispatch::handleCustomValue()
-	 * @param string $attributeCode
+	 * @param string $attributeC
 	 * @param string $value
 	 */
-	static function save($attributeCode, $value) {
-		$i = new self($attributeCode); /** @var self $i */
+	static function save($attributeC, $value) {
+		$i = new self($attributeC); /** @var self $i */
 		($id = dfa($i->_record, U::F__ID) /** @var int|null $id */)
 		? df_conn()->update($i->_table, [U::F__MARKDOWN => $value], ['? = ' . U::F__ID => $id])
 		: df_conn()->insert($i->_table, [U::F__ID => $i->_id, U::F__MARKDOWN => $value]);
