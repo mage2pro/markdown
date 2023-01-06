@@ -9,13 +9,13 @@ final class DbRecord {
 	 * @used-by self::load()
 	 * @used-by self::save()
 	 */
-	private function __construct(string $attributeCode) {
+	private function __construct(string $attributeC) {
 		$entityType = A::entityType(); /** @var string $entityType */
 		$this->_table = df_table("dfe_markdown_{$entityType}");
 		$this->_id = df_fetch_one_int(
 			"catalog_{$entityType}_entity_text", 'value_id', [
 				'attribute_id' => df_fetch_one_int('eav_attribute', 'attribute_id', [
-					'attribute_code' => df_param_sne($attributeCode, 0)
+					'attribute_code' => df_param_sne($attributeC, 0)
 					,'entity_type_id' => df_eav_config()->getEntityType("catalog_{$entityType}")->getId()
 				])
 				,'entity_id' => A::entityId() # 2017-08-01 The product or category ID
