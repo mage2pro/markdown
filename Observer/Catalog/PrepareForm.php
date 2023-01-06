@@ -3,6 +3,7 @@ namespace Dfe\Markdown\Observer\Catalog;
 use Dfe\Markdown\CatalogAction;
 use Dfe\Markdown\DbRecord;
 use Dfe\Markdown\FormElement as FE;
+use Magento\Framework\Data\Form;
 use Magento\Framework\Data\Form\Element\AbstractElement as AE;
 use Magento\Framework\Event\Observer as O;
 use Magento\Framework\Event\ObserverInterface;
@@ -41,8 +42,7 @@ final class PrepareForm implements ObserverInterface {
 	 */
 	function execute(O $o):void {
 		if (CatalogAction::entityId() && \Dfe\Markdown\Settings::s()->enable()) {
-			/** @var \Magento\Framework\Data\Form $form */
-			$form = $o['form'];
+			$form = $o['form']; /** @var Form $form */
 			/** @var \Magento\Framework\Data\Form\Element\Fieldset $fieldset */
 			$fieldset = $form->getElements()[0];
 			foreach ($fieldset->getElements() as $e) {/** @var AE|FE $e */
