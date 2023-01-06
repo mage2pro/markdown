@@ -23,9 +23,10 @@ class FormElement extends Textarea {
 	 * @used-by \Dfe\Markdown\Plugin\Ui\Component\Form\Element\Wysiwyg::beforePrepare()
 	 */
 	function componentHtml():string {return
-		df_tag('textarea', [
-			'class' => ['textarea', $this->getClass()], 'title' => $this->getTitle()
-		] + df_fe_attrs($this), $this->getEscapedValue())
+		df_tag('textarea',
+			['class' => ['textarea', $this->getClass()], 'title' => $this->getTitle()] + df_fe_attrs($this)
+			,$this->getEscapedValue()
+		)
 		. (!$this->enabled() ? '' : $this->css())
 	;}
 
