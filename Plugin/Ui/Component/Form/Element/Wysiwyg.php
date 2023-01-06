@@ -24,9 +24,9 @@ class Wysiwyg extends Sb {
 	function beforePrepare(Sb $sb) {
 		if (Settings::s()->enable()) {
 			# 2016-02-18 В предыдущих версиях Magento свойство называлось «editorElement».
-			$editor = $sb->editor; /** @var EditorM $editor */
-			$e = df_new_omd(FormElement::class, $editor->getData()); /** @var FormElement $e */
-			$e->setForm($editor->getForm());
+			$ed = $sb->editor; /** @var EditorM $ed */
+			$e = df_new_omd(FormElement::class, $ed->getData()); /** @var FormElement $e */
+			$e->setForm($ed->getForm());
 			/**
 			 * 2016-01-06
 			 * @see \Magento\Framework\Data\Form\Element\Editor::__construct()
@@ -34,7 +34,7 @@ class Wysiwyg extends Sb {
 			 * @see \Magento\Framework\Data\Form\Element\AbstractElement::setType()
 			 * https://github.com/magento/magento2/blob/c58d2d/lib/internal/Magento/Framework/Data/Form/Element/AbstractElement.php#L197-L198
 			 */
-			$e->setType($editor->getType());
+			$e->setType($ed->getType());
 			/**
 			 * 2016-01-06
 			 * https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/Form/Element/Wysiwyg.php#L49
@@ -50,7 +50,7 @@ class Wysiwyg extends Sb {
 			/** @var array(string => mixed)|null $config */
 			$sb['config'] = [
 				'component' => 'Dfe_Markdown/component' # 2016-01-08 Вместо «Magento_Ui/js/form/element/wysiwyg»
-				,'content' => Editor::wrapIntoContainerSt($editor, $e->componentHtml())
+				,'content' => Editor::wrapIntoContainerSt($ed, $e->componentHtml())
 				,'dfeConfig' => $e->config()
 			] + df_eta($sb['config']);
 		}
