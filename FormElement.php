@@ -6,6 +6,7 @@ use Magento\Framework\Data\Form\Element\Textarea;
  * 2016-01-06
  * Наш класс замещает класс @see \Magento\Catalog\Block\Adminhtml\Helper\Form\Wysiwyg
  * но отныне не наследуется от него.
+ * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
  * @method string|null getClass()
  * @method string|null getTitle()
  */
