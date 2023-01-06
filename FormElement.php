@@ -20,9 +20,8 @@ class FormElement extends Textarea {
 	 * В то же время мы учитываем, как работает
 	 * @see \Magento\Framework\Data\Form\Element\Editor::getElementHtml()
 	 * https://github.com/magento/magento2/blob/c58d2d/lib/internal/Magento/Framework/Data/Form/Element/Editor.php#L103-L121
-	 * @return string
 	 */
-	function componentHtml() {return dfc($this, function() {return
+	function componentHtml():string {return dfc($this, function() {return
 		df_tag('textarea', [
 			'class' => ['textarea', $this->getClass()], 'title' => $this->getTitle()
 		] + df_fe_attrs($this), $this->getEscapedValue())
