@@ -2,10 +2,7 @@
 namespace Dfe\Markdown\Plugin\Framework\Data\Form;
 use Dfe\Markdown\Settings;
 use Magento\Framework\Data\Form\AbstractForm as Sb;
-/**
- * 2015-11-03
- * Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form
- */
+/** 2015-11-03 Этот класс не получается объединить с классом @see \Dfe\Markdown\Plugin\Framework\Data\Form */
 final class AbstractForm {
 	/**
 	 * 2015-10-27 Цель плагина — замещение при необходимости стандартного редактора нашим.
