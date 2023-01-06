@@ -50,10 +50,8 @@ final class PrepareForm implements ObserverInterface {
 				if ($element instanceof FE) {
 					/**
 					 * 2015-11-03
-					 * Здесь надо вызывать именно $element['name'], а не $element->getName(),
-					 * потому что
-					 * @see \Magento\Framework\Data\Form\Element\AbstractElement::getName()
-					 * дополнительно обрабатывает имя,
+					 * Здесь надо вызывать именно $element['name'], а не $element->getName(), потому что
+					 * @see \Magento\Framework\Data\Form\Element\AbstractElement::getName() дополнительно обрабатывает имя,
 					 * и мы получим «product[description]» вместе «description».
 					 */
 					$element['value'] = DbRecord::load($element['name']);
