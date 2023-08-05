@@ -32,7 +32,7 @@ class Wysiwyg extends Sb {
 	 * 		}
 	 * https://github.com/magento/magento2/blob/2.4.7-beta1/app/code/Magento/Ui/Component/AbstractComponent.php#L121-L139
 	 */
-	function beforePrepare(Sb $sb) {
+	function beforePrepare(Sb $sb):void {
 		if (Settings::s()->enable()) {
 			# 2016-02-18 В предыдущих версиях Magento свойство называлось «editorElement».
 			$ed = $sb->editor; /** @var EditorM $ed */
