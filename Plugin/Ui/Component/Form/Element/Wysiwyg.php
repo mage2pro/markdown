@@ -49,11 +49,11 @@ class Wysiwyg extends Sb {
 			/**
 			 * 2016-01-06
 			 * 1) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/Form/Element/Wysiwyg.php#L49
-			 * $this->editorElement->setConfig($wysiwygConfig->getConfig());
+			 * 		$this->editorElement->setConfig($wysiwygConfig->getConfig());
 			 * 2) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/Form/Element/Wysiwyg.php#L50
-			 * $data['config']['content'] = $editorElement->getElementHtml();
+			 * 		$data['config']['content'] = $editorElement->getElementHtml();
 			 * 3) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/AbstractComponent.php#L60
-			 * $this->_data = array_replace_recursive($this->_data, $data);
+			 * 		$this->_data = array_replace_recursive($this->_data, $data);
 			 * 2023-08-05
 			 * `$sb['config']`:
 			 * 	{
