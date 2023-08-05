@@ -30,7 +30,7 @@ class Modifier extends AbstractModifier {
 			? $v : array_replace_recursive($v, [$id => [
 				self::DATA_SOURCE_DEFAULT => df_clean([
 					'description' => DbRecord::load('description')
-					, 'short_description' => DbRecord::load('short_description')
+					,'short_description' => DbRecord::load('short_description')
 				])
 			]])
 		;
