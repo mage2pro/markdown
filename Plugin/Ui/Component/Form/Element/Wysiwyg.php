@@ -16,10 +16,21 @@ class Wysiwyg extends Sb {
 	function __construct() {}
 
 	/**
-	 * 2016-01-06
-	 * Цель плагина — ...
+	 * 2016-01-06 Цель плагина — ...
 	 * @see \Magento\Ui\Component\Form\Element\Wysiwyg::prepare()
 	 * https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/AbstractComponent.php#L83-L113
+	 * @used-by \Magento\Ui\Component\AbstractComponent::prepareChildComponent():
+	 * 		protected function prepareChildComponent(UiComponentInterface $component) {
+	 * 			$childComponents = $component->getChildComponents();
+	 * 			if (!empty($childComponents)) {
+	 * 				foreach ($childComponents as $child) {
+	 * 					$this->prepareChildComponent($child);
+	 * 				}
+	 * 			}
+	 *			$component->prepare();
+	 * 			return $this;
+	 * 		}
+	 * https://github.com/magento/magento2/blob/2.4.7-beta1/app/code/Magento/Ui/Component/AbstractComponent.php#L121-L139
 	 */
 	function beforePrepare(Sb $sb) {
 		if (Settings::s()->enable()) {
