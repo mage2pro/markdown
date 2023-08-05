@@ -41,6 +41,15 @@ class Modifier extends AbstractModifier {
 	 * @override
 	 * @see \Magento\Ui\DataProvider\Modifier\ModifierInterface::modifyMeta()
 	 * https://github.com/magento/magento2/blob/e0ed4bad/app/code/Magento/Ui/DataProvider/Modifier/ModifierInterface.php#L19-L23
+	 * @used-by \Magento\Catalog\Ui\DataProvider\Product\Form\ProductDataProvider::getMeta():
+	 *		public function getMeta() {
+	 *			$meta = parent::getMeta();
+	 *			foreach ($this->pool->getModifiersInstances() as $modifier) {
+	 *				$meta = $modifier->modifyMeta($meta);
+	 *			}
+	 *			return $meta;
+	 *		}
+	 * https://github.com/magento/magento2/blob/2.4.7-beta1/app/code/Magento/Catalog/Ui/DataProvider/Product/Form/ProductDataProvider.php#L67-L77
 	 * @param array(string => mixed) $v
 	 * @return array(string => mixed)
 	 */
