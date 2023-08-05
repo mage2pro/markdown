@@ -48,17 +48,45 @@ class Wysiwyg extends Sb {
 			$e->setType($ed->getType());
 			/**
 			 * 2016-01-06
-			 * https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/Form/Element/Wysiwyg.php#L49
+			 * 1) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/Form/Element/Wysiwyg.php#L49
 			 * $this->editorElement->setConfig($wysiwygConfig->getConfig());
-			 */
-			/**
-			 * 2016-01-06
-			 * 1) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/Form/Element/Wysiwyg.php#L50
+			 * 2) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/Form/Element/Wysiwyg.php#L50
 			 * $data['config']['content'] = $editorElement->getElementHtml();
-			 * 2) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/AbstractComponent.php#L60
+			 * 3) https://github.com/magento/magento2/blob/c58d2d/app/code/Magento/Ui/Component/AbstractComponent.php#L60
 			 * $this->_data = array_replace_recursive($this->_data, $data);
+			 * 2023-08-05
+			 * `$sb['config']`:
+			 * 	{
+			 * 		"add_directives": true,
+			 * 		"add_variables": false,
+			 * 		"add_widgets": false,
+			 * 		"code": "short_description",
+			 * 		"component": "Magento_Ui/js/form/element/wysiwyg",
+			 * 		"componentType": "field",
+			 * 		"container_class": "hor-scroll",
+			 * 		"content":
+			 * 			"<div id=\"editorproduct_form_short_description\"
+ 			 * 			class=\"admin__control-wysiwig hor-scroll\">…</div>",
+			 * 		"dataScope": "short_description",
+			 * 		"dataType": "textarea",
+			 * 		"default": null,
+			 * 		"elementTmpl": "ui/content/content",
+			 * 		"formElement": "wysiwyg",
+			 * 		"globalScope": false,
+			 * 		"label": "Short Description",
+			 * 		"notice": null,
+			 * 		"required": "0",
+			 * 		"scopeLabel": "[STORE VIEW]",
+			 * 		"sortOrder": 0,
+			 * 		"source": "content",
+			 * 		"template": "ui/content/content",
+			 * 		"use_container": true
+			 * 		"visible": "1",
+			 * 		"wysiwyg": true,
+			 * 		"wysiwygConfigData": {},
+			 * 		"wysiwygId": "product_form_short_description"
+		 	 * 	}
 			 */
-			/** @var array(string => mixed)|null $config */
 			$sb['config'] = [
 				'component' => 'Dfe_Markdown/component' # 2016-01-08 Вместо «Magento_Ui/js/form/element/wysiwyg»
 				,'content' => Editor::wrapIntoContainerSt($ed, $e->componentHtml())
