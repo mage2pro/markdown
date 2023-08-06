@@ -6,8 +6,11 @@ use Dfe\Markdown\Settings;
 use Magento\Framework\Data\Form\Element\Editor as EditorM;
 use Magento\Ui\Component\Form\Element\Wysiwyg as Sb;
 # 2016-01-06
+# 2023-08-06
+# "Prevent interceptors generation for the plugins extended from interceptable classes":
+# https://github.com/mage2pro/core/issues/327
 /** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
-class Wysiwyg extends Sb {
+class Wysiwyg extends Sb implements \Magento\Framework\ObjectManager\NoninterceptableInterface {
 	/**
 	 * 2016-01-06
 	 * @override
