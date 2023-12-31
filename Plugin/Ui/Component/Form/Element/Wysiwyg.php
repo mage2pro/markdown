@@ -9,8 +9,10 @@ use Magento\Ui\Component\Form\Element\Wysiwyg as Sb;
 # 2023-08-06
 # "Prevent interceptors generation for the plugins extended from interceptable classes":
 # https://github.com/mage2pro/core/issues/327
-/** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
-class Wysiwyg extends Sb implements \Magento\Framework\ObjectManager\NoninterceptableInterface {
+# 2023-12-31
+# "Declare as `final` the final classes implemented `\Magento\Framework\ObjectManager\NoninterceptableInterface`"
+# https://github.com/mage2pro/core/issues/345
+final class Wysiwyg extends Sb implements \Magento\Framework\ObjectManager\NoninterceptableInterface {
 	/**
 	 * 2016-01-06
 	 * @override
